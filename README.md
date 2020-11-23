@@ -26,8 +26,8 @@
 > ========
 >  
 > PARAMETERS
->  * /rosdistro: kinetic
->  * /rosversion: 1.12.14
+>  * /rosdistro: noetic
+>  * /rosversion: xxxx
 >  
 > NODES
 >  
@@ -39,24 +39,26 @@
 > process[rosout-1]: started with pid [348]
 > started core service [/rosout]
 
-
-Falls das im Terminal rauskommt, läuft ROS super!
 	
 
-	6) docker exec -it eigenen-namen bash	--> zum Starten des erstellten ROS containers kann man diese Zeile (mit dem gewählten Namen, das wäre bei "eigenen-namen") in die Powershell schreiben.
+	6) docker exec -it eigenen-namen bash	--> zum Starten des erstellten ROS containers kann man diese Zeile (mit dem gewählten Namen, 	    das wäre bei "eigenen-namen") in die Powershell schreiben.
+
+
 
 **JETZT ZUM AUSFÜHREN VON GUI WIE RQT UND RVIZ, DIE OHNE DEM FOLGENDEN SETUP NICHT FUNKTIONIEREN!**
 
+
+
 3. VcXsrv schonmal installieren.
 
-	1) Bis zu den "Extra settings" Weiter anklicken und bei den "Extra settings" den Haken von "Native opengl" entfernen und bei "Disable access control" einfügen
+	1) Bis zu den "Extra settings" Weiter anklicken und bei den "Extra settings" den Haken von "Native opengl" entfernen und bei 		 	    "Disable access control" einfügen
 
 	2) Konfiguration speichern bei Bedarf und fertigstellen
 
 	3) Neue Powershell öffnen und unseren ROS container mit docker exec -it eigenen-namen bash starten
 	
-	4) echo 'export DISPLAY={die eigene IP adresse ohne klammern}:0.0' >> ~/.bashrc  **Achtung: Falls man eine IP Adresse hat, die sich von Zeit zu Zeit ändert (anderer Ort, Uni Wlan etc etc.), dann muss dieser Schritt wiederholt werden!!**
-	   (Die IP Adresse findet man unter Einstellunge --> Netzwerk und Internet -->	Eigenschaften (steht im ersten Reiter Status!) --> unter IPv4-Adresse)
+	4) echo 'export DISPLAY={die eigene IP adresse ohne klammern}:0.0' >> ~/.bashrc  **Achtung: Falls man eine IP Adresse hat, die sich 	   von Zeit zu Zeit ändert (anderer Ort, Uni Wlan etc etc.), dann muss dieser Schritt wiederholt werden!!**
+	   > (Die IP Adresse findet man unter Einstellunge --> Netzwerk und Internet --> Eigenschaften (steht im ersten Reiter Status!) --> 		 unter IPv4-Adresse)
 
 	5) source ~/.bashrc  -->    das veränderte .bashrc file sourcen
 
