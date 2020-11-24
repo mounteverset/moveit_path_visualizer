@@ -68,20 +68,27 @@
 
 
 **Installation des rqt-Plugins**
+
 	1. neuen Workspace-Ordner kreieren z.B. 
 		`$ mkdir ~/ws_rqt_plugin`
+
 	2. In dem neuen Ordner einen Ordner "src" erstellen
 		`$ cd ws_rqt_plugin`
 		`$ mkdir src`
+
 	3. Im Workspace-Folder einen Catkin-Workspace kreieren
 		`$ cd ..`
 		`$ catkin_make`
+
 	4. Das Package mit dem Plugin in den src-Ordner clonen
 		`$ cd src`
 		`$ git clone https://gitlab.rz.htw-berlin.de/softwareentwicklungsprojekt/wise2020-21/team6`
+
 	5. Den Workspace sourcen
 		`$source ws_rqt_plugin/devel/setup.bash
+
 	6. roscore und rqt starten in seperaten Terminals starten um das Plugin zu registrieren
 		`$ roscore`
 		`$ rqt --force-discover`
+		
 	7. Das Plugin erscheint unter dem Plugin-Tab in rqt
