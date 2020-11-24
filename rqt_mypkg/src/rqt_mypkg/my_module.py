@@ -6,7 +6,7 @@ from qt_gui.plugin import Plugin
 from python_qt_binding import loadUi
 from python_qt_binding.QtWidgets import QWidget
 from python_qt_binding.QtCore import Qt, Slot, qWarning
-from PySide2.QtWidgets import QFileDialog
+from PySide2.QtWidgets import QFileDialog, QMessageBox
 
 
 class MyPlugin(Plugin):
@@ -44,7 +44,7 @@ class MyPlugin(Plugin):
         if context.serial_number() > 1:
             self._widget.setWindowTitle(self._widget.windowTitle() + (' (%d)' % context.serial_number()))
 
-        self._widget.pushButton.clicked.connect(self.on_pushButton_clicked)
+        self._widget.pushButton_planPath.clicked.connect(self.on_pushButton_planPath_clicked)
         self._widget.pushButton_openPlanningScene.clicked.connect(self.on_pushButton_openPlanningScene_clicked)
         # Add widget to the user interface
         context.add_widget(self._widget)
@@ -71,11 +71,11 @@ class MyPlugin(Plugin):
         # Usually used to open a modal configuration dialog
     
     @Slot()
-    def on_pushButton_clicked(self):
+    def on_pushButton_planPath_clicked(self):
         print("geklickt")
-    #    alert = _widget.QMessageBox()
-    #    alert.setText('You clicked the button!')
-    #    alert.exec_()
+        alert = QMessageBox()
+        alert.setText('You clicked the button!')
+        alert.exec_()
 
     @Slot()
     def on_pushButton_openPlanningScene_clicked(self):
