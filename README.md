@@ -2,7 +2,7 @@
 
 1. Installation Docker auf Windows mit WSL- Kästchen angetickt. VcXsrv https://sourceforge.net/projects/vcxsrv/ (Downloadlink!) vorher installieren
 
-1.1 In VcXsrv bis zu den "Extra settings" Weiter anklicken und bei den "Extra settings" den Haken von "Native opengl" entfernen und "Disable access control" aktivieren. **Das am Anfang machen, damit das Setup mit dem ISE Skript läuft. Falls das Setup von Hand gemacht wird, kann man die Installation von VcXsrv ab dem dritten Punkt starten!**
+1.1 In VcXsrv bis zu den "Extra settings" Weiter anklicken und bei den "Extra settings" den Haken von "Native opengl" entfernen und "Disable access control" aktivieren.
 
 2. ROS Installation
 
