@@ -96,8 +96,6 @@
 	`cd ws_rqt_plugin`
 	`mkdir src`
 
-
-
 3. Das Package mit dem Plugin in den src-Ordner clonen
 
 	`cd src`
@@ -110,7 +108,7 @@
 
 5. Den Workspace sourcen
 
-	`source ws_rqt_plugin/devel/setup.bash`
+	`source ~/ws_rqt_plugin/devel/setup.bash`
 
 6. roscore und rqt starten in seperaten Terminals starten um das Plugin zu registrieren
 
