@@ -54,10 +54,12 @@
 2.1 Installation von rqt: Nach dem Starten des Containers sind wir erstmal im MoveIt- Verzeichnis. Wir müssen aber ins rospack- Verzeichnis, dazu geben wir in der Powershell das ein: 
 
 	- cd /opt/ros/noetic/share
+
+	- sudo apt-get update
 					
 	- sudo apt-get install ros-noetic-rqt
 					
-	- sudo apt-get ros-noetic-rqt-common-plugins
+	- sudo apt-get install ros-noetic-rqt-common-plugins
 					
 	- sudo apt-get install ros-noetic-rqt-moveit
 					
