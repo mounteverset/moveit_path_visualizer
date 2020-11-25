@@ -52,11 +52,18 @@
 **JETZT ZUM AUSFÜHREN VON GUI WIE RQT UND RVIZ, DIE OHNE DEM FOLGENDEN SETUP NICHT FUNKTIONIEREN!**
 
 2.1 Installation von rqt
-	1) Nach dem Starten des Containers sind wir erstmal im MoveIt- Verzeichnis. Wir müssen aber ins rospack- Verzeichnis, dazu geben wir in der Powershell das ein: cd /opt/ros/noetic/share
-					sudo apt-get install ros-noetic-rqt
-					sudo apt-get ros-noetic-rqt-common-plugins
-					sudo apt-get install ros-noetic-rqt-moveit
-					sudo apt-get install ros-noetic-rqt-robot-plugins
+	1) Nach dem Starten des Containers sind wir erstmal im MoveIt- Verzeichnis. Wir müssen aber ins rospack- Verzeichnis, dazu geben wir in der Powershell das ein: 
+
+	- cd /opt/ros/noetic/share
+					
+	- sudo apt-get install ros-noetic-rqt
+					
+	- sudo apt-get ros-noetic-rqt-common-plugins
+					
+	- sudo apt-get install ros-noetic-rqt-moveit
+					
+	- sudo apt-get install ros-noetic-rqt-robot-plugins
+
 	Jetzt sollte rqt in Verbindung mit rviz ausführbar sein!
 
 3. Wenn VcXsrv installiert wurde (oder auch nicht): https://sourceforge.net/projects/vcxsrv/ (Downloadlink!)
