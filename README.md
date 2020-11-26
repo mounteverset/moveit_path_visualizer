@@ -96,8 +96,8 @@
 
 3. Zurück ins ws_moveit Verzeichnis und den MoveIt- Workspace builden!
 
-	`cd .. --> :~/ws_moveit# so sollte unser Pfad aussehen`
-	`catkin_make`
+	`cd .. --> :~/ws_moveit# so sollte unser Pfad aussehen`und so 
+	`catkin build` builden
 
 4. Workspace sourcen
 
