@@ -85,32 +85,31 @@
 	7) ein neues Terminal/Powershell öffnen, da roscore separat laufen muss und da z.B. rviz eingeben oder rqt, um eine GUI zu starten
 
 
-**Installation des rqt-Plugins**
+**Installation des rqt-Plugins mit MoveIt zusammen**
 
-1. neuen Workspace-Ordner kreieren z.B. 
+1. Wir müssen erstmal feststellen, ob **wir im ws_moveit/src** Verzeichnis sind 
 
-	`mkdir ~/ws_rqt_plugin`
+	`cd ws_moveit_src --> :~/ws_moveit/src# so sollte unser Pfad aussehen`
 
-2. In dem neuen Ordner einen Ordner "src" erstellen
+2. Den Ordner aus git clonen
 	
-	`cd ws_rqt_plugin`
-	`mkdir src`
-
-3. Das Package mit dem Plugin in den src-Ordner clonen
-
-	`cd src`
 	`git clone https://gitlab.rz.htw-berlin.de/softwareentwicklungsprojekt/wise2020-21/team6`
 
-4. Im Workspace-Folder einen Catkin-Workspace kreieren
+3. Zurück ins ws_moveit Verzeichnis und den MoveIt- Workspace builden!
 
-	`cd ..`
+	`cd .. --> :~/ws_moveit# so sollte unser Pfad aussehen`
 	`catkin_make`
+
+4. Workspace sourcen
+
+	`source ~/ws_moveit/devel/setup.bash`
+	
 
 5. Den Workspace sourcen
 
 	`source ~/ws_rqt_plugin/devel/setup.bash`
 
-6. roscore und rqt starten in seperaten Terminals starten um das Plugin zu registrieren
+6. Zuerst roscore, dann rqt in seperaten Terminals starten um das Plugin zu registrieren
 
 	`roscore`
 	`rqt --force-discover`
