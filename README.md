@@ -103,16 +103,11 @@
 4. Workspace sourcen
 
 	`source ~/ws_moveit/devel/setup.bash`
-	
 
-5. Den Workspace sourcen
-
-	`source ~/ws_rqt_plugin/devel/setup.bash`
-
-6. Zuerst roscore, dann rqt in seperaten Terminals starten um das Plugin zu registrieren
+5. Zuerst roscore, dann rqt in seperaten Terminals starten um das Plugin zu registrieren
 
 	`roscore`
 	`rqt --force-discover`
 		
-7. Das Plugin erscheint unter dem Plugin-Tab in rqt
+6. Das Plugin erscheint unter dem Plugin-Tab in rqt
 
