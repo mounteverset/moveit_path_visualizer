@@ -2,7 +2,6 @@
 
 1. Installation Docker auf Windows mit WSL- Kästchen angetickt. VcXsrv https://sourceforge.net/projects/vcxsrv/ (Downloadlink!) vorher installieren
 
-1.1 In VcXsrv bis zu den "Extra settings" Weiter anklicken und bei den "Extra settings" den Haken von "Native opengl" entfernen und "Disable access control" aktivieren.
 
 2. ROS Installation
 
@@ -10,7 +9,7 @@
 
 	2) Im Docker Desktop das gepullte Image (unter dem Reiter Images) starten (Run) und bei Bedarf unter optional settings einen eigenen Container 		   Namen aussuchen. Notwendig ist es nicht, da Docker sonst einen eigenen Namen aussucht.
 
-	2.1)In Powershell: docker exec -it eigenen-namen bash -->	Führt das Image aus und startet einen ROS Container
+	2.1) In Powershell: docker exec -it eigenen-namen bash -->	Führt das Image aus und startet einen ROS Container
 	
 	3) In Powershell: echo source "/opt/ros/noetic/setup.bash" >> ~/.bashrc   -->   Als nächstes sourcen ROS immer wenn wir einen ROS container 		   öffnen, bei dem selben Container muss man dies nach dem ersten Setup nicht mehr tun!
 	
@@ -67,9 +66,9 @@
 
 	Jetzt sollte rqt in Verbindung mit rviz ausführbar sein!
 
-3. Wenn VcXsrv installiert wurde (oder auch nicht): https://sourceforge.net/projects/vcxsrv/ (Downloadlink!)
+3. Wenn VcXsrv installiert wurde (wenn nicht dann bitte jetzt): https://sourceforge.net/projects/vcxsrv/ (Downloadlink!)
 
-	1) Bis zu den "Extra settings" Weiter anklicken und bei den "Extra settings" den Haken von "Native opengl" entfernen und bei 		 	    "Disable access control" einfügen
+	1) Starten und bis zu den "Extra settings" Weiter anklicken und bei den "Extra settings" den Haken von "Native opengl" entfernen und bei 		 	    "Disable access control" einfügen
 
 	2) Konfiguration speichern bei Bedarf und fertigstellen
 
