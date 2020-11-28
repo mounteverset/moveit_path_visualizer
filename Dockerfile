@@ -1,3 +1,6 @@
+# moveit/moveit:noetic-source
+# Downloads the moveit source code and install remaining debian dependencies
+
 FROM moveit/moveit:noetic-ci-shadow-fixed
 MAINTAINER Dave Coleman dave@picknik.ai
 
@@ -8,7 +11,7 @@ WORKDIR $ROS_UNDERLAY/../src
 # https://docs.docker.com/develop/develop-images/dockerfile_best-practices/#minimize-the-number-of-layers
 RUN \
     # Download moveit source so that we can get necessary dependencies
-    wstool init . https://raw.githubusercontent.com/ros-planning/moveit/${ROS-noetic}-devel/moveit.rosinstall && \
+    wstool init . https://raw.githubusercontent.com/ros-planning/moveit/${ROS_DISTRO}-devel/moveit.rosinstall && \
     #
     # Update apt package list as cache is cleared in previous container
     # Usually upgrading involves a few packages only (if container builds became out-of-sync)
@@ -16,7 +19,7 @@ RUN \
     apt-get -qq dist-upgrade && \
     #
     rosdep update && \
-    rosdep install -y --from-paths . --ignore-src --rosdistro ${ROS-noetic} --as-root=apt:false && \
+    rosdep install -y --from-paths . --ignore-src --rosdistro ${ROS_DISTRO} --as-root=apt:false && \
     rm -rf /var/lib/apt/lists/*
 
 ENV PYTHONIOENCODING UTF-8
@@ -27,12 +30,6 @@ RUN cd .. && \
     catkin build --limit-status-rate 0.001 --no-notify
 
 
-
-
-# This is an auto generated Dockerfile for ros:desktop-full
-# generated from docker_images/create_ros_image.Dockerfile.em
-FROM osrf/ros:noetic-desktop-focal
-
 RUN apt-get update && \
  apt-get -y install libgl1-mesa-glx libgl1-mesa-dri && \
  rm -rf /var/lib/apt/lists/*
@@ -41,8 +38,3 @@ RUN apt-get update && \
 RUN apt-get update && apt-get install -y --no-install-recommends \
     ros-noetic-desktop-full=1.5.0-1* \
     && rm -rf /var/lib/apt/lists/*
-
-# moveit/moveit:noetic-source
-# Downloads the moveit source code and install remaining debian dependencies
-
-
