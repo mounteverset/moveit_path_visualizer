@@ -106,6 +106,7 @@
 5. Zuerst roscore, dann rqt in seperaten Terminals starten um das Plugin zu registrieren
 
 	`roscore`
+	
 	`rqt --force-discover`
 		
 6. Das Plugin erscheint unter dem Plugin-Tab in rqt
