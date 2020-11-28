@@ -1,3 +1,5 @@
 #ignore files in pycache
 /__pycache__/*
 
+rqt_mypkg/src/rqt_mypkg/__pycache__/path_planning_interface.cpython-38.pyc
+rqt_mypkg/src/rqt_mypkg/__pycache__/my_module.cpython-38.pyc
