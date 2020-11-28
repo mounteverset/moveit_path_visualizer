@@ -8,9 +8,6 @@
       <group>
         <label>User-Plugins</label>
       </group>
-      <group>
-        <label>Subgroup</label>
-      </group>
       
       <label>Pfadplanung</label>
       <icon type="theme">system-help</icon>
