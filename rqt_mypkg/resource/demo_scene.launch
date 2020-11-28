@@ -1,4 +1,4 @@
 <launch>
-    <arg name="scene_file" default="$~/ws_moveit/src/team6/rqt_mypkg/config/demo_scene.scene"/> 
+    <arg name="scene_file" default="$(find rqt_mypkg)/config/demo_scene.scene"/> 
     <node name = "moveit_publish_scene_from_text" pkg= "moveit_ros_planning" type = "moveit_publish_scene_from_text" args= "$(arg scene_file)"/>
 </launch>
