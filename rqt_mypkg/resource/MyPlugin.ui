@@ -79,8 +79,8 @@
         <rect>
          <x>9</x>
          <y>9</y>
-         <width>445</width>
-         <height>321</height>
+         <width>471</width>
+         <height>331</height>
         </rect>
        </property>
        <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -110,7 +110,7 @@
            </widget>
           </item>
           <item>
-           <widget class="QDoubleSpinBox" name="doubleSpinBox"/>
+           <widget class="QDoubleSpinBox" name="doubleSpinBox_x1"/>
           </item>
           <item>
            <widget class="QLabel" name="label_5">
@@ -123,7 +123,7 @@
            </widget>
           </item>
           <item>
-           <widget class="QSpinBox" name="spinBox"/>
+           <widget class="QDoubleSpinBox" name="doubleSpinBox_y1"/>
           </item>
           <item>
            <widget class="QLabel" name="label_6">
@@ -136,7 +136,7 @@
            </widget>
           </item>
           <item>
-           <widget class="QSpinBox" name="spinBox_2"/>
+           <widget class="QDoubleSpinBox" name="doubleSpinBox_z1"/>
           </item>
          </layout>
         </item>
@@ -166,7 +166,7 @@
            </widget>
           </item>
           <item>
-           <widget class="QDoubleSpinBox" name="doubleSpinBox_2"/>
+           <widget class="QDoubleSpinBox" name="doubleSpinBox_x2"/>
           </item>
           <item>
            <widget class="QLabel" name="label_9">
@@ -179,7 +179,7 @@
            </widget>
           </item>
           <item>
-           <widget class="QDoubleSpinBox" name="doubleSpinBox_3"/>
+           <widget class="QDoubleSpinBox" name="doubleSpinBox_y2"/>
           </item>
           <item>
            <widget class="QLabel" name="label_10">
@@ -192,20 +192,14 @@
            </widget>
           </item>
           <item>
-           <widget class="QDoubleSpinBox" name="doubleSpinBox_4"/>
+           <widget class="QDoubleSpinBox" name="doubleSpinBox_z2"/>
           </item>
          </layout>
         </item>
         <item>
-         <widget class="QDialogButtonBox" name="buttonBox">
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-          <property name="standardButtons">
-           <set>QDialogButtonBox::Apply|QDialogButtonBox::Reset</set>
-          </property>
-          <property name="centerButtons">
-           <bool>true</bool>
+         <widget class="QPushButton" name="pushButton_apply">
+          <property name="text">
+           <string>Anwenden</string>
           </property>
          </widget>
         </item>

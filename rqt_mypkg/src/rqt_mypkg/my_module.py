@@ -1,6 +1,7 @@
 import os
 import rospy
 import rospkg
+import xml.etree.ElementTree as xml
 
 from qt_gui.plugin import Plugin
 from python_qt_binding import loadUi
@@ -46,6 +47,7 @@ class MyPlugin(Plugin):
         # Add slots to signal
         self._widget.pushButton_planPath.clicked.connect(self.on_pushButton_planPath_clicked)
         self._widget.pushButton_openPlanningScene.clicked.connect(self.on_pushButton_openPlanningScene_clicked)
+        self._widget.pushbutton_apply.clicked.connect(self.on_pushButton_apply_clicked)
         # Add widget to the user interface
         context.add_widget(self._widget)
         #os.system("roslaunch panda_moveit_config demo.launch")
@@ -71,6 +73,30 @@ class MyPlugin(Plugin):
         # This will enable a setting button (gear icon) in each dock widget title bar
         # Usually used to open a modal configuration dialog
     
+    """
+    def GenerateXML(self, fileName):
+        root = xml.Element("Coordinates")
+        child1 = xml.Element("Startpoint")
+        child2 = xml.Element("Endpoint")
+        root.append(child1)
+        root.append(child2)
+        
+        x1 = xml.SubElement(child1, "X-Coordinate")
+        y1 = xml.SubElement(child1, "Y-Coordinate")
+        z1 = xml.SubElement(child1, "Z-Coordinate")
+        
+        x2 = xml.SubElement(child2, "X-Coordinate")
+        y2 = xml.SubElement(child2, "Y-Coordinate")
+        z2 = xml.SubElement(child2, "Z-Coordinate")
+    """
+
+        
+
+        tree = xml.ElementTree(root)
+        with open(fileName, "wb") as files:
+            tree.write(files)
+    
+
 
     @Slot()
     def on_pushButton_planPath_clicked(self):
@@ -85,5 +111,13 @@ class MyPlugin(Plugin):
         fname = QFileDialog.getOpenFileName()
         print (fname)
         
-
+    @Slot()
+    def on_pushButton_apply_clicked(self):
+        print("clicked")
+        alert = QMessageBox()
+        alert.setText("Coordinates exported as .xml")
+        alert.exec_()
+        #validate filename
+        #if __name__ == "__main__":
+        #    GenerateXML(self, "Coordinates1")   
     
