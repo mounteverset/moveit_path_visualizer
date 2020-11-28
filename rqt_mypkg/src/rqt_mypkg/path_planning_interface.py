@@ -34,6 +34,7 @@ class MoveGroupDefinedPath(object):
         print("Current joint_goals:")
         
         start_pose = geometry_msgs.msg.Pose()
+        start_pose.serialize()
         #get_values_from_file():
         start_pose.position.x = 0.8
         start_pose.position.y = 0.6
@@ -66,4 +67,4 @@ class MoveGroupDefinedPath(object):
 
         self.move_group.clear_pose_targets()
 
-        pausing =input()
+        pausing = input()

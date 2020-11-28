@@ -1,11 +1,14 @@
+#!/usr/bin/env python3
+
 import os
 import rospy
 import rospkg
+#from moveit_ros_planning import publish_scene_from_text
 
 from qt_gui.plugin import Plugin
 from python_qt_binding import loadUi
 from python_qt_binding.QtWidgets import QWidget
-from python_qt_binding.QtCore import Qt, Slot, qWarning
+from PySide2.QtCore import Qt, Slot, qWarning
 from PySide2.QtWidgets import QFileDialog, QMessageBox
 
 
@@ -78,12 +81,13 @@ class MyPlugin(Plugin):
         alert = QMessageBox()
         alert.setText('You clicked the button!')
         alert.exec_()
-        os.system("rosrun moveit_tutorials move_group_python_interface_tutorial.py")
+        os.system("rosrun rqt_mypkg planner.py")
 
     @Slot()
     def on_pushButton_openPlanningScene_clicked(self):
         fname = QFileDialog.getOpenFileName()
         print (fname)
+        os.system("roslaunch rqt_mypkg demo_scene.launch")
         
 
     
