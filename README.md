@@ -88,7 +88,7 @@
 
 1. Wir müssen erstmal feststellen, ob **wir im ws_moveit/src** Verzeichnis sind 
 
-	`cd ws_moveit_src --> :~/ws_moveit/src# so sollte unser Pfad aussehen`
+	`cd ws_moveit/src --> :~/ws_moveit/src so sollte unser Pfad aussehen`
 
 2. Den Ordner aus git clonen
 	
@@ -96,7 +96,8 @@
 
 3. Zurück ins ws_moveit Verzeichnis und den MoveIt- Workspace builden!
 
-	`cd .. --> :~/ws_moveit# so sollte unser Pfad aussehen`und so 
+	`cd .. --> :~/ws_moveit# so sollte unser Pfad aussehen`und so
+	 
 	`catkin build` builden
 
 4. Workspace sourcen
