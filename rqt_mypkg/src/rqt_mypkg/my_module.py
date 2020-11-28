@@ -43,11 +43,12 @@ class MyPlugin(Plugin):
         # tell from pane to pane.
         if context.serial_number() > 1:
             self._widget.setWindowTitle(self._widget.windowTitle() + (' (%d)' % context.serial_number()))
-
+        # Add slots to signal
         self._widget.pushButton_planPath.clicked.connect(self.on_pushButton_planPath_clicked)
         self._widget.pushButton_openPlanningScene.clicked.connect(self.on_pushButton_openPlanningScene_clicked)
         # Add widget to the user interface
         context.add_widget(self._widget)
+        #os.system("roslaunch panda_moveit_config demo.launch")
 
         
 
@@ -70,12 +71,14 @@ class MyPlugin(Plugin):
         # This will enable a setting button (gear icon) in each dock widget title bar
         # Usually used to open a modal configuration dialog
     
+
     @Slot()
     def on_pushButton_planPath_clicked(self):
         print("geklickt")
         alert = QMessageBox()
         alert.setText('You clicked the button!')
         alert.exec_()
+        os.system("rosrun moveit_tutorials move_group_python_interface_tutorial.py")
 
     @Slot()
     def on_pushButton_openPlanningScene_clicked(self):

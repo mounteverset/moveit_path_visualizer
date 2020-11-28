@@ -1,20 +1,20 @@
 <library path="src">
   <class name="My Plugin" type="rqt_mypkg.my_module.MyPlugin" base_class_type="rqt_gui_py::Plugin">
     <description>
-      An example Python GUI plugin to create a great user interface.
+      Python GUI plugin
     </description>
     <qtgui>
-      <!-- optional grouping...
+      
       <group>
-        <label>Group</label>
+        <label>User-Plugins</label>
       </group>
       <group>
         <label>Subgroup</label>
       </group>
-      -->
-      <label>My first Python Plugin</label>
+      
+      <label>Pfadplanung</label>
       <icon type="theme">system-help</icon>
-      <statustip>Great user interface to provide real value.</statustip>
+      <statustip>GUI for pathplanning</statustip>
     </qtgui>
   </class>
 </library>
