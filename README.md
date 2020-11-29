@@ -120,7 +120,9 @@
 
 7. Der Roboter sollte jetzt in der Planungsszene erscheinen
 
-8. Jetzt sollte 
+8. Um den Pfad anzeigen zu lassen jetzt noch im MotionPlanning -> PlannedPath -> Häkchen bei Loop Animation & Show Trail
+
+![Show Trail](<https://ibb.co/tpXyhSP>)
 
 9. Eine vordefinierte Szene kann über den Tab PlanningScene geladen werden (Szene findet sicher unter /rqt_mpkg/config/demo_scene.scene)
 
