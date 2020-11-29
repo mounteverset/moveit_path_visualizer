@@ -95,3 +95,42 @@
 		
 6. Das Plugin erscheint unter dem Plugin-Tab in rqt
 
+
+**Starten und Bedienung der Anwendung**
+
+1. Sichergehen, dass der Workspace gesourct ist
+
+	`source ~/ws_moveit/devel/setup.bash`
+
+2. roscore starten, falls es noch in keinem Terminal läuft
+
+	`roscore`
+
+3. Launchfile ausführen
+
+	`roslaunch rqt_mypkg rqt_launch.launch`
+
+4. rqt-Plugin einfügen unter Plugins -> User-Plugins -> Pfadplanung
+
+5. rviz-Robotersimulation einfügen unter Plugins -> Visualization -> RViz. Es sollte sich jetzt eine leere Szene öffnen
+
+6. Roboter zur Szene hinzufügen durch "Add" -> MotionPlanning im RViz Plugin
+
+![Add-Button](<https://ibb.co/7nYVv1g>)
+
+7. Der Roboter sollte jetzt in der Planungsszene erscheinen
+
+8. Um den Pfad anzeigen zu lassen jetzt noch im MotionPlanning -> PlannedPath -> Häkchen bei Loop Animation & Show Trail
+
+![Show Trail](<https://ibb.co/tpXyhSP>)
+
+9. Eine vordefinierte Szene kann über den Tab PlanningScene geladen werden (Szene findet sicher unter /rqt_mpkg/config/demo_scene.scene)
+
+10. Ein Start-und Endpunkt wird im Tab "Start_End_Punkte festgelegt. Dies ist verpflichtend bevor ein Pfad geplant werden kann
+
+11. Im Tab Algorithmen ist OMPL voreingestellt. Hier gibt es im Moment noch nicht viel zu tun
+
+12. Jetzt kann der Pfad berechnet werden. 
+
+
+
