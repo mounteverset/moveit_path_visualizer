@@ -3,11 +3,11 @@
 1. Installation Docker auf Windows mit WSL- Kästchen angetickt. VcXsrv https://sourceforge.net/projects/vcxsrv/ (Downloadlink!) vorher installieren
 
 
-2. ROS Installation
+2. ROS und MoveIt! Installation
 
 	1) Powershell öffnen --> docker pull umutuzun/rosfinal2:rosfinal2 eingeben -->   Pullt das Image aus dockerhub. Natürlich kann man auch das Dockerfile 	im Git benutzen und das ganze selber bauen, aber das hier ist deutlich einfacher und schneller
 
-	2) Im Docker Desktop das gepullte Image (unter dem Reiter Images) starten (Run) und bei Bedarf unter Optional Settings einen eigenen Container 	Namen aussuchen. Notwendig ist es nicht, da Docker sonst einen eigenen Namen aussucht, aber diesen muss man dann später verwenden!
+	2) Im Docker Desktop das gepullte Image (unter dem Reiter Images) starten (Run) und im neuen Fenster bei Bedarf unter Optional Settings einen eigenen Container 	Namen aussuchen. Notwendig ist es nicht, da Docker sonst einen eigenen Namen aussucht, aber diesen muss man dann später verwenden!
 
 	2.1) In Powershell: docker exec -it eigenen-namen bash -->	Führt das Image aus und startet einen ROS Container
 	
@@ -41,7 +41,9 @@
 
 	
 
-	4) Nochmal: docker exec -it eigenen-namen bash	--> zum Starten des erstellten ROS containers kann man diese Zeile (mit dem gewählten Namen, das 		wäre bei "eigenen-namen") in die Powershell schreiben. Dann kann man roscore ausführen!
+	4) Nochmal zur Erinnerung: docker exec -it eigenen-namen bash--> zum Starten des erstellten ROS containers 
+	kann man diese Zeile (mit dem gewählten Namen, das 		
+	wäre bei "eigenen-namen") in die Powershell schreiben. So kann man roscore ausführen!
 
 
 
@@ -64,7 +66,7 @@
 
 	6) roscore eingeben und ROS starten.
 
-	7) ein neues Terminal/Powershell öffnen, da roscore separat laufen muss und im Neuen z.B. rviz eingeben oder rqt, um eine GUI zu starten
+	7) ein neues Terminal/Powershell öffnen, da roscore separat laufen muss und da den Docker Container starten und hier z.B. rviz eingeben oder rqt, um eine GUI zu starten
 
 
 **Installation des rqt-Plugins mit MoveIt zusammen**
@@ -131,6 +133,17 @@
 11. Im Tab Algorithmen ist OMPL voreingestellt. Hier gibt es im Moment noch nicht viel zu tun
 
 12. Jetzt kann der Pfad berechnet werden. 
+
+
+
+**Fehlerbehebung**
+
+1. Rviz hängt und lässt sich nicht schließen: VcXsrv (XLaunch) unten im Startmenü schließen erzwingt das Schließen des Programms, da die GUIs ohne XLaunch nicht laufen.
+
+2. Das RQT-Plugin erscheint nicht unter Plugins; Die GUI konnte nicht gestartet werden (Fehler output): Richtig sourcen (bzw. nicht vergessen zu sourcen!!!)
+
+3. FPS- Einbrüche, schlechte Performance: Hardware-Acceleration existiert noch nicht. Da kann man leider nicht
+viel machen.
 
 
 
