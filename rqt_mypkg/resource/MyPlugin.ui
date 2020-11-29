@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>297</width>
-    <height>241</height>
+    <width>576</width>
+    <height>624</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -167,6 +167,13 @@
           </layout>
          </item>
          <item>
+          <widget class="QDoubleSpinBox" name="doubleSpinBox_r1">
+           <property name="layoutDirection">
+            <enum>Qt::LeftToRight</enum>
+           </property>
+          </widget>
+         </item>
+         <item>
           <widget class="QLabel" name="label_7">
            <property name="font">
             <font>
@@ -181,6 +188,9 @@
          </item>
          <item>
           <layout class="QHBoxLayout" name="horizontalLayout_3">
+           <property name="spacing">
+            <number>6</number>
+           </property>
            <item>
             <widget class="QLabel" name="label_8">
              <property name="text">
@@ -250,7 +260,13 @@
           </layout>
          </item>
          <item>
+          <widget class="QDoubleSpinBox" name="doubleSpinBox_r2"/>
+         </item>
+         <item>
           <widget class="QPushButton" name="pushButton_apply">
+           <property name="layoutDirection">
+            <enum>Qt::LeftToRight</enum>
+           </property>
            <property name="text">
             <string>Anwenden</string>
            </property>
