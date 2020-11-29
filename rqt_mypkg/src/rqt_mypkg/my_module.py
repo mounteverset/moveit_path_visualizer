@@ -7,13 +7,14 @@ import io
 #from moveit_ros_planning import publish_scene_from_text
 import xml.etree.ElementTree as xml
 
+
 from qt_gui.plugin import Plugin
 from python_qt_binding import loadUi
 from python_qt_binding.QtWidgets import QWidget
 from PySide2.QtCore import Qt, Slot, qWarning
 from PySide2.QtWidgets import QFileDialog, QMessageBox
 from geometry_msgs.msg import Pose
-
+from PyQt5.QtCore import Qt
 
 
 class MyPlugin(Plugin):
@@ -51,7 +52,6 @@ class MyPlugin(Plugin):
         if context.serial_number() > 1:
             self._widget.setWindowTitle(self._widget.windowTitle() + (' (%d)' % context.serial_number()))
         # Add slots to signal
-        self._widget.pushButton_planPath.clicked.connect(self.on_pushButton_planPath_clicked)
         self._widget.pushButton_openPlanningScene.clicked.connect(self.on_pushButton_openPlanningScene_clicked)
         self._widget.pushButton_apply.clicked.connect(self.on_pushButton_apply_clicked)
         self._widget.pushButton_planPath.clicked.connect(self.on_pushButton_planPath_clicked)
@@ -102,7 +102,9 @@ class MyPlugin(Plugin):
         #tree = xml.ElementTree(root)
         #with open(fileName, "wb") as files:
         #    tree.write(files)
-    
+
+    def clicked(self):
+        self._widget.pushButton_planPath.click    
 
 
     @Slot()
@@ -150,10 +152,13 @@ class MyPlugin(Plugin):
                                             goalPose.position.z))
         
         print("file erstellt")
-
-        QWidget.pushButton_planPath.enable(True)
+        
+        self._widget.pushButton_apply.setEnabled(True)
+        
         #startingPose.rotation.w
         #validate filename
         #if __name__ == "__main__":
         #    GenerateXML(self, "Coordinates1")   
+    
+        
     
