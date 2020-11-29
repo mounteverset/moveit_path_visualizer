@@ -35,41 +35,47 @@ class MoveGroupDefinedPath(object):
         print("Current joint_goals:")
         print (self.robot.get_current_state())
         start_pose = geometry_msgs.msg.Pose()
-       
+        
+        #pause zum durchlesen der infos im terminal
         pose = self.get_values(False)
-        print(pose)
-        start_pose.position.x = 0.8
-        start_pose.position.y = 0.6
-        start_pose.position.z = 0.1
-        start_pose.orientation.w = 0.5
-        print(start_pose)
-        #setting the new joint goals
+
+        start_pose.position.x = float(pose[0])
+        start_pose.position.y = float(pose[1])
+        start_pose.position.z = float(pose[2])
+        start_pose.orientation.w = 0.0
+
+        # setting the new joint goals
         # better would to set them as inverse kinematic
+        
+        self.move_group.set_pose_target(start_pose)
+        
         print("Press Enter to go to starting pose")
-        self.move_group.go(start_pose)
-        print("noch in starting pose")
+        
+        plan = self.move_group.go(wait=True)
+
+        #get rid of any residual movement
         self.move_group.stop()
+        self.move_group.clear_pose_targets()
     
     def go_to_goal_pose(self):
+        
         print("jetzt in goal pose")
         pose_goal = geometry_msgs.msg.Pose()
 
-        #get_values() from the saved file
-        pose_goal.position.x = 0.4
-        pose_goal.position.y = 0.1
-        pose_goal.position.z = 0.4
+        pose = self.get_values(True)
+
+        pose_goal.position.x = float(pose[0])
+        pose_goal.position.y = float(pose[1])
+        pose_goal.position.z = float(pose[2])
         pose_goal.orientation.w = 1.0
-        print(pose_goal)
 
         self.move_group.set_pose_target(pose_goal)
 
         print("Press Enter to plan the path and go to pose goal")
         plan = self.move_group.go(wait=True)
         self.move_group.stop()
-
         self.move_group.clear_pose_targets()
 
-        pausing = input()
 
     def get_values(self, goal):
         if (goal == True):

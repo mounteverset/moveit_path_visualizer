@@ -134,8 +134,8 @@ class MyPlugin(Plugin):
         
         with open("starting_pose.txt", "w") as f:
             f.write("{}\n{}\n{}\n".format(  startingPose.position.x, 
-                                        startingPose.position.y, 
-                                        startingPose.position.z))
+                                            startingPose.position.y, 
+                                            startingPose.position.z))
         
         print("file erstellt")
 
