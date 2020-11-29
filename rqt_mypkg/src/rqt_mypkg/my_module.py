@@ -131,23 +131,23 @@ class MyPlugin(Plugin):
         startingPose.position.x = self._widget.doubleSpinBox_x1.value()
         startingPose.position.y = self._widget.doubleSpinBox_y1.value()
         startingPose.position.z = self._widget.doubleSpinBox_z1.value()
-
-        f = open("starting_pose.txt", "w")
-        f.write("{}\n{}\n{}\n".format(  startingPose.position.x, 
+        
+        with open("starting_pose.txt", "w") as f:
+            f.write("{}\n{}\n{}\n".format(  startingPose.position.x, 
                                         startingPose.position.y, 
                                         startingPose.position.z))
-        f.close()
+        
         print("file erstellt")
 
         goalPose.position.x = self._widget.doubleSpinBox_x2.value()
         goalPose.position.y = self._widget.doubleSpinBox_y2.value()
         goalPose.position.z = self._widget.doubleSpinBox_z2.value()
 
-        f = open("goal_pose.txt", "w")
-        f.write("{}\n{}\n{}\n".format(  goalPose.position.x, 
-                                        goalPose.position.y, 
-                                        goalPose.position.z))
-        f.close()
+        with open("goal_pose.txt", "w") as f:
+            f.write("{}\n{}\n{}\n".format(  goalPose.position.x, 
+                                            goalPose.position.y, 
+                                            goalPose.position.z))
+        
         print("file erstellt")
 
         #validate filename
