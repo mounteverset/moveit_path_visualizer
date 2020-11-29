@@ -8,6 +8,7 @@ import moveit_msgs.msg
 import geometry_msgs.msg
 from math import pi
 from std_msgs.msg import String
+import io
 
 class MoveGroupDefinedPath(object):
 
@@ -32,10 +33,11 @@ class MoveGroupDefinedPath(object):
     def go_to_starting_pose(self):
         
         print("Current joint_goals:")
-        
+        print (self.robot.get_current_state())
         start_pose = geometry_msgs.msg.Pose()
-        start_pose.serialize()
-        #get_values_from_file():
+       
+        pose = self.get_values(False)
+        print(pose)
         start_pose.position.x = 0.8
         start_pose.position.y = 0.6
         start_pose.position.z = 0.1
@@ -68,3 +70,14 @@ class MoveGroupDefinedPath(object):
         self.move_group.clear_pose_targets()
 
         pausing = input()
+
+    def get_values(self, goal):
+        if (goal == True):
+            with open("goal_pose.txt", "r") as f:
+                pose = [line.rstrip() for line in f]
+        elif (goal != True):
+            with open("starting_pose.txt", "r") as f:
+                pose = [line.rstrip() for line in f]
+        else:
+            return
+        return pose     
