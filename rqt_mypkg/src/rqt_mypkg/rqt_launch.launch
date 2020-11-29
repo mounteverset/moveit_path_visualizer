@@ -1,0 +1,6 @@
+<launch>
+    <include file="$(find panda_moveit_config)/launch/demo.launch">
+    </include>
+    <node name="rqt_gui" pkg="rqt_gui" type="rqt_gui"/>
+
+</launch>
