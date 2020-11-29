@@ -4,7 +4,6 @@ import os
 import rospy
 import rospkg
 import io
-#from moveit_ros_planning import publish_scene_from_text
 import xml.etree.ElementTree as xml
 
 
@@ -82,43 +81,30 @@ class MyPlugin(Plugin):
 
     @Slot()
     def on_pushButton_planPath_clicked(self):
-        print("geklickt")
-        alert = QMessageBox()
-        alert.setText('You clicked the button!')
-        alert.exec_()
         os.system("rosrun rqt_mypkg planner.py")
 
     @Slot()
     def on_pushButton_openPlanningScene_clicked(self):
         fname = QFileDialog.getOpenFileName()
-        print (fname)
         os.system("roslaunch rqt_mypkg demo_scene.launch")
         
     @Slot()
     def on_pushButton_apply_clicked(self):
-        print("clicked")
-        alert = QMessageBox()
-        alert.setText("Coordinates exported as .txt")
-        alert.exec_()
-
+        
         startingPose = Pose()
         goalPose = Pose()
 
-        print (self._widget.doubleSpinBox_x1.value())
         startingPose.position.x = self._widget.doubleSpinBox_x1.value()
         startingPose.position.y = self._widget.doubleSpinBox_y1.value()
         startingPose.position.z = self._widget.doubleSpinBox_z1.value()
         startingPose.orientation.w = self._widget.doubleSpinBox_r1.value()
-
-        
+    
         with open("starting_pose.txt", "w") as f:
             f.write("{}\n{}\n{}\n{}".format(startingPose.position.x, 
                                             startingPose.position.y, 
                                             startingPose.position.z,
                                             startingPose.orientation.w))
-        
-        print("file erstellt")
-
+    
         goalPose.position.x = self._widget.doubleSpinBox_x2.value()
         goalPose.position.y = self._widget.doubleSpinBox_y2.value()
         goalPose.position.z = self._widget.doubleSpinBox_z2.value()
@@ -130,14 +116,8 @@ class MyPlugin(Plugin):
                                             goalPose.position.z,
                                             goalPose.orientation.w))
         
-        print("file erstellt")
-        
         self._widget.pushButton_planPath.setEnabled(True)
         
-        #startingPose.rotation.w
-        #validate filename
-        #if __name__ == "__main__":
-        #    GenerateXML(self, "Coordinates1")   
     
         
     

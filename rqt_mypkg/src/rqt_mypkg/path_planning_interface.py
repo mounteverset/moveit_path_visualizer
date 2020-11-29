@@ -36,6 +36,7 @@ class MoveGroupDefinedPath(object):
         
         print("Current joint_goals:")
         print (self.robot.get_current_state())
+
         start_pose = geometry_msgs.msg.Pose()
         
         #pause zum durchlesen der infos im terminal
@@ -51,8 +52,6 @@ class MoveGroupDefinedPath(object):
         
         self.move_group.set_pose_target(start_pose)
         
-        print("Press Enter to go to starting pose")
-        
         plan = self.move_group.go(wait=True)
 
         #get rid of any residual movement
@@ -61,7 +60,6 @@ class MoveGroupDefinedPath(object):
     
     def go_to_goal_pose(self):
         
-        print("jetzt in goal pose")
         pose_goal = geometry_msgs.msg.Pose()
 
         pose = self.get_values(True)
@@ -72,12 +70,11 @@ class MoveGroupDefinedPath(object):
         pose_goal.orientation.w = float(pose[3])
 
         self.move_group.set_pose_target(pose_goal)
-
-        print("Press Enter to plan the path and go to pose goal")
+        
         plan = self.move_group.go(wait=True)
         self.move_group.stop()
         self.move_group.clear_pose_targets()
-        self.delete_files()
+        self.delete_pose_files()
 
 
     def get_values(self, goal):
@@ -92,7 +89,7 @@ class MoveGroupDefinedPath(object):
             return
         return pose   
 
-    def delete_files(self):
+    def delete_pose_files(self):
         if os.path.exists("goal_pose.txt"):
            os.remove("goal_pose.txt")
            os.remove("starting_pose.txt")
