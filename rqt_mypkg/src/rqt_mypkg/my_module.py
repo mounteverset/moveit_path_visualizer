@@ -54,6 +54,7 @@ class MyPlugin(Plugin):
         self._widget.pushButton_planPath.clicked.connect(self.on_pushButton_planPath_clicked)
         self._widget.pushButton_openPlanningScene.clicked.connect(self.on_pushButton_openPlanningScene_clicked)
         self._widget.pushButton_apply.clicked.connect(self.on_pushButton_apply_clicked)
+        self._widget.pushButton_planPath.clicked.connect(self.on_pushButton_planPath_clicked)
         # Add widget to the user interface
         context.add_widget(self._widget)
         #os.system("roslaunch panda_moveit_config demo.launch")
@@ -150,6 +151,8 @@ class MyPlugin(Plugin):
         
         print("file erstellt")
 
+        QWidget.pushButton_planPath.enable(True)
+        #startingPose.rotation.w
         #validate filename
         #if __name__ == "__main__":
         #    GenerateXML(self, "Coordinates1")   
