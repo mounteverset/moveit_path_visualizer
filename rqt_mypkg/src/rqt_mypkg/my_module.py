@@ -14,7 +14,7 @@ from python_qt_binding.QtWidgets import QWidget
 from PySide2.QtCore import Qt, Slot, qWarning
 from PySide2.QtWidgets import QFileDialog, QMessageBox
 from geometry_msgs.msg import Pose
-from PyQt5.QtCore import Qt
+
 
 
 class MyPlugin(Plugin):
@@ -132,7 +132,7 @@ class MyPlugin(Plugin):
         
         print("file erstellt")
         
-        self._widget.pushButton_apply.setEnabled(True)
+        self._widget.pushButton_planPath.setEnabled(True)
         
         #startingPose.rotation.w
         #validate filename

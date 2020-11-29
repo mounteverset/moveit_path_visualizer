@@ -9,6 +9,8 @@ import geometry_msgs.msg
 from math import pi
 from std_msgs.msg import String
 import io
+import shutil
+import os
 
 class MoveGroupDefinedPath(object):
 
@@ -75,6 +77,7 @@ class MoveGroupDefinedPath(object):
         plan = self.move_group.go(wait=True)
         self.move_group.stop()
         self.move_group.clear_pose_targets()
+        self.delete_files()
 
 
     def get_values(self, goal):
@@ -87,4 +90,11 @@ class MoveGroupDefinedPath(object):
                 pose = [line.rstrip() for line in f]
         else:
             return
-        return pose     
+        return pose   
+
+    def delete_files(self):
+        if os.path.exists("goal_pose.txt"):
+           os.remove("goal_pose.txt")
+           os.remove("starting_pose.txt")
+        else:
+           print("The file does not exist")
