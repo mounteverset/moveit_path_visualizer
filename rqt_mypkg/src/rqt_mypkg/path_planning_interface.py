@@ -42,8 +42,8 @@ class MoveGroupDefinedPath(object):
         start_pose.position.x = float(pose[0])
         start_pose.position.y = float(pose[1])
         start_pose.position.z = float(pose[2])
-        start_pose.orientation.w = 0.0
-
+        start_pose.orientation.w = float(pose[3])
+        
         # setting the new joint goals
         # better would to set them as inverse kinematic
         
@@ -67,7 +67,7 @@ class MoveGroupDefinedPath(object):
         pose_goal.position.x = float(pose[0])
         pose_goal.position.y = float(pose[1])
         pose_goal.position.z = float(pose[2])
-        pose_goal.orientation.w = 1.0
+        pose_goal.orientation.w = float(pose[3])
 
         self.move_group.set_pose_target(pose_goal)
 
@@ -81,6 +81,7 @@ class MoveGroupDefinedPath(object):
         if (goal == True):
             with open("goal_pose.txt", "r") as f:
                 pose = [line.rstrip() for line in f]
+
         elif (goal != True):
             with open("starting_pose.txt", "r") as f:
                 pose = [line.rstrip() for line in f]

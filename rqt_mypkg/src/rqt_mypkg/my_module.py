@@ -79,31 +79,6 @@ class MyPlugin(Plugin):
         # Comment in to signal that the plugin has a way to configure
         # This will enable a setting button (gear icon) in each dock widget title bar
         # Usually used to open a modal configuration dialog
-    
-    """
-    def GenerateXML(self, fileName):
-        root = xml.Element("Coordinates")
-        child1 = xml.Element("Startpoint")
-        child2 = xml.Element("Endpoint")
-        root.append(child1)
-        root.append(child2)
-        
-        x1 = xml.SubElement(child1, "X-Coordinate")
-        y1 = xml.SubElement(child1, "Y-Coordinate")
-        z1 = xml.SubElement(child1, "Z-Coordinate")
-        
-        x2 = xml.SubElement(child2, "X-Coordinate")
-        y2 = xml.SubElement(child2, "Y-Coordinate")
-        z2 = xml.SubElement(child2, "Z-Coordinate")
-    """
-
-        
-
-        #tree = xml.ElementTree(root)
-        #with open(fileName, "wb") as files:
-        #    tree.write(files)
-    
-
 
     @Slot()
     def on_pushButton_planPath_clicked(self):
@@ -125,6 +100,7 @@ class MyPlugin(Plugin):
         alert = QMessageBox()
         alert.setText("Coordinates exported as .txt")
         alert.exec_()
+
         startingPose = Pose()
         goalPose = Pose()
 
@@ -132,28 +108,30 @@ class MyPlugin(Plugin):
         startingPose.position.x = self._widget.doubleSpinBox_x1.value()
         startingPose.position.y = self._widget.doubleSpinBox_y1.value()
         startingPose.position.z = self._widget.doubleSpinBox_z1.value()
+        startingPose.orientation.w = self._widget.doubleSpinBox_r1.value()
+
         
         with open("starting_pose.txt", "w") as f:
-            f.write("{}\n{}\n{}\n".format(  startingPose.position.x, 
+            f.write("{}\n{}\n{}\n{}".format(startingPose.position.x, 
                                             startingPose.position.y, 
-                                            startingPose.position.z))
+                                            startingPose.position.z,
+                                            startingPose.orientation.w))
         
         print("file erstellt")
 
         goalPose.position.x = self._widget.doubleSpinBox_x2.value()
         goalPose.position.y = self._widget.doubleSpinBox_y2.value()
         goalPose.position.z = self._widget.doubleSpinBox_z2.value()
+        goalPose.orientation.w = self._widget.doubleSpinBox_r2.value()
 
         with open("goal_pose.txt", "w") as f:
-            f.write("{}\n{}\n{}\n".format(  goalPose.position.x, 
+            f.write("{}\n{}\n{}\n{}".format(goalPose.position.x, 
                                             goalPose.position.y, 
-                                            goalPose.position.z))
+                                            goalPose.position.z,
+                                            goalPose.orientation.w))
         
         print("file erstellt")
 
         QWidget.pushButton_planPath.enable(True)
-        #startingPose.rotation.w
-        #validate filename
-        #if __name__ == "__main__":
-        #    GenerateXML(self, "Coordinates1")   
+         
     
