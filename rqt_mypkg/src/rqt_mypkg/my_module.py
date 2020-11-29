@@ -3,6 +3,7 @@
 import os
 import rospy
 import rospkg
+import io
 #from moveit_ros_planning import publish_scene_from_text
 import xml.etree.ElementTree as xml
 
@@ -11,6 +12,8 @@ from python_qt_binding import loadUi
 from python_qt_binding.QtWidgets import QWidget
 from PySide2.QtCore import Qt, Slot, qWarning
 from PySide2.QtWidgets import QFileDialog, QMessageBox
+from geometry_msgs.msg import Pose
+
 
 
 class MyPlugin(Plugin):
@@ -50,7 +53,7 @@ class MyPlugin(Plugin):
         # Add slots to signal
         self._widget.pushButton_planPath.clicked.connect(self.on_pushButton_planPath_clicked)
         self._widget.pushButton_openPlanningScene.clicked.connect(self.on_pushButton_openPlanningScene_clicked)
-        self._widget.pushbutton_apply.clicked.connect(self.on_pushButton_apply_clicked)
+        self._widget.pushButton_apply.clicked.connect(self.on_pushButton_apply_clicked)
         # Add widget to the user interface
         context.add_widget(self._widget)
         #os.system("roslaunch panda_moveit_config demo.launch")
@@ -95,9 +98,9 @@ class MyPlugin(Plugin):
 
         
 
-        tree = xml.ElementTree(root)
-        with open(fileName, "wb") as files:
-            tree.write(files)
+        #tree = xml.ElementTree(root)
+        #with open(fileName, "wb") as files:
+        #    tree.write(files)
     
 
 
@@ -119,8 +122,34 @@ class MyPlugin(Plugin):
     def on_pushButton_apply_clicked(self):
         print("clicked")
         alert = QMessageBox()
-        alert.setText("Coordinates exported as .xml")
+        alert.setText("Coordinates exported as .txt")
         alert.exec_()
+        startingPose = Pose()
+        goalPose = Pose()
+
+        print (self._widget.doubleSpinBox_x1.value())
+        startingPose.position.x = self._widget.doubleSpinBox_x1.value()
+        startingPose.position.y = self._widget.doubleSpinBox_y1.value()
+        startingPose.position.z = self._widget.doubleSpinBox_z1.value()
+
+        f = open("starting_pose.txt", "w")
+        f.write("{}\n{}\n{}\n".format(  startingPose.position.x, 
+                                        startingPose.position.y, 
+                                        startingPose.position.z))
+        f.close()
+        print("file erstellt")
+
+        goalPose.position.x = self._widget.doubleSpinBox_x2.value()
+        goalPose.position.y = self._widget.doubleSpinBox_y2.value()
+        goalPose.position.z = self._widget.doubleSpinBox_z2.value()
+
+        f = open("goal_pose.txt", "w")
+        f.write("{}\n{}\n{}\n".format(  goalPose.position.x, 
+                                        goalPose.position.y, 
+                                        goalPose.position.z))
+        f.close()
+        print("file erstellt")
+
         #validate filename
         #if __name__ == "__main__":
         #    GenerateXML(self, "Coordinates1")   
