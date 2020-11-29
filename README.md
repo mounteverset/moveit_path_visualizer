@@ -5,17 +5,14 @@
 
 2. ROS Installation
 
-	1) Powershell öffnen --> docker pull umutuzun/rosmove:latest  eingeben -->   Pullt das Image aus dockerhub. Natürlich kann man auch das Dockerfile 		  im Git benutzen das hier ist aber deutlich einfacher (Beides dasselbe)
+	1) Powershell öffnen --> docker pull umutuzun/rosfinal2:rosfinal2 eingeben -->   Pullt das Image aus dockerhub. Natürlich kann man auch das Dockerfile 	im Git benutzen und das ganze selber bauen, aber das hier ist deutlich einfacher und schneller
 
-	2) Im Docker Desktop das gepullte Image (unter dem Reiter Images) starten (Run) und bei Bedarf unter optional settings einen eigenen Container 		   Namen aussuchen. Notwendig ist es nicht, da Docker sonst einen eigenen Namen aussucht.
+	2) Im Docker Desktop das gepullte Image (unter dem Reiter Images) starten (Run) und bei Bedarf unter Optional Settings einen eigenen Container 	Namen aussuchen. Notwendig ist es nicht, da Docker sonst einen eigenen Namen aussucht, aber diesen muss man dann später verwenden!
 
 	2.1) In Powershell: docker exec -it eigenen-namen bash -->	Führt das Image aus und startet einen ROS Container
 	
-	3) In Powershell: echo source "/opt/ros/noetic/setup.bash" >> ~/.bashrc   -->   Als nächstes sourcen ROS immer wenn wir einen ROS container 		   öffnen, bei dem selben Container muss man dies nach dem ersten Setup nicht mehr tun!
 	
-	4) In Powershell: source ~/.bashrc 	-->	in die bash sourcen
-	
-	5) In Powershell: roscore	-->		ROS testen, ob alles funktioniert (Direkt drunter sollte sowas ähnliches im Terminal erscheinen). Mit Strg+C 		kann man roscore dann wieder schließen
+	3) In Powershell: roscore	-->		ROS testen, ob alles funktioniert (Direkt drunter sollte sowas ähnliches im Terminal erscheinen). Mit Strg+C 		kann man roscore dann wieder schließen
 	
 > ... logging to /root/.ros/log/58f66bc2-d4a4-11e9-be85-02420aff0002/roslaunch-59fe088dbe6a-325.log
 > Checking log directory for disk usage. This may take awhile.
@@ -44,27 +41,12 @@
 
 	
 
-	6) Nochmal: docker exec -it eigenen-namen bash	--> zum Starten des erstellten ROS containers kann man diese Zeile (mit dem gewählten Namen, das 		wäre bei "eigenen-namen") in die Powershell schreiben. Dann kann man roscore ausführen!
+	4) Nochmal: docker exec -it eigenen-namen bash	--> zum Starten des erstellten ROS containers kann man diese Zeile (mit dem gewählten Namen, das 		wäre bei "eigenen-namen") in die Powershell schreiben. Dann kann man roscore ausführen!
 
 
 
 **JETZT ZUM AUSFÜHREN VON GUI WIE RQT UND RVIZ, DIE OHNE DEM FOLGENDEN SETUP NICHT FUNKTIONIEREN!**
 
-2.1 Installation von rqt: Nach dem Starten des Containers sind wir erstmal im MoveIt- Verzeichnis. Wir müssen aber ins rospack- Verzeichnis, dazu geben wir in der Powershell das ein: 
-
-	- cd /opt/ros/noetic/share
-
-	- sudo apt-get update
-					
-	- sudo apt-get install ros-noetic-rqt
-					
-	- sudo apt-get install ros-noetic-rqt-common-plugins
-					
-	- sudo apt-get install ros-noetic-rqt-moveit
-					
-	- sudo apt-get install ros-noetic-rqt-robot-plugins
-
-	Jetzt sollte rqt in Verbindung mit rviz ausführbar sein!
 
 3. Wenn VcXsrv installiert wurde (wenn nicht dann bitte jetzt): https://sourceforge.net/projects/vcxsrv/ (Downloadlink!)
 
@@ -74,14 +56,15 @@
 
 	3) Unseren ROS container mit docker exec -it eigenen-namen bash starten
 	
-	4) echo 'export DISPLAY={die eigene IP adresse ohne klammern}:0.0' >> ~/.bashrc  **Achtung: Falls man eine IP Adresse hat, die sich 	   von 		   Zeit zu Zeit ändert (anderer Ort, Uni Wlan etc etc.), dann muss dieser Schritt wiederholt werden!!**
+	4) echo 'export DISPLAY={die eigene IP adresse ohne klammern}:0.0' >> ~/.bashrc  
+	**Achtung: Falls man eine IP Adresse hat, die sich 	   von 		   Zeit zu Zeit ändert (anderer Ort, Uni Wlan etc etc.), dann muss dieser Schritt wiederholt werden!!**
 	   > (Die IP Adresse findet man unter Einstellungen --> Netzwerk und Internet --> Eigenschaften (steht im ersten Reiter Status!) --> 		 unter 			IPv4-Adresse)
 
 	5) source ~/.bashrc  -->    das veränderte .bashrc file sourcen
 
 	6) roscore eingeben und ROS starten.
 
-	7) ein neues Terminal/Powershell öffnen, da roscore separat laufen muss und da z.B. rviz eingeben oder rqt, um eine GUI zu starten
+	7) ein neues Terminal/Powershell öffnen, da roscore separat laufen muss und im Neuen z.B. rviz eingeben oder rqt, um eine GUI zu starten
 
 
 **Installation des rqt-Plugins mit MoveIt zusammen**
