@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>515</width>
-    <height>486</height>
+    <width>403</width>
+    <height>457</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,7 +17,7 @@
    <item>
     <widget class="QTabWidget" name="tabwidget">
      <property name="currentIndex">
-      <number>1</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="tab_2">
       <attribute name="title">
@@ -28,8 +28,8 @@
         <rect>
          <x>9</x>
          <y>20</y>
-         <width>431</width>
-         <height>83</height>
+         <width>241</width>
+         <height>101</height>
         </rect>
        </property>
        <layout class="QFormLayout" name="formLayout">
@@ -44,6 +44,12 @@
          <widget class="QCheckBox" name="checkBox_ompl">
           <property name="text">
            <string>OMPL</string>
+          </property>
+          <property name="checkable">
+           <bool>true</bool>
+          </property>
+          <property name="checked">
+           <bool>true</bool>
           </property>
          </widget>
         </item>
@@ -79,7 +85,7 @@
         <rect>
          <x>9</x>
          <y>9</y>
-         <width>471</width>
+         <width>231</width>
          <height>331</height>
         </rect>
        </property>
@@ -133,7 +139,17 @@
            </widget>
           </item>
           <item>
-           <widget class="QDoubleSpinBox" name="doubleSpinBox_y1"/>
+           <widget class="QDoubleSpinBox" name="doubleSpinBox_y1">
+            <property name="minimum">
+             <double>-2.000000000000000</double>
+            </property>
+            <property name="maximum">
+             <double>2.000000000000000</double>
+            </property>
+            <property name="singleStep">
+             <double>0.100000000000000</double>
+            </property>
+           </widget>
           </item>
           <item>
            <widget class="QLabel" name="label_6">
@@ -259,8 +275,8 @@
         <rect>
          <x>9</x>
          <y>9</y>
-         <width>391</width>
-         <height>401</height>
+         <width>191</width>
+         <height>341</height>
         </rect>
        </property>
        <layout class="QGridLayout" name="gridLayout_2">
