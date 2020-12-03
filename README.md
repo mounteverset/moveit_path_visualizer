@@ -146,4 +146,14 @@
 viel machen.
 
 
+**Hardware acceleration**
+
+1. Windows Insider Program anmelden
+2. WSL2 installieren
+3. Ubuntu über Windows Store installieren
+4. Ubuntu über commands auf WSL2 konvertieren (alle commands folgen, zu müde um das alles 3 Uhr morgens zu machen)
+5. Nvidia Driver installieren
+6. Checken, ob die Linux Kernel up to date sind
+7. Docker in Ubuntu installieren (curl https://get.docker.com | sh)
+8. docker run --gpus all  ab sofort Images so starten. docker exec -it ... bash funktioniert weiterhin!
 
