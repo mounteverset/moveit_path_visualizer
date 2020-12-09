@@ -1,4 +1,4 @@
-***Installation der benötigten Software***
+***Installation der benötigten Software/WSL2 Setup GANZ UNTEN***
 
 1. Installation Docker auf Windows mit WSL- Kästchen angetickt. VcXsrv https://sourceforge.net/projects/vcxsrv/ (Downloadlink!) vorher installieren
 
@@ -174,7 +174,11 @@ WSL 2 requires an update to its kernel component. For information please visit  
 
 **ACHTUNG: Es wird empfohlen jede Art von Docker zu deinstallieren, bevor man eine weitere Version installiert! Das bearbeitete Docker Image kann mit Docker save als .tar Datei gespeicher werden, falls man Docker Desktop auf Windows wieder verwenden sollte.**
 
-11. Das Image wie oben beschrieben pullen. und mit to be continued...
+11. Das Image wie oben beschrieben pullen, mit folgendem Command starten: docker run -it --name eigenen-namen umutuzun/rosfinal2:rosfinal2 bash
+	(eigenen-namen kann man ersetzen wie man will. Das wird der Containername sein.)
 
+12. Mit dem Command davor ist man direkt schon im Container. Falls man den Container verlässt (mit "exit" z.B), kann man mit "docker start eigenen-namen" den Container erneut starten. Nach dem Starten muss er auch ausgeführt werden, damit man wieder im Container ist. Dies geschieht mit folgendem Command: docker exec -it eigenen-namen bash
+
+13. Das wars dann. Wenn das ganze Setup fertig ist, kann man mit den Schritten davor weitermachen! (XLaunch für GUIs ist immer noch nötig, heißt müsste da weitermachen)
 
 
