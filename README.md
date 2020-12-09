@@ -146,14 +146,35 @@
 viel machen.
 
 
-**Hardware acceleration**
+**Umstieg auf WSL2**
+**Wichtig**: Docker Desktop aktiviert schon WSL2 bei der Installation. Heißt, die folgenden Schritte nur machen, wenn Docker Desktop nicht installiert wurde.
 
-1. Windows Insider Program anmelden
-2. WSL2 installieren
-3. Ubuntu über Windows Store installieren
-4. Ubuntu über commands auf WSL2 konvertieren (alle commands folgen, zu müde um das alles 3 Uhr morgens zu machen)
-5. Nvidia Driver installieren
-6. Checken, ob die Linux Kernel up to date sind
-7. Docker in Ubuntu installieren (curl https://get.docker.com | sh)
-8. docker run --gpus all  ab sofort Images so starten. docker exec -it ... bash funktioniert weiterhin!
+1. Zuerst die WSL features in Powershell mit folgendem Command aktivieren (mit Adminrechte!): 
+dism.exe /online /enable-feature /featurename:Microsoft-Windows-Subsystem-Linux /all /norestart
+
+2. Mit folgendem Command Virtual Machine Platform aktivieren (nötig, da der User wahrscheinlich keinen Microsoft insider build benutzt): 
+dism.exe /online /enable-feature /featurename:VirtualMachinePlatform /all /norestart
+
+3. Computer neustarten
+
+4. WSL auf WSL2 mit folgendem Command stellen: wsl --set-default-version 2
+
+5. Vielleicht ist ein Kernel Update nötig (sollte aber schon bei der Docker- Installation gemacht worden sein):
+WSL 2 requires an update to its kernel component. For information please visit  UPDATE LINK: https://wslstorestorage.blob.core.windows.net/wslblob/wsl_update_x64.msi von der Microsoft- Seite zu finden: https://docs.microsoft.com/en-us/windows/wsl/install-win10
+
+6. Wieder diesen Command ausführen: wsl --set-default-version 2
+
+7. Jetzt kann man im Windows Store Ubuntu 20.04 runterladen! (Einfach Ubuntu in die Suchleiste eingeben)
+
+8. Mit folgendem Command kontrollieren, welche WSL Version die Distro benutzt: wsl -l -v
+
+9. Dann folgendes eingeben: wsl --set-version <distribution name> 2  und als Standard setzen: wsl --set-default-version 2
+
+10. Docker auf der Distro runterladen und die Schritte oben ausführen! (sudo apt-get update dann curl -fsSL https://get.docker.com -o get-docker.sh und zum Installieren: sudo sh get-docker.sh) 
+
+**ACHTUNG: Es wird empfohlen jede Art von Docker zu deinstallieren, bevor man eine weitere Version installiert! Das bearbeitete Docker Image kann mit Docker save als .tar Datei gespeicher werden, falls man Docker Desktop auf Windows wieder verwenden sollte.**
+
+11. Das Image wie oben beschrieben pullen. und mit to be continued...
+
+
 
