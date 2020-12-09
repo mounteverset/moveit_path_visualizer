@@ -146,6 +146,11 @@
 viel machen.
 
 
+
+
+
+
+
 **Umstieg auf WSL2**
 **Wichtig**: Docker Desktop aktiviert schon WSL2 bei der Installation. Heißt, die folgenden Schritte nur machen, wenn Docker Desktop nicht installiert wurde.
 
