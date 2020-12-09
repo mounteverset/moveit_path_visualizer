@@ -167,9 +167,9 @@ dism.exe /online /enable-feature /featurename:VirtualMachinePlatform /all /nores
 5. Vielleicht ist ein Kernel Update nötig (sollte aber schon bei der Docker- Installation gemacht worden sein):
 WSL 2 requires an update to its kernel component. For information please visit  UPDATE LINK: https://wslstorestorage.blob.core.windows.net/wslblob/wsl_update_x64.msi von der Microsoft- Seite zu finden: https://docs.microsoft.com/en-us/windows/wsl/install-win10
 
-6. Wieder diesen Command ausführen: wsl --set-default-version 2
+6. Wieder diesen Command ausführen: wsl --set-default-version 2, falls die Kernel Updates nötig waren!
 
-7. Jetzt kann man im Windows Store Ubuntu 20.04 runterladen! (Einfach Ubuntu in die Suchleiste eingeben)
+7. Jetzt kann man im Windows Store Ubuntu 20.04 runterladen! (Einfach Ubuntu in die Suchleiste eingeben, darauf achten welche Version. Die Ubuntu Version ohne irgendwelche Zahlen, sprich nur "Ubuntu" sollte 20.04 sein. Am besten die Beschreibung lesen!)
 
 8. Mit folgendem Command kontrollieren, welche WSL Version die Distro benutzt: wsl -l -v
 
@@ -177,7 +177,7 @@ WSL 2 requires an update to its kernel component. For information please visit  
 
 10. Docker auf der Distro runterladen und die Schritte oben ausführen! (sudo apt-get update dann curl -fsSL https://get.docker.com -o get-docker.sh und zum Installieren: sudo sh get-docker.sh) 
 
-**ACHTUNG: Es wird empfohlen jede Art von Docker zu deinstallieren, bevor man eine weitere Version installiert! Das bearbeitete Docker Image kann mit Docker save als .tar Datei gespeicher werden, falls man Docker Desktop auf Windows wieder verwenden sollte.**
+**ACHTUNG: Es wird empfohlen jede Art von Docker zu deinstallieren, bevor man eine weitere Version installiert! Das bearbeitete Docker Image kann mit Docker save als .tar Datei gespeicher werden, falls man Docker Desktop auf Windows wieder verwenden sollte. Wird auch während der Installation auf der Linux Distro empfohlen!**
 
 11. Das Image wie oben beschrieben pullen, mit folgendem Command starten: docker run -it --name eigenen-namen umutuzun/rosfinal2:rosfinal2 bash
 	(eigenen-namen kann man ersetzen wie man will. Das wird der Containername sein.)
