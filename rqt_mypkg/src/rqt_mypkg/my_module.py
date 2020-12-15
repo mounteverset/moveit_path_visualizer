@@ -14,7 +14,12 @@ from PySide2.QtCore import Qt, Slot, qWarning
 from PySide2.QtWidgets import QFileDialog, QMessageBox
 from geometry_msgs.msg import Pose
 
+from visualization_msgs.msg import Marker
+from rqt_mypkg import path_planning_interface
 
+from nav_msgs.msg import Path
+from nav_msgs.msg import Odometry
+from geometry_msgs.msg import PoseStamped
 
 class MyPlugin(Plugin):
 
@@ -54,6 +59,7 @@ class MyPlugin(Plugin):
         self._widget.pushButton_openPlanningScene.clicked.connect(self.on_pushButton_openPlanningScene_clicked)
         self._widget.pushButton_apply.clicked.connect(self.on_pushButton_apply_clicked)
         self._widget.pushButton_planPath.clicked.connect(self.on_pushButton_planPath_clicked)
+        self._widget.pushButton.clicked.connect(self.pushButton_clicked)
         # Add widget to the user interface
         context.add_widget(self._widget)
         #os.system("roslaunch panda_moveit_config demo.launch")
@@ -119,5 +125,44 @@ class MyPlugin(Plugin):
         self._widget.pushButton_planPath.setEnabled(True)
         
     
+    
+
+
+
+
+
+
+
+
+
+
+
+    @Slot()
+    def pushButton_clicked(self):
         
+        self.publisher = rospy.Publisher('visualization_marker',
+                                                            Marker,
+                                                            queue_size=5)
+        
+        marker = Marker()
+        marker.header.frame_id = "panda_hand"
+        marker.type = marker.SPHERE
+        marker.action = marker.ADD
+        marker.pose.position.x = 1
+        marker.pose.position.y = 1
+        marker.pose.position.z = 1
+        marker.pose.orientation.x = 0.0
+        marker.pose.orientation.y = 0.0
+        marker.pose.orientation.z = 0.0
+        marker.pose.orientation.w = 1.0
+        marker.scale.x = 0.5
+        marker.scale.y = 0.5
+        marker.scale.z = 0.5
+        marker.color.a = 1.0
+        marker.color.r = 1.0
+        marker.color.g = 1.0
+        marker.color.b = 1.0
+        
+        
+        self.publisher.publish(marker)
     
