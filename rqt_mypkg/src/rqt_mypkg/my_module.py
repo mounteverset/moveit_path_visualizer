@@ -4,15 +4,14 @@ import os
 import rospy
 import rospkg
 import io
-import xml.etree.ElementTree as xml
-
-
+from rqt_mypkg import path_planning_interface
 from qt_gui.plugin import Plugin
 from python_qt_binding import loadUi
 from python_qt_binding.QtWidgets import QWidget
 from PySide2.QtCore import Qt, Slot, qWarning
 from PySide2.QtWidgets import QFileDialog, QMessageBox
 from geometry_msgs.msg import Pose
+from pathlib import Path
 
 from visualization_msgs.msg import Marker
 from rqt_mypkg import path_planning_interface
@@ -55,13 +54,16 @@ class MyPlugin(Plugin):
         # tell from pane to pane.
         if context.serial_number() > 1:
             self._widget.setWindowTitle(self._widget.windowTitle() + (' (%d)' % context.serial_number()))
+
         # Add slots to signal
         self._widget.pushButton_openPlanningScene.clicked.connect(self.on_pushButton_openPlanningScene_clicked)
         self._widget.pushButton_apply.clicked.connect(self.on_pushButton_apply_clicked)
         self._widget.pushButton_planPath.clicked.connect(self.on_pushButton_planPath_clicked)
         self._widget.pushButton.clicked.connect(self.pushButton_clicked)
+        
         # Add widget to the user interface
         context.add_widget(self._widget)
+        
         #os.system("roslaunch panda_moveit_config demo.launch")
 
         
@@ -88,10 +90,15 @@ class MyPlugin(Plugin):
     @Slot()
     def on_pushButton_planPath_clicked(self):
         os.system("rosrun rqt_mypkg planner.py")
+        #planningObject = path_planning_interface.MoveGroupDefinedPath()
+        #planningObject.go_to_starting_pose()
+        #planningObject.go_to_goal_pose()
 
     @Slot()
     def on_pushButton_openPlanningScene_clicked(self):
+        
         fname = QFileDialog.getOpenFileName()
+        
         os.system("roslaunch rqt_mypkg demo_scene.launch")
         
     @Slot()
@@ -104,8 +111,9 @@ class MyPlugin(Plugin):
         startingPose.position.y = self._widget.doubleSpinBox_y1.value()
         startingPose.position.z = self._widget.doubleSpinBox_z1.value()
         startingPose.orientation.w = self._widget.doubleSpinBox_r1.value()
-    
-        with open("starting_pose.txt", "w") as f:
+        homedir = str(Path.home())
+        start_filepath = homedir + "/starting_pose.txt"
+        with open(start_filepath, "w") as f:
             f.write("{}\n{}\n{}\n{}".format(startingPose.position.x, 
                                             startingPose.position.y, 
                                             startingPose.position.z,
@@ -116,7 +124,8 @@ class MyPlugin(Plugin):
         goalPose.position.z = self._widget.doubleSpinBox_z2.value()
         goalPose.orientation.w = self._widget.doubleSpinBox_r2.value()
 
-        with open("goal_pose.txt", "w") as f:
+        goal_filepath = homedir + "/goal_pose.txt"
+        with open(goal_filepath, "w") as f:
             f.write("{}\n{}\n{}\n{}".format(goalPose.position.x, 
                                             goalPose.position.y, 
                                             goalPose.position.z,

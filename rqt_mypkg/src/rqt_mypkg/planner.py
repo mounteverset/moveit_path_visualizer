@@ -10,14 +10,13 @@ from math import pi
 from std_msgs.msg import String
 from rqt_mypkg import path_planning_interface
 
-if __name__ == '__main__':
+#rospy.init_node("planner")
+#while not rospy.is_shutdown():
+planningObject = path_planning_interface.MoveGroupDefinedPath()
 
-    planningObject = path_planning_interface.MoveGroupDefinedPath()
-    planningObject.go_to_starting_pose()
-    planningObject.go_to_goal_pose()
+planned_path = planningObject.plan_path()
+planningObject.display_trajectory(planned_path[1])
 
-#def main (self):
-    #to implement: error handling
-    #planningObject = MoveGroupDefinedPath()
-    #planningObject.go_to_starting_pose()
-    #planningObject.go_to_goal_pose()
+#planningObject.go_to_starting_pose()
+#planningObject.go_to_goal_pose()
+

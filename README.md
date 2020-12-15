@@ -69,7 +69,7 @@
 	7) ein neues Terminal/Powershell öffnen, da roscore separat laufen muss und da den Docker Container starten und hier z.B. rviz eingeben oder rqt, um eine GUI zu starten
 
 
-**Installation des rqt-Plugins mit MoveIt zusammen**
+**Installation des rqt-Plugins und des Fanuc Roboters mit MoveIt zusammen**
 
 1. Wir müssen erstmal feststellen, ob **wir im ws_moveit/src** Verzeichnis sind 
 
@@ -84,6 +84,8 @@
 	`cd .. --> :~/ws_moveit# so sollte unser Pfad aussehen und so`
 	 
 	`catkin build rqt_mypkg` builden
+	`catkin build fanic_m710` builden
+	
 
 4. Workspace sourcen
 
@@ -135,6 +137,11 @@
 12. Jetzt kann der Pfad berechnet werden. 
 
 
+**Starten des Fanuc Roboters**
+
+1. Sicher gehen, dass der Workspace gesourct ist `source ~/ws_moveit/devel/setup.bash`
+
+2. Zum Starten des Roboters in Rviz `roslaunch fanuc_m710 demo.launch`
 
 **Fehlerbehebung**
 
