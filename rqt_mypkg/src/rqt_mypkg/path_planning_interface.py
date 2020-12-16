@@ -160,9 +160,9 @@ class MoveGroupDefinedPath(object):
     
     def display_eef_marker(self, eef_poses):
 
-        self.publisher = rospy.Publisher('visualization_marker_array',
+        publisher = rospy.Publisher('visualization_marker_array',
                                                             MarkerArray,
-                                                            queue_size=5)
+                                                            queue_size=1)
         
         markerArray = MarkerArray()
 
@@ -172,17 +172,22 @@ class MoveGroupDefinedPath(object):
             marker.header.frame_id = "world"
             marker.type = marker.SPHERE
             marker.action = marker.ADD
-            marker.pose= eef_poses[i]
-            marker.scale.x = 0.01
-            marker.scale.y = 0.01
-            marker.scale.z = 0.01
+            marker.pose.position.x = eef_poses[i].position.x
+            marker.pose.position.y = eef_poses[i].position.y
+            marker.pose.position.z = eef_poses[i].position.z
+            marker.pose.orientation.x = eef_poses[i].orientation.x
+            marker.pose.orientation.y = eef_poses[i].orientation.x
+            marker.pose.orientation.z = eef_poses[i].orientation.x
+            marker.scale.x = 0.1
+            marker.scale.y = 0.1
+            marker.scale.z = 0.1
             marker.color.a = 1.0
             marker.color.r = 1.0
             marker.color.g = 1.0
             marker.color.b = 1.0
             markerArray.markers.append(marker)
-        
-        self.publisher.publish(markerArray)
+        rospy.sleep(2)
+        publisher.publish(markerArray)
         
     
 
