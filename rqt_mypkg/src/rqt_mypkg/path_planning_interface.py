@@ -13,6 +13,7 @@ import io
 import shutil
 import os
 from pathlib import Path
+from visualization_msgs.msg import Marker, MarkerArray
 
 
 class MoveGroupDefinedPath(object):
@@ -21,7 +22,9 @@ class MoveGroupDefinedPath(object):
         super(MoveGroupDefinedPath, self).__init__()
 
         moveit_commander.roscpp_initialize(sys.argv)
-        
+        self.display_trajectory_publisher = rospy.Publisher('move_group/display_planned_path',
+                                                            moveit_msgs.msg.DisplayTrajectory,
+                                                            queue_size=20)
         rospy.init_node('move_group_defined_path', anonymous=True)
         print("rospy Node started..")
         
@@ -31,9 +34,7 @@ class MoveGroupDefinedPath(object):
         self.scene = moveit_commander.PlanningSceneInterface()
         group_name = "panda_arm"
         self.move_group = moveit_commander.MoveGroupCommander(group_name)
-        self.display_trajectory_publisher = rospy.Publisher('move_group/display_planned_path',
-                                                            moveit_msgs.msg.DisplayTrajectory,
-                                                            queue_size=20)
+        
         self.planning_frame = self.move_group.get_planning_frame()
         self.eef_link = self.move_group.get_end_effector_link()
         self.group_names = self.robot.get_group_names()
@@ -47,6 +48,8 @@ class MoveGroupDefinedPath(object):
         start_pose.orientation.w = float(pose[3])   
         self.move_group.set_pose_target(start_pose)
         motion_plan = self.move_group.plan()
+        
+
 
         return motion_plan
 
@@ -96,7 +99,8 @@ class MoveGroupDefinedPath(object):
         self.delete_pose_files()
 
     def display_trajectory (self, plan):
-
+        
+        
         trajectory = moveit_msgs.msg.DisplayTrajectory()
         trajectory.trajectory_start = self.robot.get_current_state()
         trajectory.trajectory.append(plan)
@@ -135,6 +139,51 @@ class MoveGroupDefinedPath(object):
         else:
            print("The file does not exist")
 
+    def get_eef_poses(self, plan):
+
+        eef_poses = []
+        joint_goals = self.move_group.get_current_joint_values()
         
+        # iterate through all of the joint positions saved in the plan
+        for i in range(0, len(plan[1].joint_trajectory.points)):
+            for j in range(0,6):
+                joint_goals[j] = plan[1].joint_trajectory.points[i].positions[j]
+            # set the goal pose of the robot to the joint positions
+            # move the robot to the position
+            self.move_group.go(joint_goals, wait=True)
+            # save the position of the eef
+            eef_poses.append(self.move_group.get_current_pose().pose)
+        
+        return eef_poses
+        
+        # either directly create a marker and append it to an array or save the poses in an array
+    
+    def display_eef_marker(self, eef_poses):
+
+        self.publisher = rospy.Publisher('visualization_marker_array',
+                                                            MarkerArray,
+                                                            queue_size=5)
+        
+        markerArray = MarkerArray()
+
+        for i in range(0, len(eef_poses)):
+            marker = Marker()
+            marker.id = i
+            marker.header.frame_id = "world"
+            marker.type = marker.SPHERE
+            marker.action = marker.ADD
+            marker.pose= eef_poses[i]
+            marker.scale.x = 0.01
+            marker.scale.y = 0.01
+            marker.scale.z = 0.01
+            marker.color.a = 1.0
+            marker.color.r = 1.0
+            marker.color.g = 1.0
+            marker.color.b = 1.0
+            markerArray.markers.append(marker)
+        
+        self.publisher.publish(markerArray)
+        
+    
 
            

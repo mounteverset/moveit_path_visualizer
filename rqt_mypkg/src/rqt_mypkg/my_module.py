@@ -11,14 +11,11 @@ from python_qt_binding.QtWidgets import QWidget
 from PySide2.QtCore import Qt, Slot, qWarning
 from PySide2.QtWidgets import QFileDialog, QMessageBox
 from geometry_msgs.msg import Pose
-from pathlib import Path
+from pathlib import Path as Path
 
-from visualization_msgs.msg import Marker
+from visualization_msgs.msg import Marker, MarkerArray
 from rqt_mypkg import path_planning_interface
 
-from nav_msgs.msg import Path
-from nav_msgs.msg import Odometry
-from geometry_msgs.msg import PoseStamped
 
 class MyPlugin(Plugin):
 
@@ -154,7 +151,7 @@ class MyPlugin(Plugin):
                                                             queue_size=5)
         
         marker = Marker()
-        marker.header.frame_id = "panda_hand"
+        marker.header.frame_id = "world"
         marker.type = marker.SPHERE
         marker.action = marker.ADD
         marker.pose.position.x = 1
