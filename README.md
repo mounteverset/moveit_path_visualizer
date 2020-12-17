@@ -191,6 +191,6 @@ WSL 2 requires an update to its kernel component. For information please visit  
 
 12. Mit dem Command davor ist man direkt schon im Container. Falls man den Container verlässt (mit "exit" z.B), kann man mit "docker start eigenen-namen" den Container erneut starten. Nach dem Starten muss er auch ausgeführt werden, damit man wieder im Container ist. Dies geschieht mit folgendem Command: docker exec -it eigenen-namen bash
 
-13. Das wars dann. Wenn das ganze Setup fertig ist, kann man mit den Schritten davor weitermachen! (XLaunch für GUIs ist immer noch nötig, heißt müsste da weitermachen)
+13. Das wars dann. Wenn das ganze Setup fertig ist, kann man mit den Schritten davor weitermachen! (XLaunch für GUIs ist immer noch nötig, heißt man müsste da weitermachen)
 
 
