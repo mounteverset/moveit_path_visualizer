@@ -90,16 +90,17 @@ class MyPlugin(Plugin):
     def on_pushButton_planPath_clicked(self):
 
         #if abfragen welche der radio buttons checked ist und dann den parameter weitergeben
-        #    
-        subprocess.call("rosrun rqt_mypkg planner.py")
+        #  
+        subprocess.Popen(["gnome-terminal", "-e", "rosrun rqt_mypkg planner.py"])
+        #subprocess.call("rosrun rqt_mypkg planner.py")
         
 
     @Slot()
     def on_pushButton_openPlanningScene_clicked(self):
         
-        fname = QFileDialog.getOpenFileName()
-        
-        subprocess.call("roslaunch rqt_mypkg demo_scene.launch")
+        #fname = QFileDialog.getOpenFileName()
+        subprocess.Popen(["gnome-terminal", "-e", "roslaunch rqt_mypkg demo_scene.launch"])
+        #subprocess.call("roslaunch rqt_mypkg demo_scene.launch")
         
     @Slot()
     def on_pushButton_apply_clicked(self):
@@ -137,11 +138,15 @@ class MyPlugin(Plugin):
     def on_pushButton_apply_planner_clicked(self):
 
         if self._widget.radioButton_OMPL.isChecked()== True:
-            subprocess.call("roslaunch fanuc_m710 demo.launch")
+            #subprocess.call(['./skript.sh'], )
+            subprocess.Popen(["gnome-terminal", "-e", "roslaunch fanuc_m710 demo.launch"])
+            #os.system("gnome-terminal 'source ~/ws_moveit/devel/setup.bash ; roslaunch fanuc_m710 demo.launch'")
         elif self._widget.radioButton_CHOMP.isChecked() == True:
-            subprocess.call("roslaunch fanuc_m710 demo.launch pipeline:=chomp")
+            subprocess.Popen(["gnome-terminal", "-e", "roslaunch fanuc_m710 demo.launch pipeline:=chomp"])
+            #os.system("gnome-terminal 'roslaunch fanuc_m710 demo.launch pipeline:=chomp'")
         elif self._widget.radioButton_STOMP.isChecked() == True:
-            subprocess.call("roslaunch fanuc_m710 demo.launch pipeline:=stomp")
+            subprocess.Popen(["gnome-terminal", "-e", "roslaunch fanuc_m710 demo.launch pipeline:=stomp"])
+            #os.system("gnome-terminal 'roslaunch fanuc_m710 demo.launch pipeline:=stomp'")
     
 
 

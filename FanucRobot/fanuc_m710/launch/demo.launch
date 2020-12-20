@@ -23,7 +23,7 @@
   This corresponds to moving around the real robot without the use of MoveIt.
   -->
   <arg name="use_gui" default="false" />
-  <arg name="use_rviz" default="true" />
+  <arg name="use_rviz" default="false" />
 
   <!-- If needed, broadcast static tf for robot root -->
 
@@ -56,7 +56,7 @@
     <arg name="debug" value="$(arg debug)"/>
   </include>
   -->
-  
+
   <!-- If database loading was enabled, start mongodb as well -->
   <include file="$(find fanuc_m710)/launch/default_warehouse_db.launch" if="$(arg db)">
     <arg name="moveit_warehouse_database_path" value="$(arg db_path)"/>
