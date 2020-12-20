@@ -4,6 +4,7 @@ import os
 import rospy
 import rospkg
 import io
+import subprocess
 from rqt_mypkg import path_planning_interface
 from qt_gui.plugin import Plugin
 from python_qt_binding import loadUi
@@ -56,7 +57,8 @@ class MyPlugin(Plugin):
         self._widget.pushButton_openPlanningScene.clicked.connect(self.on_pushButton_openPlanningScene_clicked)
         self._widget.pushButton_apply.clicked.connect(self.on_pushButton_apply_clicked)
         self._widget.pushButton_planPath.clicked.connect(self.on_pushButton_planPath_clicked)
-        self._widget.pushButton.clicked.connect(self.pushButton_clicked)
+        self._widget.pushButton_apply_planner.clicked.connect(self.on_pushButton_apply_planner_clicked)
+        #self._widget.pushButton.clicked.connect(self.pushButton_clicked)
         
         # Add widget to the user interface
         context.add_widget(self._widget)
@@ -86,17 +88,18 @@ class MyPlugin(Plugin):
     
     @Slot()
     def on_pushButton_planPath_clicked(self):
-        os.system("rosrun rqt_mypkg planner.py")
-        #planningObject = path_planning_interface.MoveGroupDefinedPath()
-        #planningObject.go_to_starting_pose()
-        #planningObject.go_to_goal_pose()
+
+        #if abfragen welche der radio buttons checked ist und dann den parameter weitergeben
+        #    
+        subprocess.call("rosrun rqt_mypkg planner.py")
+        
 
     @Slot()
     def on_pushButton_openPlanningScene_clicked(self):
         
         fname = QFileDialog.getOpenFileName()
         
-        os.system("roslaunch rqt_mypkg demo_scene.launch")
+        subprocess.call("roslaunch rqt_mypkg demo_scene.launch")
         
     @Slot()
     def on_pushButton_apply_clicked(self):
@@ -130,45 +133,53 @@ class MyPlugin(Plugin):
         
         self._widget.pushButton_planPath.setEnabled(True)
         
-    
-    
-
-
-
-
-
-
-
-
-
-
-
     @Slot()
-    def pushButton_clicked(self):
+    def on_pushButton_apply_planner_clicked(self):
+
+        if self._widget.radioButton_OMPL.isChecked()== True:
+            subprocess.call("roslaunch fanuc_m710 demo.launch")
+        elif self._widget.radioButton_CHOMP.isChecked() == True:
+            subprocess.call("roslaunch fanuc_m710 demo.launch pipeline:=chomp")
+        elif self._widget.radioButton_STOMP.isChecked() == True:
+            subprocess.call("roslaunch fanuc_m710 demo.launch pipeline:=stomp")
+    
+
+
+
+
+
+
+
+
+
+
+
+    #@Slot()
+    #def pushButton_clicked(self):
         
-        self.publisher = rospy.Publisher('visualization_marker',
-                                                            Marker,
-                                                            queue_size=5)
+    #    self.publisher = rospy.Publisher('visualization_marker',
+    #                                                        Marker,
+    #                                                        queue_size=5)
         
-        marker = Marker()
-        marker.header.frame_id = "world"
-        marker.type = marker.SPHERE
-        marker.action = marker.ADD
-        marker.pose.position.x = 1
-        marker.pose.position.y = 1
-        marker.pose.position.z = 1
-        marker.pose.orientation.x = 0.0
-        marker.pose.orientation.y = 0.0
-        marker.pose.orientation.z = 0.0
-        marker.pose.orientation.w = 1.0
-        marker.scale.x = 0.5
-        marker.scale.y = 0.5
-        marker.scale.z = 0.5
-        marker.color.a = 1.0
-        marker.color.r = 1.0
-        marker.color.g = 1.0
-        marker.color.b = 1.0
+    #    marker = Marker()
+    #    marker.header.frame_id = "world"
+    #    marker.type = marker.SPHERE
+    #    marker.action = marker.ADD
+    #    marker.pose.position.x = 1
+    #    marker.pose.position.y = 1
+    #    marker.pose.position.z = 1
+    #    marker.pose.orientation.x = 0.0
+    #    marker.pose.orientation.y = 0.0
+    #    marker.pose.orientation.z = 0.0
+    #    marker.pose.orientation.w = 1.0
+    #    marker.scale.x = 0.5
+    #    marker.scale.y = 0.5
+    #    marker.scale.z = 0.5
+    #    marker.color.a = 1.0
+    #    marker.color.r = 1.0
+    #    marker.color.g = 1.0
+    #    marker.color.b = 1.0
         
         
-        self.publisher.publish(marker)
+    #    self.publisher.publish(marker)
     

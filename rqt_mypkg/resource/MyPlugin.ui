@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>394</width>
+    <width>416</width>
     <height>444</height>
    </rect>
   </property>
@@ -27,7 +27,7 @@
    <item row="0" column="0">
     <widget class="QTabWidget" name="tabwidget">
      <property name="currentIndex">
-      <number>2</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="tab_2">
       <attribute name="title">
@@ -39,7 +39,7 @@
          <x>9</x>
          <y>20</y>
          <width>241</width>
-         <height>101</height>
+         <height>114</height>
         </rect>
        </property>
        <layout class="QFormLayout" name="formLayout">
@@ -51,12 +51,9 @@
          </widget>
         </item>
         <item row="0" column="1">
-         <widget class="QCheckBox" name="checkBox_ompl">
+         <widget class="QRadioButton" name="radioButton_OMPL">
           <property name="text">
            <string>OMPL</string>
-          </property>
-          <property name="checkable">
-           <bool>true</bool>
           </property>
           <property name="checked">
            <bool>true</bool>
@@ -64,22 +61,23 @@
          </widget>
         </item>
         <item row="1" column="1">
-         <widget class="QCheckBox" name="checkBox_stomp">
+         <widget class="QRadioButton" name="radioButton_CHOMP">
           <property name="text">
-           <string>STOMP</string>
-          </property>
-          <property name="checkable">
-           <bool>false</bool>
+           <string>CHOMP</string>
           </property>
          </widget>
         </item>
         <item row="2" column="1">
-         <widget class="QCheckBox" name="checkBox_chomp">
+         <widget class="QRadioButton" name="radioButton_STOMP">
           <property name="text">
-           <string>CHOMP</string>
+           <string>STOMP</string>
           </property>
-          <property name="checkable">
-           <bool>false</bool>
+         </widget>
+        </item>
+        <item row="3" column="0" colspan="2">
+         <widget class="QPushButton" name="pushButton_apply_planner">
+          <property name="text">
+           <string>Bestätigen</string>
           </property>
          </widget>
         </item>
@@ -315,7 +313,14 @@
       <layout class="QGridLayout" name="gridLayout_4">
        <item row="0" column="0">
         <layout class="QGridLayout" name="gridLayout_2">
-         <item row="2" column="0">
+         <item row="0" column="0">
+          <widget class="QPushButton" name="pushButton_openPlanningScene">
+           <property name="text">
+            <string>PlanningScene öffnen</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="0">
           <spacer name="verticalSpacer">
            <property name="orientation">
             <enum>Qt::Vertical</enum>
@@ -327,20 +332,6 @@
             </size>
            </property>
           </spacer>
-         </item>
-         <item row="0" column="0">
-          <widget class="QPushButton" name="pushButton_openPlanningScene">
-           <property name="text">
-            <string>PlanningScene öffnen</string>
-           </property>
-          </widget>
-         </item>
-         <item row="1" column="0">
-          <widget class="QPushButton" name="pushButton">
-           <property name="text">
-            <string>PushButton</string>
-           </property>
-          </widget>
          </item>
         </layout>
        </item>
