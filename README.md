@@ -84,7 +84,7 @@
 	`cd .. --> :~/ws_moveit# so sollte unser Pfad aussehen und so`
 	 
 	`catkin build rqt_mypkg` builden
-	`catkin build fanic_m710` builden
+	`catkin build fanuc_m710` builden
 	
 
 4. Workspace sourcen
@@ -112,36 +112,43 @@
 
 3. Launchfile ausführen
 
-	`roslaunch rqt_mypkg rqt_launch.launch`
+	`rqt`
 
 4. rqt-Plugin einfügen unter Plugins -> User-Plugins -> Pfadplanung
 
 5. rviz-Robotersimulation einfügen unter Plugins -> Visualization -> RViz. Es sollte sich jetzt eine leere Szene öffnen
 
-6. Roboter zur Szene hinzufügen durch "Add" -> MotionPlanning im RViz Plugin
+6. Im Tab Algorithmen unseres Plugin, sollte nun ein Planer gewählt werden (OMPL und CHOMP nur im Moment).
+
+7. Roboter zur Szene hinzufügen durch "Add" -> MotionPlanning im RViz Plugin.
+   Unter "MotionPlanning" -> Context -> Planning Library , kann der aktuell genutzte Planer
+   eingesehen werden.
 
 ![Add-Button](<https://ibb.co/7nYVv1g>)
 
-7. Der Roboter sollte jetzt in der Planungsszene erscheinen
+8. Der Roboter sollte jetzt in der Planungsszene erscheinen.
 
-8. Um den Pfad anzeigen zu lassen jetzt noch im MotionPlanning -> PlannedPath -> Häkchen bei Loop Animation & Show Trail
+9. Unter Displays -> "Add" -> rviz -> "MarkerArray" hinzufügen.
+
+10. Unter Displays Global Options -> Fixed Frame -> Wert auf "link_base" setzen
+
+11. Um den Pfad anzeigen zu lassen jetzt noch unter Displays -> MotionPlanning -> PlannedPath -> Häkchen bei Loop Animation & Show Trail
 
 ![Show Trail](<https://ibb.co/tpXyhSP>)
 
-9. Eine vordefinierte Szene kann über den Tab PlanningScene geladen werden (Szene findet sicher unter /rqt_mpkg/config/demo_scene.scene)
+12. Eine vordefinierte Szene kann dann über den Tab PlanningScene geladen werden (Szene findet sicher unter /rqt_mpkg/config/demo_scene.scene)
 
-10. Ein Start-und Endpunkt wird im Tab "Start_End_Punkte festgelegt. Dies ist verpflichtend bevor ein Pfad geplant werden kann
+13. Ein Start-und Endpunkt wird im Tab "Start_End_Punkte festgelegt. Dies ist verpflichtend bevor ein Pfad geplant werden kann (Punkte wählen und "Anwenden")
 
-11. Im Tab Algorithmen ist OMPL voreingestellt. Hier gibt es im Moment noch nicht viel zu tun
+14. Jetzt kann der Pfad berechnet werden. 
 
-12. Jetzt kann der Pfad berechnet werden. 
+15. Der Roboterablauf: Planung von aktueller Position auf Startposition. Falls die Berechnung eines Pfades möglich ist, wird der Planer direkt ausgeführt.
+    Fehlermeldungen werden im Terminal ausgegeben, falls z.B. kein möglicher Pfad berechnet 
+    werden kann.
+    Es folgt die Planung vom Start- zum Zielpunkt und im Anschluss wird der Pfad in kleinen Schritten ausgeführt. Sobald das Ziel erreicht ist, wird der Pfad
+    als MarkerArray (Punkt-Folge) dargestellt.
 
 
-**Starten des Fanuc Roboters**
-
-1. Sicher gehen, dass der Workspace gesourct ist `source ~/ws_moveit/devel/setup.bash`
-
-2. Zum Starten des Roboters in Rviz `roslaunch fanuc_m710 demo.launch`
 
 **Fehlerbehebung**
 
