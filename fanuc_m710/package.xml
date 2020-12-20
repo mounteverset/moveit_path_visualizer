@@ -3,10 +3,10 @@
   <name>fanuc_m710</name>
   <version>0.3.0</version>
   <description>
-     An automatically generated package with all the configuration and launch files for using the fanuc_m710ic45m with the MoveIt Motion Planning Framework
+     An automatically generated package with all the configuration and launch files for using the fanuc_m710ic20l with the MoveIt Motion Planning Framework
   </description>
-  <author email="umutuzunoglu@hotmail.de">Umut Uzunoglu</author>
-  <maintainer email="umutuzunoglu@hotmail.de">Umut Uzunoglu</maintainer>
+  <author email="umutuzunoglu@hotmail.de">umut</author>
+  <maintainer email="umutuzunoglu@hotmail.de">umut</maintainer>
 
   <license>BSD</license>
 

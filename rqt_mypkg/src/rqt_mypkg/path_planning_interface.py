@@ -6,7 +6,7 @@ from moveit_commander import move_group
 import rospy
 import moveit_commander
 import moveit_msgs.msg
-import geometry_msgs.msg
+import geometry_msgs.msg 
 from math import pi
 from std_msgs.msg import String
 import io
@@ -32,7 +32,7 @@ class MoveGroupDefinedPath(object):
         
         self.robot = moveit_commander.RobotCommander()
         self.scene = moveit_commander.PlanningSceneInterface()
-        group_name = "panda_arm"
+        group_name = "fanuc_arm"
         self.move_group = moveit_commander.MoveGroupCommander(group_name)
         
         self.planning_frame = self.move_group.get_planning_frame()
@@ -49,8 +49,6 @@ class MoveGroupDefinedPath(object):
         self.move_group.set_pose_target(start_pose)
         motion_plan = self.move_group.plan()
         
-
-
         return motion_plan
 
     def go_to_starting_pose(self):
@@ -169,18 +167,15 @@ class MoveGroupDefinedPath(object):
         for i in range(0, len(eef_poses)):
             marker = Marker()
             marker.id = i
-            marker.header.frame_id = "world"
+            marker.header.frame_id = "link_base"
             marker.type = marker.SPHERE
             marker.action = marker.ADD
             marker.pose.position.x = eef_poses[i].position.x
             marker.pose.position.y = eef_poses[i].position.y
             marker.pose.position.z = eef_poses[i].position.z
-            marker.pose.orientation.x = eef_poses[i].orientation.x
-            marker.pose.orientation.y = eef_poses[i].orientation.x
-            marker.pose.orientation.z = eef_poses[i].orientation.x
-            marker.scale.x = 0.1
-            marker.scale.y = 0.1
-            marker.scale.z = 0.1
+            marker.scale.x = 0.05
+            marker.scale.y = 0.05
+            marker.scale.z = 0.05
             marker.color.a = 1.0
             marker.color.r = 1.0
             marker.color.g = 1.0
