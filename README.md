@@ -5,7 +5,7 @@
 
 2. ROS und MoveIt! Installation
 
-	1) Powershell öffnen --> docker pull umutuzun/rosfinal2:rosfinal2 eingeben -->   Pullt das Image aus dockerhub. Natürlich kann man auch das Dockerfile 	im Git benutzen und das ganze selber bauen, aber das hier ist deutlich einfacher und schneller
+	1) Powershell öffnen --> docker pull umutuzun/rosfanuc:rosfanuc eingeben -->   Pullt das Image aus dockerhub. Natürlich kann man auch das Dockerfile 	im Git benutzen und das ganze selber bauen, aber das hier ist deutlich einfacher und schneller
 
 	2) Im Docker Desktop das gepullte Image (unter dem Reiter Images) starten (Run) und im neuen Fenster bei Bedarf unter Optional Settings einen eigenen Container 	Namen aussuchen. Notwendig ist es nicht, da Docker sonst einen eigenen Namen aussucht, aber diesen muss man dann später verwenden!
 
