@@ -40,13 +40,13 @@ class MoveGroupDefinedPath(object):
         self.group_names = self.robot.get_group_names()
 
     def plan_path (self):
-        start_pose = geometry_msgs.msg.Pose()
+        goal_pose = geometry_msgs.msg.Pose()
         pose = self.get_values(False)
-        start_pose.position.x = float(pose[0])
-        start_pose.position.y = float(pose[1])
-        start_pose.position.z = float(pose[2])
-        start_pose.orientation.w = float(pose[3])   
-        self.move_group.set_pose_target(start_pose)
+        goal_pose.position.x = float(pose[0])
+        goal_pose.position.y = float(pose[1])
+        goal_pose.position.z = float(pose[2])
+        goal_pose.orientation.w = float(pose[3])   
+        self.move_group.set_pose_target(goal_pose)
         motion_plan = self.move_group.plan()
         
         return motion_plan
@@ -73,6 +73,7 @@ class MoveGroupDefinedPath(object):
         self.move_group.set_pose_target(start_pose)
         #self.move_group.plan()
         plan = self.move_group.go(wait=True)
+        #self.move_group.execute(plan, wait=True)
 
         #get rid of any residual movement
         self.move_group.stop()
@@ -97,8 +98,7 @@ class MoveGroupDefinedPath(object):
         self.delete_pose_files()
 
     def display_trajectory (self, plan):
-        
-        
+                
         trajectory = moveit_msgs.msg.DisplayTrajectory()
         trajectory.trajectory_start = self.robot.get_current_state()
         trajectory.trajectory.append(plan)

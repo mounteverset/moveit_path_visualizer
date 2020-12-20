@@ -13,17 +13,21 @@ from rqt_mypkg import path_planning_interface
 #rospy.init_node("planner")
 
 #while not rospy.is_shutdown():
+
 planningObject = path_planning_interface.MoveGroupDefinedPath()
 
+#Roboter soll zur Startpose fahren 
+planningObject.go_to_starting_pose()
+#Roboter berechnet den Pfad zur Zielpose
 planned_path = planningObject.plan_path()
-
-print (planned_path[1])
+#print (planned_path[1])
+#Roboter holt sich alle Posen des EEF und speichert die Marker
+eef_poses = planningObject.get_eef_poses(planned_path)
+#Roboter published die Marker
+planningObject.display_eef_marker(eef_poses)
 
 #planningObject.display_trajectory(planned_path[1])
-eef_poses = planningObject.get_eef_poses(planned_path)
-#planningObject.go_to_starting_pose()
-planningObject.display_eef_marker(eef_poses)
-print (planningObject.move_group.get_current_pose().pose)
+#print (planningObject.move_group.get_current_pose().pose)
 #planningObject.go_to_goal_pose()
 #print (planningObject.move_group.get_current_pose().pose)
 #rospy.signal_shutdown()
