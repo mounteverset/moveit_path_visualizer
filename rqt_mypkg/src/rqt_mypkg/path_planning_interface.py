@@ -60,7 +60,7 @@ class MoveGroupDefinedPath(object):
         
         
         #pause zum durchlesen der infos im terminal
-        pose = self.get_values(False)
+        pose = self.get_values(True)
 
         start_pose.position.x = float(pose[0])
         start_pose.position.y = float(pose[1])
