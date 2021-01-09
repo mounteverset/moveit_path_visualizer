@@ -102,6 +102,7 @@ class MyPlugin(Plugin):
         subprocess.Popen(["gnome-terminal", "-e", "roslaunch rqt_mypkg demo_scene.launch"])
         #subprocess.call("roslaunch rqt_mypkg demo_scene.launch")
         
+    #test
     @Slot()
     def on_pushButton_apply_clicked(self):
         
