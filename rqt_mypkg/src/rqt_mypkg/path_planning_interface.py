@@ -97,6 +97,16 @@ class MoveGroupDefinedPath(object):
         self.move_group.clear_pose_targets()
         self.delete_pose_files()
 
+    def go_to_joint_space_goal(self):
+
+        group_variable_values = move_group.get_current_joint_values()
+        print("Current joint space goals: ")
+        print(group_variable_values)
+
+        #group_variable_values[0]=1.0
+        self.move_group.set_joint_value_target(group_variable_values)
+        plan2 = self.move_group.go(wait=True)
+
     def display_trajectory (self, plan):
                 
         trajectory = moveit_msgs.msg.DisplayTrajectory()
