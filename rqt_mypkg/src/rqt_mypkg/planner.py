@@ -16,6 +16,12 @@ from rqt_mypkg import path_planning_interface
 
 planningObject = path_planning_interface.MoveGroupDefinedPath()
 
+#Lösung des IK Problems -> Planung zuerst mit OMPL!
+#Der Roboter fährt zu der Startposition die mit den Punkten vorgegeben wurden
+#Der Roboter fährt zur Zielposition die mit den Pkt vorgegeben wurde
+#Die Joint Values werden gespeichert in diesem Programm!
+#Diese Joint Values können dann wieder benutzt werden, um CHOMP und STOMP zu benutzen
+
 #Roboter soll zur Startpose fahren 
 planningObject.go_to_starting_pose()
 #Roboter berechnet den Pfad zur Zielpose

@@ -13,6 +13,7 @@ from PySide2.QtCore import Qt, Slot, qWarning
 from PySide2.QtWidgets import QFileDialog, QMessageBox
 from geometry_msgs.msg import Pose
 from pathlib import Path as Path
+import signal
 
 from visualization_msgs.msg import Marker, MarkerArray
 from rqt_mypkg import path_planning_interface
@@ -59,7 +60,8 @@ class MyPlugin(Plugin):
         self._widget.pushButton_planPath.clicked.connect(self.on_pushButton_planPath_clicked)
         self._widget.pushButton_apply_planner.clicked.connect(self.on_pushButton_apply_planner_clicked)
         #self._widget.pushButton.clicked.connect(self.pushButton_clicked)
-        
+        self.active_motion_planner = None
+        self.first_open = False
         # Add widget to the user interface
         context.add_widget(self._widget)
         
@@ -137,16 +139,28 @@ class MyPlugin(Plugin):
         
     @Slot()
     def on_pushButton_apply_planner_clicked(self):
+        
+        if self.active_motion_planner != None:
+            os.killpg(self.active_motion_planner.pid, signal.SIGINT)
+            print("Trying to terminate old motion planner...")
 
         if self._widget.radioButton_OMPL.isChecked()== True:
-            #subprocess.call(['./skript.sh'], )
-            subprocess.Popen(["gnome-terminal", "-e", "roslaunch fanuc_m710 demo.launch"])
+            self.active_motion_planner = subprocess.Popen(["gnome-terminal", '--disable-factory', "-e", "roslaunch fanuc_m710 demo.launch"], 
+                                                            preexec_fn=os.setpgrp)
             #os.system("gnome-terminal 'source ~/ws_moveit/devel/setup.bash ; roslaunch fanuc_m710 demo.launch'")
         elif self._widget.radioButton_CHOMP.isChecked() == True:
-            subprocess.Popen(["gnome-terminal", "-e", "roslaunch fanuc_m710 demo.launch pipeline:=chomp"])
+            self.active_motion_planner = subprocess.Popen(["gnome-terminal", 
+                                                            '--disable-factory', 
+                                                            "-e", 
+                                                            "roslaunch fanuc_m710 demo.launch pipeline:=chomp"],
+                                                            preexec_fn=os.setpgrp)
             #os.system("gnome-terminal 'roslaunch fanuc_m710 demo.launch pipeline:=chomp'")
         elif self._widget.radioButton_STOMP.isChecked() == True:
-            subprocess.Popen(["gnome-terminal", "-e", "roslaunch fanuc_m710 demo.launch pipeline:=stomp"])
+            self.active_motion_planner = subprocess.Popen(["gnome-terminal", 
+                                                            '--disable-factory',
+                                                            "-e", 
+                                                            "roslaunch fanuc_m710 demo.launch pipeline:=stomp"],
+                                                            preexec_fn=os.setpgrp)
             #os.system("gnome-terminal 'roslaunch fanuc_m710 demo.launch pipeline:=stomp'")
     
 
