@@ -24,8 +24,10 @@ planningObject = path_planning_interface.MoveGroupDefinedPath()
 
 #Roboter soll zur Startpose fahren 
 planningObject.go_to_starting_pose()
+
+joint_goal = planningObject.get_inverse_kinematic()
 #Roboter berechnet den Pfad zur Zielpose
-planned_path = planningObject.plan_path()
+planned_path = planningObject.plan_path_from_pose()
 #print (planned_path[1])
 #Roboter holt sich alle Posen des EEF und speichert die Marker
 eef_poses = planningObject.get_eef_poses(planned_path)
