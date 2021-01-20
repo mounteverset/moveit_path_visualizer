@@ -1,0 +1,38 @@
+{
+  "configurations": [
+    {
+      "browse": {
+        "databaseFilename": "",
+        "limitSymbolsToIncludedHeaders": true
+      },
+      "includePath": [
+        "/home/umut/ws_moveit/devel/include/**",
+        "/opt/ros/noetic/include/**",
+        "/home/umut/ws_moveit/src/moveit/moveit_planners/chomp/chomp_motion_planner/include/**",
+        "/home/umut/ws_moveit/src/fanuc_driver/include/**",
+        "/home/umut/ws_moveit/src/fcl/include/**",
+        "/home/umut/ws_moveit/src/geometric_shapes/include/**",
+        "/home/umut/ws_moveit/src/industrial_core/industrial_robot_client/include/**",
+        "/home/umut/ws_moveit/src/industrial_core/industrial_utils/include/**",
+        "/home/umut/ws_moveit/src/moveit/moveit_planners/chomp/chomp_interface/include/**",
+        "/home/umut/ws_moveit/src/moveit_resources/prbt_ikfast_manipulator_plugin/include/**",
+        "/home/umut/ws_moveit/src/moveit/moveit_ros/benchmarks/include/**",
+        "/home/umut/ws_moveit/src/moveit/moveit_plugins/moveit_ros_control_interface/include/**",
+        "/home/umut/ws_moveit/src/moveit/moveit_ros/move_group/include/**",
+        "/home/umut/ws_moveit/src/moveit/moveit_ros/occupancy_map_monitor/include/**",
+        "/home/umut/ws_moveit/src/moveit/moveit_ros/robot_interaction/include/**",
+        "/home/umut/ws_moveit/src/moveit/moveit_ros/moveit_servo/include/**",
+        "/home/umut/ws_moveit/src/moveit/moveit_setup_assistant/include/**",
+        "/home/umut/ws_moveit/src/moveit/moveit_plugins/moveit_simple_controller_manager/include/**",
+        "/home/umut/ws_moveit/src/moveit_visual_tools/include/**",
+        "/home/umut/ws_moveit/src/moveit/moveit_planners/pilz_industrial_motion_planner/include/**",
+        "/home/umut/ws_moveit/src/moveit/moveit_planners/pilz_industrial_motion_planner_testutils/include/**",
+        "/home/umut/ws_moveit/src/rviz_visual_tools/include/**",
+        "/home/umut/ws_moveit/src/industrial_core/simple_message/include/**",
+        "/usr/include/**"
+      ],
+      "name": "ROS"
+    }
+  ],
+  "version": 4
+}

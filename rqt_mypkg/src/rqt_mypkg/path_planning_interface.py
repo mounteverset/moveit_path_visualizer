@@ -157,7 +157,7 @@ class MoveGroupDefinedPath(object):
            print("The file does not exist")
 
     def get_eef_poses(self, plan):
-
+        
         
         eef_poses = []
         #joint_goals = self.move_group.get_current_joint_values()
@@ -235,9 +235,15 @@ class MoveGroupDefinedPath(object):
         response = compute_ik_service(request)
 
         return response
+    
+    def getTime(self):           #return planning time for motion plan
+        
+        time = self.move_group.plan()[2]
+        print(time)
+        return time
 
         
-
+    
 
 
            

@@ -19,6 +19,7 @@ from visualization_msgs.msg import Marker, MarkerArray
 from rqt_mypkg import path_planning_interface
 
 
+
 class MyPlugin(Plugin):
 
     def __init__(self, context):
@@ -59,6 +60,7 @@ class MyPlugin(Plugin):
         self._widget.pushButton_apply.clicked.connect(self.on_pushButton_apply_clicked)
         self._widget.pushButton_planPath.clicked.connect(self.on_pushButton_planPath_clicked)
         self._widget.pushButton_apply_planner.clicked.connect(self.on_pushButton_apply_planner_clicked)
+        #self._widget.statisticsTable.clicked.connect(self.on_statistics_generated)
         #self._widget.pushButton.clicked.connect(self.pushButton_clicked)
         self.active_motion_planner = None
         self.first_open = False
@@ -161,10 +163,16 @@ class MyPlugin(Plugin):
                                                             "-e", 
                                                             "roslaunch fanuc_m710 demo.launch pipeline:=stomp"],
                                                             preexec_fn=os.setpgrp)
-            #os.system("gnome-terminal 'roslaunch fanuc_m710 demo.launch pipeline:=stomp'")
+            #os.system("gnome-terminal sawwqewq'roslaunch fanuc_m710 demo.launch pipeline:=stomp'")
     
 
+    # @Slot()
+    # def on_statistics_generated(self):
+    #     planningObject = path_planning_interface.MoveGroupDefinedPath()
+    #     statisticsObject = statistics.StatisticsDefinedPath()
 
+    #     time = planningObject.getTime()
+    #     length = statisticsObject.pathLength(path_planning_interface.eef_poses)
 
 
 
@@ -202,4 +210,3 @@ class MyPlugin(Plugin):
         
         
     #    self.publisher.publish(marker)
-    
