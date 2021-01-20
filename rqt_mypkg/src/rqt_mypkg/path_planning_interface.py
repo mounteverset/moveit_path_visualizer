@@ -190,8 +190,32 @@ class MoveGroupDefinedPath(object):
         publisher = rospy.Publisher('visualization_marker_array',
                                                             MarkerArray,
                                                             queue_size=1)
-        
+        default_pose = Pose()
+        default_pose.position.x = 0.0
+        default_pose.position.y = 0.0
+        default_pose.position.z = 0.0
+
         markerArray = MarkerArray()
+        for i in range(0,100):
+            marker = Marker()
+            marker.id = i
+            marker.header.frame_id = "link_base"
+            marker.type = marker.SPHERE
+            marker.action = marker.ADD
+            #marker.lifetime = 2
+            marker.pose.position.x = default_pose.position.x
+            marker.pose.position.y = default_pose.position.y
+            marker.pose.position.z = default_pose.position.z
+            marker.scale.x = 0.001
+            marker.scale.y = 0.001
+            marker.scale.z = 0.001
+            marker.color.a = 1.0
+            marker.color.r = 1.0
+            marker.color.g = 1.0
+            marker.color.b = 1.0
+            markerArray.markers.append(marker)
+        rospy.sleep(1)
+        publisher.publish(markerArray)
 
         for i in range(0, len(eef_poses)):
             marker = Marker()
@@ -210,7 +234,7 @@ class MoveGroupDefinedPath(object):
             marker.color.g = 1.0
             marker.color.b = 1.0
             markerArray.markers.append(marker)
-        rospy.sleep(2)
+        rospy.sleep(1)
         publisher.publish(markerArray)
         
     def get_inverse_kinematic(self):
@@ -241,6 +265,8 @@ class MoveGroupDefinedPath(object):
         time = self.move_group.plan()[2]
         print(time)
         return time
+
+        #def save_plan   
 
         
     
