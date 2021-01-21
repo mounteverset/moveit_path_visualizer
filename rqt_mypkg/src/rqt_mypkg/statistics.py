@@ -24,9 +24,9 @@ from rqt_mypkg import path_planning_interface
 
 class StatisticsDefinedPath(object):
 
-    statisticsObject = path_planning_interface.MoveGroupDefinedPath()
+    #statisticsObject = path_planning_interface.MoveGroupDefinedPath()
 
-    def pathLength(self, eef_poses):
+    def get_path_length(self, eef_poses):
         
         path_length = 0
         for i in range(len(eef_poses) - 1):

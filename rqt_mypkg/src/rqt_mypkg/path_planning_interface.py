@@ -51,13 +51,7 @@ class MoveGroupDefinedPath(object):
          
 
     def plan_path_from_pose (self):
-        #goal_pose = geometry_msgs.msg.Pose()
-        #pose = self.get_values(False)
-        #goal_pose.position.x = float(pose[0])
-        #goal_pose.position.y = float(pose[1])
-        #goal_pose.position.z = float(pose[2])
-        #goal_pose.orientation.w = float(pose[3])   
-        #self.goal_pose = goal_pose #temporarily line, to be deleted later
+                
         self.move_group.set_pose_target(self.goal_pose)
         motion_plan = self.move_group.plan()
         
@@ -260,13 +254,8 @@ class MoveGroupDefinedPath(object):
 
         return response
     
-    def getTime(self):           #return planning time for motion plan
-        
-        time = self.move_group.plan()[2]
-        print(time)
-        return time
 
-        #def save_plan   
+  
 
         
     

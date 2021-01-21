@@ -7,3 +7,5 @@ rqt_mypkg/.vscode/c_cpp_properties.json
 rqt_mypkg/.vscode/settings.json
 rqt_mypkg/.vscode/launch.json
 
+.vscode/c_cpp_properties.json
+.vscode/launch.json

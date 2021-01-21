@@ -10,7 +10,10 @@ from qt_gui.plugin import Plugin
 from python_qt_binding import loadUi
 from python_qt_binding.QtWidgets import QWidget
 from PySide2.QtCore import Qt, Slot, qWarning
-from PySide2.QtWidgets import QFileDialog, QMessageBox
+from python_qt_binding.QtWidgets  import QFileDialog, QMessageBox
+from python_qt_binding.QtWidgets  import QTableWidget, QTableWidgetItem
+
+from std_msgs.msg import Int32 
 from geometry_msgs.msg import Pose
 from pathlib import Path as Path
 import signal
@@ -62,14 +65,22 @@ class MyPlugin(Plugin):
         self._widget.pushButton_apply_planner.clicked.connect(self.on_pushButton_apply_planner_clicked)
         #self._widget.statisticsTable.clicked.connect(self.on_statistics_generated)
         #self._widget.pushButton.clicked.connect(self.pushButton_clicked)
+
+        # Initialize a ROS subscriber
+        #rospy.init_node('statistics_subscriber', anonymous=True)
+        sub = rospy.Subscriber('counter', Int32, self.callback_subscriber)
+
         self.active_motion_planner = None
         self.first_open = False
+
         # Add widget to the user interface
         context.add_widget(self._widget)
-        
-        #os.system("roslaunch panda_moveit_config demo.launch")
 
-        
+    def callback_subscriber(self, msg):
+        print("We are here in the callback")
+        new_item = QTableWidgetItem(msg.data)
+        #new_item.set
+        self._widget.statisticsTable.setItem(2,2,new_item)
 
     def shutdown_plugin(self):
         # TODO unregister all publishers here
@@ -138,6 +149,8 @@ class MyPlugin(Plugin):
                                             goalPose.orientation.w))
         
         self._widget.pushButton_planPath.setEnabled(True)
+
+        
         
     @Slot()
     def on_pushButton_apply_planner_clicked(self):
@@ -147,7 +160,10 @@ class MyPlugin(Plugin):
             print("Trying to terminate old motion planner...")
 
         if self._widget.radioButton_OMPL.isChecked()== True:
-            self.active_motion_planner = subprocess.Popen(["gnome-terminal", '--disable-factory', "-e", "roslaunch fanuc_m710 demo.launch"], 
+            self.active_motion_planner = subprocess.Popen(["gnome-terminal", 
+                                                            '--disable-factory', 
+                                                            "-e", 
+                                                            "roslaunch fanuc_m710 demo.launch"], 
                                                             preexec_fn=os.setpgrp)
             #os.system("gnome-terminal 'source ~/ws_moveit/devel/setup.bash ; roslaunch fanuc_m710 demo.launch'")
         elif self._widget.radioButton_CHOMP.isChecked() == True:
