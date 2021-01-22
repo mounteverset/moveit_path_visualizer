@@ -8,6 +8,7 @@ import moveit_commander
 import moveit_msgs.msg
 import geometry_msgs.msg 
 from math import pi
+from rospy.topics import Publisher
 from std_msgs.msg import String
 import io
 import shutil
@@ -31,7 +32,7 @@ class MoveGroupDefinedPath(object):
                                                             moveit_msgs.msg.DisplayTrajectory,
                                                             queue_size=20)
                                                             
-        self.statistics_publisher = rospy.Publisher("path_statistics", 
+        self.statistics_publisher = rospy.Publisher("PathStatistics", 
                                                     moveit_msgs.msg.RobotTrajectory, 
                                                     queue_size=1)
         rospy.init_node('move_group_defined_path', anonymous=True)
@@ -259,13 +260,12 @@ class MoveGroupDefinedPath(object):
         response = compute_ik_service(request)
 
         return response
-    
-        def publish_statistics(self, plan, eef_poses, marker_arraytime, max_acceleration):
-            pass
-  
-
-        
-    
 
 
-           
+    def publish_statistics(self,path_length): #, eef_poses, marker_arraytime, max_acceleration
+        publisher = rospy.Publisher('PathStatistics', float, queue_size=1)
+
+
+        publisher.publish()
+
+        return path_length

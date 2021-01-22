@@ -33,7 +33,7 @@ marker_array = planningObject.display_eef_marker(eef_poses)
 
     #Für die Statistik wird die Pfadlänge berechnet
 path_length = statisticsObject.get_path_length(eef_poses)
-
+planningObject.publish_statistics(path_length)
     #planningObject.display_trajectory(planned_path[1])
     #print (planningObject.move_group.get_current_pose().pose)
     #planningObject.go_to_goal_pose()
