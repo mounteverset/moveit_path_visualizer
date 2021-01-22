@@ -436,7 +436,7 @@
        </row>
        <row>
         <property name="text">
-         <string>Planning Attempts</string>
+         <string>Execution Time</string>
         </property>
        </row>
        <row>

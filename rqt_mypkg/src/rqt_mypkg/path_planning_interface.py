@@ -201,7 +201,7 @@ class MoveGroupDefinedPath(object):
             marker.id = i
             marker.header.frame_id = "link_base"
             marker.type = marker.SPHERE
-            marker.action = marker.ADD
+            marker.action = marker.DELETE
             #marker.lifetime = 2
             marker.pose.position.x = default_pose.position.x
             marker.pose.position.y = default_pose.position.y
@@ -216,6 +216,8 @@ class MoveGroupDefinedPath(object):
             markerArray.markers.append(marker)
         rospy.sleep(1)
         publisher.publish(markerArray)
+
+        markerArray.markers.clear()
 
         for i in range(0, len(eef_poses)):
             marker = Marker()
@@ -234,6 +236,23 @@ class MoveGroupDefinedPath(object):
             marker.color.g = 1.0
             marker.color.b = 1.0
             markerArray.markers.append(marker)
+        
+        marker = Marker()
+        marker.id = len(markerArray.markers)
+        marker.header.frame_id = "link_base"
+        marker.type = marker.TEXT_VIEW_FACING
+        marker.text = "OMPL Pfad"
+        marker.action = marker.ADD
+        marker.pose.position.x = markerArray.markers[2].pose.position.x 
+        marker.pose.position.y = markerArray.markers[2].pose.position.y 
+        marker.pose.position.z = markerArray.markers[2].pose.position.z + 0.1
+        marker.scale.z = 0.2
+        marker.color.a = 1.0
+        marker.color.r = 1.0
+        marker.color.g = 1.0
+        marker.color.b = 1.0
+        markerArray.markers.append(marker)
+
         rospy.sleep(1)
         publisher.publish(markerArray)
 
@@ -265,7 +284,7 @@ class MoveGroupDefinedPath(object):
     # To Do: create a PoseArray() Message and insert the values from eef_poses
     # create a PathStatistics() Msg and insert all of the values into it
 
-    def publish_statistics(self,path_length, markers, planning_time, max_accel, eef_poses):
+    def publish_statistics(self,path_length, markers, planning_time, max_accel, eef_poses, exec_time):
         
         publisher = rospy.Publisher('/statistics', PathStatistics, queue_size=1)
         msg = PathStatistics()
@@ -273,6 +292,7 @@ class MoveGroupDefinedPath(object):
         msg.planning_time = planning_time
         msg.max_acceleration = max_accel
         msg.markers = markers
+        msg.execution_time = exec_time
 
         pose_array = PoseArray()
         pose_array.poses = eef_poses

@@ -108,7 +108,7 @@ class MyPlugin(Plugin):
         # start pose row = 0
         # goal pose row = 1
         # planning time row = 2
-        # planning attempts = 3
+        # execution time row = 3
         # path length = 4
         # max joint accel = 5
         column = -1
@@ -145,6 +145,8 @@ class MyPlugin(Plugin):
         self._widget.statisticsTable.setItem(1,column, goal_table_item)
         planning_time = QTableWidgetItem(str(round(msg.planning_time,5)))       
         self._widget.statisticsTable.setItem(2,column, planning_time)
+        execution_time = QTableWidgetItem(str(round(msg.execution_time,5))) 
+        self._widget.statisticsTable.setItem(3,column, execution_time)
         path_length = QTableWidgetItem(str(round(msg.path_length,5)))
         self._widget.statisticsTable.setItem(4,column, path_length)
         joint_accel = planning_time = QTableWidgetItem(str(round(msg.max_acceleration,5))) 
@@ -233,6 +235,8 @@ class MyPlugin(Plugin):
     @Slot()
     def on_pushButton_apply_planner_clicked(self):
         
+        self._widget.pushButton_openPlanningScene.setEnabled(True)
+
         if self.active_motion_planner != None:
             os.killpg(self.active_motion_planner.pid, signal.SIGINT)
             print("Trying to terminate old motion planner...")
@@ -261,11 +265,13 @@ class MyPlugin(Plugin):
         self._widget.pushButton_openPlanningScene.setEnabled(True)
         #os.system("gnome-terminal sawwqewq'roslaunch fanuc_m710 demo.launch pipeline:=stomp'")
     
+    
+    
     # function needed to connect to an event from the gui:
     # when one of the checkboxes is getting checked or unchecked the marker array needs to update accordingly to the checkmarks
     # function replaces the one in path_planning_interface publish_marker_array
 
-    #@Slot
+    @Slot()
     def on_checkBox_clicked(self):
         print("to be implemented")
         pass
