@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>505</width>
+    <width>490</width>
     <height>444</height>
    </rect>
   </property>
@@ -39,6 +39,24 @@
    </item>
    <item row="0" column="0">
     <widget class="QTabWidget" name="tabwidget">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="minimumSize">
+      <size>
+       <width>469</width>
+       <height>0</height>
+      </size>
+     </property>
+     <property name="maximumSize">
+      <size>
+       <width>469</width>
+       <height>500</height>
+      </size>
+     </property>
      <property name="currentIndex">
       <number>3</number>
      </property>
@@ -326,14 +344,7 @@
       <layout class="QGridLayout" name="gridLayout_4">
        <item row="0" column="0">
         <layout class="QGridLayout" name="gridLayout_2">
-         <item row="0" column="0">
-          <widget class="QPushButton" name="pushButton_openPlanningScene">
-           <property name="text">
-            <string>PlanningScene öffnen</string>
-           </property>
-          </widget>
-         </item>
-         <item row="1" column="0">
+         <item row="2" column="0">
           <spacer name="verticalSpacer">
            <property name="orientation">
             <enum>Qt::Vertical</enum>
@@ -345,6 +356,45 @@
             </size>
            </property>
           </spacer>
+         </item>
+         <item row="1" column="0">
+          <widget class="QPushButton" name="pushButton_openPlanningScene">
+           <property name="text">
+            <string>PlanningScene öffnen</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="0">
+          <widget class="QListWidget" name="planningScene_listWidget">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="minimumSize">
+            <size>
+             <width>0</width>
+             <height>100</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>16777215</width>
+             <height>200</height>
+            </size>
+           </property>
+           <item>
+            <property name="text">
+             <string>Fensterrahmen</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Cluttered Scene</string>
+            </property>
+           </item>
+          </widget>
          </item>
         </layout>
        </item>
@@ -363,6 +413,9 @@
          <height>221</height>
         </rect>
        </property>
+       <attribute name="horizontalHeaderDefaultSectionSize">
+        <number>106</number>
+       </attribute>
        <row>
         <property name="text">
          <string>Planning Time</string>
@@ -393,6 +446,67 @@
          <string>STOMP</string>
         </property>
        </column>
+      </widget>
+      <widget class="QCheckBox" name="ompl_display_checkBox">
+       <property name="geometry">
+        <rect>
+         <x>180</x>
+         <y>110</y>
+         <width>31</width>
+         <height>31</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+      <widget class="QCheckBox" name="chomp_display_checkBox">
+       <property name="geometry">
+        <rect>
+         <x>290</x>
+         <y>110</y>
+         <width>31</width>
+         <height>31</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+      <widget class="QCheckBox" name="stomp_display_checkBox">
+       <property name="geometry">
+        <rect>
+         <x>400</x>
+         <y>110</y>
+         <width>31</width>
+         <height>31</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+      <widget class="QLabel" name="display_path_label">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>110</y>
+         <width>131</width>
+         <height>31</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Display Path</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+       </property>
+       <property name="margin">
+        <number>0</number>
+       </property>
+       <property name="indent">
+        <number>5</number>
+       </property>
       </widget>
      </widget>
     </widget>

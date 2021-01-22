@@ -30,6 +30,10 @@ class MoveGroupDefinedPath(object):
         self.display_trajectory_publisher = rospy.Publisher('move_group/display_planned_path',
                                                             moveit_msgs.msg.DisplayTrajectory,
                                                             queue_size=20)
+                                                            
+        self.statistics_publisher = rospy.Publisher("path_statistics", 
+                                                    moveit_msgs.msg.RobotTrajectory, 
+                                                    queue_size=1)
         rospy.init_node('move_group_defined_path', anonymous=True)
         print("rospy Node started..")
         
@@ -254,7 +258,8 @@ class MoveGroupDefinedPath(object):
 
         return response
     
-
+        def publish_statistics(self, plan, eef_poses, time, max_acceleration):
+            pass
   
 
         

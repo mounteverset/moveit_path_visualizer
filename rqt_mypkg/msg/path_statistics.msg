@@ -1,0 +1,4 @@
+float32 planning_time
+visualization_msgs/MarkerArray markers
+geometry_msgs/PoseArray eef_poses
+float32 max_acceleration

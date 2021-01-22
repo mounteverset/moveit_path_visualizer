@@ -14,7 +14,7 @@ from python_qt_binding.QtWidgets  import QFileDialog, QMessageBox
 from python_qt_binding.QtWidgets  import QTableWidget, QTableWidgetItem
 
 from std_msgs.msg import Int32 
-from geometry_msgs.msg import Pose
+from geometry_msgs.msg import Pose, PoseArray
 from pathlib import Path as Path
 import signal
 
@@ -58,16 +58,25 @@ class MyPlugin(Plugin):
         if context.serial_number() > 1:
             self._widget.setWindowTitle(self._widget.windowTitle() + (' (%d)' % context.serial_number()))
 
+        # Save the latest planned paths
+        self.ompl_marker_array = MarkerArray()
+        self.ompl_pose_array = PoseArray()
+        self.chomp_marker_array = MarkerArray()
+        self.chomp_pose_array = PoseArray()
+        self.stomp_marker_array = MarkerArray()
+        self.stomp_pose_array = PoseArray()
+
         # Add slots to signal
         self._widget.pushButton_openPlanningScene.clicked.connect(self.on_pushButton_openPlanningScene_clicked)
         self._widget.pushButton_apply.clicked.connect(self.on_pushButton_apply_clicked)
         self._widget.pushButton_planPath.clicked.connect(self.on_pushButton_planPath_clicked)
         self._widget.pushButton_apply_planner.clicked.connect(self.on_pushButton_apply_planner_clicked)
+        self._widget.ompl_display_checkBox.stateChanged.connect(self.display_multiple_paths)
         #self._widget.statisticsTable.clicked.connect(self.on_statistics_generated)
         #self._widget.pushButton.clicked.connect(self.pushButton_clicked)
 
         # Initialize a ROS subscriber
-        #rospy.init_node('statistics_subscriber', anonymous=True)
+        
         sub = rospy.Subscriber('counter', Int32, self.callback_subscriber)
 
         self.active_motion_planner = None
@@ -76,12 +85,33 @@ class MyPlugin(Plugin):
         # Add widget to the user interface
         context.add_widget(self._widget)
 
+    # things that need to happen in this callback:
+    # all of the data from the received message is written into the correct column and cell
+    # for this the current used planner has to determined by checking which radio buttons is checked
+    # also the checkbox at the bottom of the planner has to be automatically checked so that the path is visible by default
+    # the marker_array and the eef_poses from the message need to be saved in this program as object attributes in order to make them kind of persistent and accessible
+    # each motion_planner has their own respective set of variables but they can only store the values from the last plan that was executed with the motion planner
+    # also the plan_path_pushButton on the bottom of the gui needs to be disabled, because there are no points in a txt to read from right now
+    # also there needs to be a check whether some data is already in the columns above, bc if there isn't then the checkbox shouldnt be enabled
     def callback_subscriber(self, msg):
+
+        # Part 1: Write the received data into the table
         print("We are here in the callback")
-        new_item = QTableWidgetItem(msg.data)
-        #new_item.set
+        print(str(msg.data))
+        new_item = QTableWidgetItem(str(msg.data))        
         self._widget.statisticsTable.setItem(2,2,new_item)
 
+
+        # Part 2: Overwrite the eef_poses and markerarray attributes
+
+
+        # Part 3: check the right checkbox
+
+        # Part 4: display the paths from every checked path planner
+
+        # Part 5: disable the pushButton_planPath for the next use
+
+    
     def shutdown_plugin(self):
         # TODO unregister all publishers here
         pass
@@ -96,19 +126,18 @@ class MyPlugin(Plugin):
         # v = instance_settings.value(k)
         pass
 
-    #def trigger_configuration(self):
+    def trigger_configuration(self):
+        pass
         # Comment in to signal that the plugin has a way to configure
         # This will enable a setting button (gear icon) in each dock widget title bar
         # Usually used to open a modal configuration dialog
     
     @Slot()
     def on_pushButton_planPath_clicked(self):
-
-        #if abfragen welche der radio buttons checked ist und dann den parameter weitergeben
-        #  
-        subprocess.Popen(["gnome-terminal", "-e", "rosrun rqt_mypkg planner.py"])
-        #subprocess.call("rosrun rqt_mypkg planner.py")
         
+        subprocess.Popen(["gnome-terminal", "-e", "rosrun rqt_mypkg planner.py"])
+        # this funtion needs to write the current values from the doubleSpinBoxes into the QWidgetTable 
+        # to see which paths have the same start and finish        
 
     @Slot()
     def on_pushButton_openPlanningScene_clicked(self):
@@ -181,6 +210,13 @@ class MyPlugin(Plugin):
                                                             preexec_fn=os.setpgrp)
             #os.system("gnome-terminal sawwqewq'roslaunch fanuc_m710 demo.launch pipeline:=stomp'")
     
+    # function needed to connect to an event from the gui:
+    # when one of the checkboxes is getting checked or unchecked the marker array needs to update accordingly to the checkmarks
+    # function replaces the one in path_planning_interface publish_marker_array
+
+    @Slot
+    def display_multiple_paths(self):
+        pass
 
     # @Slot()
     # def on_statistics_generated(self):
