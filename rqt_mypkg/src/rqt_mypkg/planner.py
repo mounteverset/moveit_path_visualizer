@@ -28,7 +28,7 @@ planned_path = planningObject.plan_path_from_pose()
 eef_poses = planningObject.get_eef_poses(planned_path)
 
     #Die Marker werden gepublished 
-planningObject.display_eef_marker(eef_poses)
+marker_array = planningObject.display_eef_marker(eef_poses)
 
     #Für die Statistik wird die Pfadlänge berechnet
 statisticsObject.get_path_length(eef_poses)

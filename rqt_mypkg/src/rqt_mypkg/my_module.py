@@ -71,7 +71,7 @@ class MyPlugin(Plugin):
         self._widget.pushButton_apply.clicked.connect(self.on_pushButton_apply_clicked)
         self._widget.pushButton_planPath.clicked.connect(self.on_pushButton_planPath_clicked)
         self._widget.pushButton_apply_planner.clicked.connect(self.on_pushButton_apply_planner_clicked)
-        self._widget.ompl_display_checkBox.stateChanged.connect(self.display_multiple_paths)
+        #self._widget.ompl_display_checkBox.stateChanged.connect(self.display_multiple_paths)
         #self._widget.statisticsTable.clicked.connect(self.on_statistics_generated)
         #self._widget.pushButton.clicked.connect(self.pushButton_clicked)
 
@@ -103,7 +103,6 @@ class MyPlugin(Plugin):
 
 
         # Part 2: Overwrite the eef_poses and markerarray attributes
-
 
         # Part 3: check the right checkbox
 
@@ -208,15 +207,17 @@ class MyPlugin(Plugin):
                                                             "-e", 
                                                             "roslaunch fanuc_m710 demo.launch pipeline:=stomp"],
                                                             preexec_fn=os.setpgrp)
+
+        self._widget.pushButton_openPlanningScene.setEnabled(True)
             #os.system("gnome-terminal sawwqewq'roslaunch fanuc_m710 demo.launch pipeline:=stomp'")
     
     # function needed to connect to an event from the gui:
     # when one of the checkboxes is getting checked or unchecked the marker array needs to update accordingly to the checkmarks
     # function replaces the one in path_planning_interface publish_marker_array
 
-    @Slot
-    def display_multiple_paths(self):
-        pass
+    #@Slot
+    #def display_multiple_paths(self):
+    #    pass
 
     # @Slot()
     # def on_statistics_generated(self):

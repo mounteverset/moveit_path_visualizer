@@ -234,6 +234,8 @@ class MoveGroupDefinedPath(object):
             markerArray.markers.append(marker)
         rospy.sleep(1)
         publisher.publish(markerArray)
+
+        return markerArray
         
     def get_inverse_kinematic(self):
         
@@ -258,7 +260,7 @@ class MoveGroupDefinedPath(object):
 
         return response
     
-        def publish_statistics(self, plan, eef_poses, time, max_acceleration):
+        def publish_statistics(self, plan, eef_poses, marker_arraytime, max_acceleration):
             pass
   
 
