@@ -1,4 +1,6 @@
 float32 planning_time
+float32 path_length
+float32 max_acceleration
 visualization_msgs/MarkerArray markers
 geometry_msgs/PoseArray eef_poses
-float32 max_acceleration
+

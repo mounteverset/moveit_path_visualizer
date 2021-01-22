@@ -10,6 +10,7 @@ from math import pi
 from std_msgs.msg import String
 from rqt_mypkg import path_planning_interface
 from rqt_mypkg import statistics
+from rqt_mypkg.msg import PathStatistics
 
 
 planningObject = path_planning_interface.MoveGroupDefinedPath()
@@ -31,7 +32,7 @@ eef_poses = planningObject.get_eef_poses(planned_path)
 marker_array = planningObject.display_eef_marker(eef_poses)
 
     #Für die Statistik wird die Pfadlänge berechnet
-statisticsObject.get_path_length(eef_poses)
+path_length = statisticsObject.get_path_length(eef_poses)
 
     #planningObject.display_trajectory(planned_path[1])
     #print (planningObject.move_group.get_current_pose().pose)

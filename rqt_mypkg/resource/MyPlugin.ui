@@ -461,6 +461,9 @@
        </column>
       </widget>
       <widget class="QCheckBox" name="ompl_display_checkBox">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
        <property name="geometry">
         <rect>
          <x>210</x>
