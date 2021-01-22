@@ -413,7 +413,7 @@
          <x>0</x>
          <y>0</y>
          <width>471</width>
-         <height>221</height>
+         <height>291</height>
         </rect>
        </property>
        <attribute name="horizontalHeaderDefaultSectionSize">
@@ -421,7 +421,12 @@
        </attribute>
        <row>
         <property name="text">
-         <string>Start-/Goal Points</string>
+         <string>Start</string>
+        </property>
+       </row>
+       <row>
+        <property name="text">
+         <string>Goal</string>
         </property>
        </row>
        <row>
@@ -448,6 +453,9 @@
         <property name="text">
          <string>OMPL</string>
         </property>
+        <property name="textAlignment">
+         <set>AlignLeading|AlignVCenter</set>
+        </property>
        </column>
        <column>
         <property name="text">
@@ -459,6 +467,78 @@
          <string>STOMP</string>
         </property>
        </column>
+       <item row="0" column="0">
+        <property name="text">
+         <string/>
+        </property>
+        <property name="textAlignment">
+         <set>AlignCenter</set>
+        </property>
+       </item>
+       <item row="0" column="1">
+        <property name="text">
+         <string/>
+        </property>
+        <property name="textAlignment">
+         <set>AlignCenter</set>
+        </property>
+       </item>
+       <item row="0" column="2">
+        <property name="text">
+         <string/>
+        </property>
+        <property name="textAlignment">
+         <set>AlignCenter</set>
+        </property>
+       </item>
+       <item row="1" column="0">
+        <property name="text">
+         <string/>
+        </property>
+        <property name="textAlignment">
+         <set>AlignCenter</set>
+        </property>
+       </item>
+       <item row="1" column="1">
+        <property name="text">
+         <string/>
+        </property>
+        <property name="textAlignment">
+         <set>AlignCenter</set>
+        </property>
+       </item>
+       <item row="1" column="2">
+        <property name="text">
+         <string/>
+        </property>
+        <property name="textAlignment">
+         <set>AlignCenter</set>
+        </property>
+       </item>
+       <item row="2" column="0">
+        <property name="text">
+         <string/>
+        </property>
+        <property name="textAlignment">
+         <set>AlignLeading|AlignVCenter</set>
+        </property>
+       </item>
+       <item row="3" column="0">
+        <property name="text">
+         <string/>
+        </property>
+        <property name="textAlignment">
+         <set>AlignLeading|AlignVCenter</set>
+        </property>
+       </item>
+       <item row="4" column="0">
+        <property name="text">
+         <string/>
+        </property>
+        <property name="textAlignment">
+         <set>AlignLeading|AlignVCenter</set>
+        </property>
+       </item>
       </widget>
       <widget class="QCheckBox" name="ompl_display_checkBox">
        <property name="enabled">
@@ -467,7 +547,7 @@
        <property name="geometry">
         <rect>
          <x>210</x>
-         <y>170</y>
+         <y>200</y>
          <width>31</width>
          <height>31</height>
         </rect>
@@ -483,7 +563,7 @@
        <property name="geometry">
         <rect>
          <x>310</x>
-         <y>170</y>
+         <y>200</y>
          <width>31</width>
          <height>31</height>
         </rect>
@@ -499,7 +579,7 @@
        <property name="geometry">
         <rect>
          <x>410</x>
-         <y>170</y>
+         <y>200</y>
          <width>31</width>
          <height>31</height>
         </rect>
@@ -512,7 +592,7 @@
        <property name="geometry">
         <rect>
          <x>0</x>
-         <y>170</y>
+         <y>200</y>
          <width>131</width>
          <height>31</height>
         </rect>

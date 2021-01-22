@@ -13,7 +13,7 @@ from std_msgs.msg import String
 import io
 import shutil
 #used to convert the points from the gui in a valid message for ros
-from geometry_msgs.msg import Pose, PoseStamped
+from geometry_msgs.msg import Pose, PoseStamped, PoseArray
 #used to read out the start points
 import os
 from pathlib import Path
@@ -21,6 +21,7 @@ from pathlib import Path
 from visualization_msgs.msg import Marker, MarkerArray
 #used to make a service request 
 from moveit_msgs.srv import GetPositionIKRequest, GetPositionIK
+from rqt_mypkg.msg import PathStatistics
 
 class MoveGroupDefinedPath(object):
 
@@ -261,11 +262,24 @@ class MoveGroupDefinedPath(object):
 
         return response
 
+    # To Do: create a PoseArray() Message and insert the values from eef_poses
+    # create a PathStatistics() Msg and insert all of the values into it
 
-    def publish_statistics(self,path_length): #, eef_poses, marker_arraytime, max_acceleration
-        publisher = rospy.Publisher('PathStatistics', float, queue_size=1)
+    def publish_statistics(self,path_length, markers, planning_time, max_accel, eef_poses):
+        
+        publisher = rospy.Publisher('/statistics', PathStatistics, queue_size=1)
+        msg = PathStatistics()
+        msg.path_length = path_length
+        msg.planning_time = planning_time
+        msg.max_acceleration = max_accel
+        msg.markers = markers
 
+        pose_array = PoseArray()
+        pose_array.poses = eef_poses
 
-        publisher.publish()
-
-        return path_length
+        msg.eef_poses = pose_array
+        
+        rospy.sleep(1)
+        publisher.publish(msg)
+        
+        

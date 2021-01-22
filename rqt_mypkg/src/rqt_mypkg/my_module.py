@@ -20,6 +20,7 @@ import signal
 
 from visualization_msgs.msg import Marker, MarkerArray
 from rqt_mypkg import path_planning_interface
+from rqt_mypkg.msg import PathStatistics
 
 
 
@@ -71,13 +72,15 @@ class MyPlugin(Plugin):
         self._widget.pushButton_apply.clicked.connect(self.on_pushButton_apply_clicked)
         self._widget.pushButton_planPath.clicked.connect(self.on_pushButton_planPath_clicked)
         self._widget.pushButton_apply_planner.clicked.connect(self.on_pushButton_apply_planner_clicked)
-        #self._widget.ompl_display_checkBox.stateChanged.connect(self.display_multiple_paths)
+        self._widget.ompl_display_checkBox.clicked.connect(self.on_checkBox_clicked)
+        self._widget.chomp_display_checkBox.clicked.connect(self.on_checkBox_clicked)
+        self._widget.stomp_display_checkBox.clicked.connect(self.on_checkBox_clicked)
         #self._widget.statisticsTable.clicked.connect(self.on_statistics_generated)
         #self._widget.pushButton.clicked.connect(self.pushButton_clicked)
 
         # Initialize a ROS subscriber
         
-        sub = rospy.Subscriber('counter', Int32, self.callback_subscriber)
+        sub = rospy.Subscriber('/statistics', PathStatistics, self.callback_subscriber)
 
         self.active_motion_planner = None
         self.first_open = False
@@ -96,20 +99,67 @@ class MyPlugin(Plugin):
     def callback_subscriber(self, msg):
 
         # Part 1: Write the received data into the table
-        print("We are here in the callback")
-        print(str(msg.data))
-        new_item = QTableWidgetItem(str(msg.data))        
-        self._widget.statisticsTable.setItem(2,2,new_item)
+        print("We are here in the callback!")
+        #print(str(msg.data))
 
+        # ompl column number = 0
+        # chomp column number = 1
+        # stomp column number = 2
+        # start pose row = 0
+        # goal pose row = 1
+        # planning time row = 2
+        # planning attempts = 3
+        # path length = 4
+        # max joint accel = 5
+        column = -1
 
+        if self._widget.radioButton_OMPL.isChecked()== True:
+            column = 0
+            self.ompl_pose_array = msg.eef_poses
+            self.ompl_marker_array = msg.markers
+            self._widget.ompl_display_checkBox.setEnabled(True)
+            self._widget.ompl_display_checkBox.setChecked(True)
+
+        elif self._widget.radioButton_CHOMP.isChecked() == True:
+            column = 1
+            self.chomp_pose_array = msg.eef_poses
+            self.chomp_marker_array = msg.markers
+            self._widget.chomp_display_checkBox.setEnabled(True)
+            self._widget.chomp_display_checkBox.setChecked(True)
+
+        elif self._widget.radioButton_STOMP.isChecked() == True:
+            column = 2
+            self.stomp_pose_array = msg.eef_poses
+            self.stomp_marker_array = msg.markers
+            self._widget.stomp_display_checkBox.setEnabled(True)
+            self._widget.stomp_display_checkBox.setChecked(True)
+
+        if column == -1:
+            print("No active motion planner found...")
+        
+        start_values = self.get_start_values()
+        goal_values = self.get_goal_values()
+        start_table_item = QTableWidgetItem("[{}]".format("|".join(start_values)))
+        self._widget.statisticsTable.setItem(0,column, start_table_item)
+        goal_table_item = QTableWidgetItem("[{}]".format("|".join(goal_values)))
+        self._widget.statisticsTable.setItem(1,column, goal_table_item)
+        planning_time = QTableWidgetItem(str(round(msg.planning_time,5)))       
+        self._widget.statisticsTable.setItem(2,column, planning_time)
+        path_length = QTableWidgetItem(str(round(msg.path_length,5)))
+        self._widget.statisticsTable.setItem(4,column, path_length)
+        joint_accel = planning_time = QTableWidgetItem(str(round(msg.max_acceleration,5))) 
+        self._widget.statisticsTable.setItem(5,column, joint_accel)
+        
         # Part 2: Overwrite the eef_poses and markerarray attributes
+        # done above
 
         # Part 3: check the right checkbox
+        # done above
 
         # Part 4: display the paths from every checked path planner
 
         # Part 5: disable the pushButton_planPath for the next use
-
+        self._widget.pushButton_planPath.setEnabled(False)
     
     def shutdown_plugin(self):
         # TODO unregister all publishers here
@@ -209,16 +259,31 @@ class MyPlugin(Plugin):
                                                             preexec_fn=os.setpgrp)
 
         self._widget.pushButton_openPlanningScene.setEnabled(True)
-            #os.system("gnome-terminal sawwqewq'roslaunch fanuc_m710 demo.launch pipeline:=stomp'")
+        #os.system("gnome-terminal sawwqewq'roslaunch fanuc_m710 demo.launch pipeline:=stomp'")
     
     # function needed to connect to an event from the gui:
     # when one of the checkboxes is getting checked or unchecked the marker array needs to update accordingly to the checkmarks
     # function replaces the one in path_planning_interface publish_marker_array
 
     #@Slot
-    #def display_multiple_paths(self):
-    #    pass
+    def on_checkBox_clicked(self):
+        print("to be implemented")
+        pass
+    
 
+    def get_start_values(self):
+        x = str(round(self._widget.doubleSpinBox_x1.value(),1))
+        y = str(round(self._widget.doubleSpinBox_y1.value(),1))
+        z = str(round(self._widget.doubleSpinBox_z1.value(),1))
+        #w = str(self._widget.doubleSpinBox_r1.value())
+        return x,y,z
+
+    def get_goal_values(self):
+        x = str(round(self._widget.doubleSpinBox_x2.value(),1))
+        y = str(round(self._widget.doubleSpinBox_y2.value(),1))
+        z = str(round(self._widget.doubleSpinBox_z2.value(),1))
+        #w = str(self._widget.doubleSpinBox_r2.value())
+        return x,y,z
     # @Slot()
     # def on_statistics_generated(self):
     #     planningObject = path_planning_interface.MoveGroupDefinedPath()

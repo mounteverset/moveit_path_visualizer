@@ -40,6 +40,9 @@ class StatisticsDefinedPath(object):
 
             path_length += sqrt(pow((posex1 - posex), 2) + pow((posey1- posey), 2))+ pow((posez1-posez),2)
         return path_length
+
+    def get_max_joint_acceleration(self, motion_plan):
+        return 2.1111
     
     
     
