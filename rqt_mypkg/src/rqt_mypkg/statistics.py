@@ -21,6 +21,7 @@ from visualization_msgs.msg import Marker, MarkerArray
 #used to make a service request 
 from moveit_msgs.srv import GetPositionIKRequest, GetPositionIK
 from rqt_mypkg import path_planning_interface
+from trajectory_msgs.msg import JointTrajectoryPoint
 
 class StatisticsDefinedPath(object):
 
@@ -42,8 +43,12 @@ class StatisticsDefinedPath(object):
         return path_length
 
     def get_max_joint_acceleration(self, motion_plan):
-        return 2.1111
-    
-    
-    
-        
+        newlist = []
+        maxlist = []
+
+        for i in range(len(motion_plan[1].joint_trajectory.points)):
+            for j in range(len(motion_plan[1].joint_trajectory.points[i].accelerations)):
+                for k in range(len(motion_plan[1].joint_trajectory.points[i].accelerations)):
+                    maxlist.append(motion_plan[1].joint_trajectory.points[i].accelerations[j])
+
+        return max(maxlist)
