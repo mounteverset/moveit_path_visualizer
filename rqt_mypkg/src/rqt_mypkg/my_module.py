@@ -118,34 +118,100 @@ class MyPlugin(Plugin):
         # Part 1: Write the received data into the table
         print("We are here in the callback!")
         #print(str(msg.data))
+        if msg.planning_time == 0 and msg.path_length == 0 and msg.max_acceleration == 0:
+            alert = QMessageBox()
+            alert.setText('No solution for the inverse kinematic was found. \nPlease use different points closer to the robot.')            
+            alert.exec_()
 
-        # ompl column number = 0
-        # chomp column number = 1
-        # stomp column number = 2
-        # start pose row = 0
-        # goal pose row = 1
-        # planning time row = 2
-        # execution time row = 3
-        # path length = 4
-        # max joint accel = 5
-        column = -1
+            # msgBox.setIcon(QMessageBox.Critical)
+            # msgBox.setText("No solution for the inverse kinematic was found for the given points.")
+            # msgBox.setWindowTitle("Warning")
+            # msgBox.setStandardButtons(QMessageBox.Ok)
+            # msgBox.open()
+        else:
+            # ompl column number = 0
+            # chomp column number = 1
+            # stomp column number = 2
+            # start pose row = 0
+            # goal pose row = 1
+            # planning time row = 2
+            # execution time row = 3
+            # path length = 4
+            # max joint accel = 5
+            column = -1
 
-        if self._widget.radioButton_OMPL.isChecked()== True:
-            column = 0
+            if self._widget.radioButton_OMPL.isChecked()== True:
+                column = 0
 
-            self.ompl_pose_array = msg.eef_poses
-            self.ompl_marker_array = msg.markers
+                self.ompl_pose_array = msg.eef_poses
+                self.ompl_marker_array = msg.markers
 
-            for marker in self.ompl_marker_array.markers:
-                marker.color.a = 1.0
-                marker.color.r = 1.0
-                marker.color.g = 1.0
-                marker.color.b = 1.0
-            rnd = random.randint(0,len(self.ompl_marker_array.markers)-1)
-            text_marker = self.create_text_marker("OMPL", 
-                                                    self.ompl_marker_array.markers[len(self.ompl_marker_array.markers)-1].id, 
-                                                    self.ompl_marker_array.markers[rnd].pose)       
-            self.ompl_marker_array.markers.append(text_marker)
+                for marker in self.ompl_marker_array.markers:
+                    marker.color.a = 1.0
+                    marker.color.r = 1.0
+                    marker.color.g = 1.0
+                    marker.color.b = 1.0
+                rnd = random.randint(0,len(self.ompl_marker_array.markers)-1)
+                text_marker = self.create_text_marker("OMPL", 
+                                                        self.ompl_marker_array.markers[len(self.ompl_marker_array.markers)-1].id, 
+                                                        self.ompl_marker_array.markers[rnd].pose)       
+                self.ompl_marker_array.markers.append(text_marker)
+                
+                self._widget.ompl_display_checkBox.setEnabled(True)
+                self._widget.ompl_display_checkBox.setChecked(True)
+
+
+            elif self._widget.radioButton_CHOMP.isChecked() == True:
+                column = 1
+                self.chomp_pose_array = msg.eef_poses
+                self.chomp_marker_array = msg.markers
+                
+                for marker in self.chomp_marker_array.markers:
+                    marker.id += 150
+                    marker.color.a = 1.0
+                    marker.color.r = 0.0
+                    marker.color.g = 0.0
+                    marker.color.b = 1.0
+                rnd = random.randint(0,len(self.chomp_marker_array.markers)-1)
+                text_marker = self.create_text_marker("CHOMP", 
+                                                        self.chomp_marker_array.markers[len(self.chomp_marker_array.markers)-1].id, 
+                                                        self.chomp_marker_array.markers[rnd].pose) 
+                text_marker.color.a = 1.0
+                text_marker.color.r = 0.0
+                text_marker.color.g = 0.0
+                text_marker.color.b = 1.0        
+                self.chomp_marker_array.markers.append(text_marker)
+
+                self._widget.chomp_display_checkBox.setEnabled(True)
+                self._widget.chomp_display_checkBox.setChecked(True)
+
+            elif self._widget.radioButton_STOMP.isChecked() == True:
+                column = 2
+                self.stomp_pose_array = msg.eef_poses
+                self.stomp_marker_array = msg.markers
+
+                for marker in self.stomp_marker_array.markers:
+                    marker.id += 350
+                    marker.color.a = 1.0
+                    marker.color.r = 1.0
+                    marker.color.g = 0.0
+                    marker.color.b = 0.0
+
+                rnd = random.randint(0,len(self.stomp_marker_array.markers)-1)
+                text_marker = self.create_text_marker("STOMP", 
+                                                    self.stomp_marker_array.markers[len(self.stomp_marker_array.markers)-1].id, 
+                                                    self.stomp_marker_array.markers[rnd].pose)  
+                text_marker.color.a = 1.0
+                text_marker.color.r = 1.0
+                text_marker.color.g = 0.0
+                text_marker.color.b = 0.0     
+                self.stomp_marker_array.markers.append(text_marker)
+
+                self._widget.stomp_display_checkBox.setEnabled(True)
+                self._widget.stomp_display_checkBox.setChecked(True)
+
+            if column == -1:
+                print("No active motion planner found...")
             
             self._widget.ompl_display_checkBox.setEnabled(True)
             self._widget.ompl_display_checkBox.setChecked(True)
@@ -285,14 +351,31 @@ class MyPlugin(Plugin):
         
         # Part 2: Overwrite the eef_poses and markerarray attributes
         # done above
+            start_values = self.get_start_values()
+            goal_values = self.get_goal_values()
+            start_table_item = QTableWidgetItem("[{}]".format("|".join(start_values)))
+            self._widget.statisticsTable.setItem(0,column, start_table_item)
+            goal_table_item = QTableWidgetItem("[{}]".format("|".join(goal_values)))
+            self._widget.statisticsTable.setItem(1,column, goal_table_item)
+            planning_time = QTableWidgetItem(str(round(msg.planning_time,5)))       
+            self._widget.statisticsTable.setItem(2,column, planning_time)
+            execution_time = QTableWidgetItem(str(round(msg.execution_time,5))) 
+            self._widget.statisticsTable.setItem(3,column, execution_time)
+            path_length = QTableWidgetItem(str(round(msg.path_length,5)))
+            self._widget.statisticsTable.setItem(4,column, path_length)
+            joint_accel = planning_time = QTableWidgetItem(str(round(msg.max_acceleration,5))) 
+            self._widget.statisticsTable.setItem(5,column, joint_accel)
+            
+            # Part 2: Overwrite the eef_poses and markerarray attributes
+            # done above
 
-        # Part 3: check the right checkbox
-        # done above
+            # Part 3: check the right checkbox
+            # done above
 
-        # Part 4: display the paths from every checked path planner
-        self.publish_marker_array()
-        # Part 5: disable the pushButton_planPath for the next use
-        self._widget.pushButton_planPath.setEnabled(False)
+            # Part 4: display the paths from every checked path planner
+            self.publish_marker_array()
+            # Part 5: disable the pushButton_planPath for the next use
+            self._widget.pushButton_planPath.setEnabled(False)
     
     def shutdown_plugin(self):
         # TODO unregister all publishers here
