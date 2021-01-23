@@ -262,11 +262,6 @@ class MyPlugin(Plugin):
                                                             "roslaunch fanuc_m710 demo.launch pipeline:=stomp"],
                                                             preexec_fn=os.setpgrp)
 
-        self._widget.pushButton_openPlanningScene.setEnabled(True)
-        #os.system("gnome-terminal sawwqewq'roslaunch fanuc_m710 demo.launch pipeline:=stomp'")
-    
-    
-    
     # function needed to connect to an event from the gui:
     # when one of the checkboxes is getting checked or unchecked the marker array needs to update accordingly to the checkmarks
     # function replaces the one in path_planning_interface publish_marker_array

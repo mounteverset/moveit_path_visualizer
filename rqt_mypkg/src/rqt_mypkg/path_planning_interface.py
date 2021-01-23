@@ -52,50 +52,52 @@ class MoveGroupDefinedPath(object):
         self.planning_frame = self.move_group.get_planning_frame()
         self.eef_link = self.move_group.get_end_effector_link()
         self.group_names = self.robot.get_group_names()
-        self.starting_pose = self.get_values(True) #evtl automatische konvertierung in joint poses damit man try
-        self.goal_pose = self.get_values(False)
-         
+        self.starting_pose = self.get_values(False)
+        self.goal_pose = self.get_values(True)
+        self.starting_joint_goal = self.get_inverse_kinematic(False)
+        self.goal_joint_goal = self.get_inverse_kinematic(True)
+
+    def go_to_starting_joint_goal(self):
+
+        print("Current joint_positions:")
+        print (self.robot.get_current_state())
+               
+        #self.move_group.set_pose_target(self.starting_joint_goal)
+        self.move_group.go(self.starting_joint_goal, wait=True)
+        self.move_group.stop()
+        self.move_group.clear_pose_targets()
+
+    def plan_path_from_to_start_with_joint_goal(self):
+        self.move_group.set_start_state(self.robot.get_current_state())
+        motion_plan = self.move_group.plan(self.starting_joint_goal)    
+        return motion_plan
+
+    def plan_path_from_joint_goal(self):
+        
+        self.move_group.set_start_state(self.robot.get_current_state())
+        #self.move_group.set_pose_target(self.goal_joint_goal)
+        motion_plan = self.move_group.plan(self.goal_joint_goal)        
+        return motion_plan     
 
     def plan_path_from_pose (self):
                 
         self.move_group.set_pose_target(self.goal_pose)
-        motion_plan = self.move_group.plan()
-        
+        motion_plan = self.move_group.plan()        
         return motion_plan
 
     def go_to_starting_pose(self):
         
-        print("Current joint_goals:")
+        print("Current joint_positions:")
         print (self.robot.get_current_state())
-        #start_pose = geometry_msgs.msg.Pose()                
-        #pause zum durchlesen der infos im terminal
-        #pose = self.get_values(True)
-        #start_pose.position.x = float(pose[0])
-        #start_pose.position.y = float(pose[1])
-        #start_pose.position.z = float(pose[2])
-        #start_pose.orientation.w = float(pose[3])        
-        # setting the new joint goals
-        # better would to set them as inverse kinematic        
+               
         self.move_group.set_pose_target(self.starting_pose)
-        #self.move_group.plan()
         plan = self.move_group.go(wait=True)
-        #self.move_group.execute(plan, wait=True)
-        #get rid of any residual movement
         self.move_group.stop()
         self.move_group.clear_pose_targets()
   
     def go_to_goal_pose(self):
         
-        #pose_goal = geometry_msgs.msg.Pose()
-
-        #pose = self.get_values(True)
-
-        #pose_goal.position.x = float(pose[0])
-        #pose_goal.position.y = float(pose[1])
-        #pose_goal.position.z = float(pose[2])
-        #pose_goal.orientation.w = float(pose[3])
-        #self.starting_pose = pose_goal
-        self.move_group.set_pose_target(self.goal_pose)        
+        self.move_group.set_pose_target(self.goal_joint_goal)        
         plan = self.move_group.go(wait=True)
         self.move_group.stop()
         self.move_group.clear_pose_targets()
@@ -122,18 +124,19 @@ class MoveGroupDefinedPath(object):
     def execute_plan(self, plan):
         self.move_group.execute(plan, wait=True)
 
+    #if goal == True -> goal pose
     def get_values(self, goal):
 
         homedir = str(Path.home())
         start_filepath = homedir + "/starting_pose.txt"
         goal_filepath = homedir + "/goal_pose.txt"
         pose = Pose()
-        #wenn true übergeben wird dann holt er sich die startpunkte
-        if (goal == True):
+        
+        if (goal == False):
             with open(start_filepath, "r") as f:
                 points = [line.rstrip() for line in f]
             
-        elif (goal != True):
+        elif (goal == True):
             with open(goal_filepath, "r") as f:
                 points = [line.rstrip() for line in f]
         else:
@@ -257,8 +260,9 @@ class MoveGroupDefinedPath(object):
         publisher.publish(markerArray)
 
         return markerArray
-        
-    def get_inverse_kinematic(self):
+
+    # wenn goal als True übergeben wird, dann wird die inverse kinematik für die goal_pose berechnet
+    def get_inverse_kinematic(self, goal):
         
         compute_ik_service = rospy.ServiceProxy("compute_ik", GetPositionIK)
         try:
@@ -274,12 +278,16 @@ class MoveGroupDefinedPath(object):
         pose = PoseStamped()
         pose.header.stamp = rospy.Time.now()
         pose.header.frame_id = "link_base"
-        pose.pose = self.goal_pose #Diese zeile noch anpassen, da man eine pose übergeben möchte 
+        if goal == True:
+            pose.pose = self.goal_pose 
+        elif goal == False:
+            pose.pose = self.starting_pose
+
         request.ik_request.pose_stamped = pose
 
         response = compute_ik_service(request)
 
-        return response
+        return response.solution.joint_state
 
     # To Do: create a PoseArray() Message and insert the values from eef_poses
     # create a PathStatistics() Msg and insert all of the values into it
