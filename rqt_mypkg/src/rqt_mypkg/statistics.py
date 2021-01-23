@@ -11,6 +11,7 @@ from math import pi, sqrt, pow
 from std_msgs.msg import String
 import io
 import shutil
+import yaml
 #used to convert the points from the gui in a valid message for ros
 from geometry_msgs.msg import Pose, PoseStamped
 #used to read out the start points
@@ -52,3 +53,5 @@ class StatisticsDefinedPath(object):
                     maxlist.append(motion_plan[1].joint_trajectory.points[i].accelerations[j])
 
         return max(maxlist)
+
+    
