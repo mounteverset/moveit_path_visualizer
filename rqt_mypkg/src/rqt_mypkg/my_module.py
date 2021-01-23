@@ -217,140 +217,123 @@ class MyPlugin(Plugin):
             self._widget.ompl_display_checkBox.setChecked(True)
 
 
-        elif self._widget.radioButton_CHOMP.isChecked() == True:
-            if self._widget.checkBox_chomp_ompl_prep.isChecked() == True:
-                column = 1
-                self.chomp_pose_array = msg.eef_poses
-                self.chomp_marker_array = msg.markers
-                
-                for marker in self.chomp_marker_array.markers:
-                    if marker.id % 2 == 0:
+            elif self._widget.radioButton_CHOMP.isChecked() == True:
+                if self._widget.checkBox_chomp_ompl_prep.isChecked() == True:
+                    column = 1
+                    self.chomp_pose_array = msg.eef_poses
+                    self.chomp_marker_array = msg.markers
+                    
+                    for marker in self.chomp_marker_array.markers:
+                        if marker.id % 2 == 0:
+                            marker.id += 150
+                            marker.color.a = 1.0
+                            marker.color.r = 0.0
+                            marker.color.g = 0.0
+                            marker.color.b = 1.0
+                        else:
+                            marker.color.a = 1.0
+                            marker.color.r = 1.0
+                            marker.color.g = 1.0
+                            marker.color.b = 1.0
+                    rnd = random.randint(0,len(self.chomp_marker_array.markers)-1)
+                    text_marker = self.create_text_marker("CHOMP (processed)", 
+                                                            self.chomp_marker_array.markers[len(self.chomp_marker_array.markers)-1].id, 
+                                                            self.chomp_marker_array.markers[rnd].pose) 
+                    text_marker.color.a = 1.0
+                    text_marker.color.r = 0.0
+                    text_marker.color.g = 0.0
+                    text_marker.color.b = 1.0        
+                    self.chomp_marker_array.markers.append(text_marker)
+
+                    self._widget.chomp_display_checkBox.setEnabled(True)
+                    self._widget.chomp_display_checkBox.setChecked(True)
+
+                else:
+                    column = 1
+                    self.chomp_pose_array = msg.eef_poses
+                    self.chomp_marker_array = msg.markers
+                    
+                    for marker in self.chomp_marker_array.markers:
                         marker.id += 150
                         marker.color.a = 1.0
                         marker.color.r = 0.0
                         marker.color.g = 0.0
                         marker.color.b = 1.0
-                    else:
-                        marker.color.a = 1.0
-                        marker.color.r = 1.0
-                        marker.color.g = 1.0
-                        marker.color.b = 1.0
-                rnd = random.randint(0,len(self.chomp_marker_array.markers)-1)
-                text_marker = self.create_text_marker("CHOMP (processed)", 
-                                                        self.chomp_marker_array.markers[len(self.chomp_marker_array.markers)-1].id, 
-                                                        self.chomp_marker_array.markers[rnd].pose) 
-                text_marker.color.a = 1.0
-                text_marker.color.r = 0.0
-                text_marker.color.g = 0.0
-                text_marker.color.b = 1.0        
-                self.chomp_marker_array.markers.append(text_marker)
+                    rnd = random.randint(0,len(self.chomp_marker_array.markers)-1)
+                    text_marker = self.create_text_marker("CHOMP", 
+                                                            self.chomp_marker_array.markers[len(self.chomp_marker_array.markers)-1].id, 
+                                                            self.chomp_marker_array.markers[rnd].pose) 
+                    text_marker.color.a = 1.0
+                    text_marker.color.r = 0.0
+                    text_marker.color.g = 0.0
+                    text_marker.color.b = 1.0        
+                    self.chomp_marker_array.markers.append(text_marker)
 
-                self._widget.chomp_display_checkBox.setEnabled(True)
-                self._widget.chomp_display_checkBox.setChecked(True)
+                    self._widget.chomp_display_checkBox.setEnabled(True)
+                    self._widget.chomp_display_checkBox.setChecked(True)
 
-            else:
-                column = 1
-                self.chomp_pose_array = msg.eef_poses
-                self.chomp_marker_array = msg.markers
+
+            elif self._widget.radioButton_STOMP.isChecked() == True:
+                if self._widget.checkBox_stomp_chomp_postp.isChecked() == True:
+                    column = 2
+                    self.stomp_pose_array = msg.eef_poses
+                    self.stomp_marker_array = msg.markers
+
+                    for marker in self.stomp_marker_array.markers:
+                        marker.id += 350
+                        if marker.id % 2 == 0:
+                            marker.color.a = 1.0
+                            marker.color.r = 1.0
+                            marker.color.g = 0.0
+                            marker.color.b = 0.0
+                        else:
+                            marker.color.a = 1.0
+                            marker.color.r = 0.0
+                            marker.color.g = 0.0
+                            marker.color.b = 1.0 
+
+                    rnd = random.randint(0,len(self.stomp_marker_array.markers)-1)
+                    text_marker = self.create_text_marker("STOMP (processed)", 
+                                                        self.stomp_marker_array.markers[len(self.stomp_marker_array.markers)-1].id, 
+                                                        self.stomp_marker_array.markers[rnd].pose)  
+                    text_marker.color.a = 1.0
+                    text_marker.color.r = 1.0
+                    text_marker.color.g = 0.0
+                    text_marker.color.b = 0.0     
+                    self.stomp_marker_array.markers.append(text_marker)
+
+                    self._widget.stomp_display_checkBox.setEnabled(True)
+                    self._widget.stomp_display_checkBox.setChecked(True)
                 
-                for marker in self.chomp_marker_array.markers:
-                    marker.id += 150
-                    marker.color.a = 1.0
-                    marker.color.r = 0.0
-                    marker.color.g = 0.0
-                    marker.color.b = 1.0
-                rnd = random.randint(0,len(self.chomp_marker_array.markers)-1)
-                text_marker = self.create_text_marker("CHOMP", 
-                                                        self.chomp_marker_array.markers[len(self.chomp_marker_array.markers)-1].id, 
-                                                        self.chomp_marker_array.markers[rnd].pose) 
-                text_marker.color.a = 1.0
-                text_marker.color.r = 0.0
-                text_marker.color.g = 0.0
-                text_marker.color.b = 1.0        
-                self.chomp_marker_array.markers.append(text_marker)
+                else:
+                    column = 2
+                    self.stomp_pose_array = msg.eef_poses
+                    self.stomp_marker_array = msg.markers
 
-                self._widget.chomp_display_checkBox.setEnabled(True)
-                self._widget.chomp_display_checkBox.setChecked(True)
-
-
-        elif self._widget.radioButton_STOMP.isChecked() == True:
-            if self._widget.checkBox_stomp_chomp_postp.isChecked() == True:
-                column = 2
-                self.stomp_pose_array = msg.eef_poses
-                self.stomp_marker_array = msg.markers
-
-                for marker in self.stomp_marker_array.markers:
-                    marker.id += 350
-                    if marker.id % 2 == 0:
+                    for marker in self.stomp_marker_array.markers:
+                        marker.id += 350
                         marker.color.a = 1.0
                         marker.color.r = 1.0
                         marker.color.g = 0.0
                         marker.color.b = 0.0
-                    else:
-                        marker.color.a = 1.0
-                        marker.color.r = 0.0
-                        marker.color.g = 0.0
-                        marker.color.b = 1.0 
 
-                rnd = random.randint(0,len(self.stomp_marker_array.markers)-1)
-                text_marker = self.create_text_marker("STOMP (processed)", 
-                                                    self.stomp_marker_array.markers[len(self.stomp_marker_array.markers)-1].id, 
-                                                    self.stomp_marker_array.markers[rnd].pose)  
-                text_marker.color.a = 1.0
-                text_marker.color.r = 1.0
-                text_marker.color.g = 0.0
-                text_marker.color.b = 0.0     
-                self.stomp_marker_array.markers.append(text_marker)
+                    rnd = random.randint(0,len(self.stomp_marker_array.markers)-1)
+                    text_marker = self.create_text_marker("STOMP", 
+                                                        self.stomp_marker_array.markers[len(self.stomp_marker_array.markers)-1].id, 
+                                                        self.stomp_marker_array.markers[rnd].pose)  
+                    text_marker.color.a = 1.0
+                    text_marker.color.r = 1.0
+                    text_marker.color.g = 0.0
+                    text_marker.color.b = 0.0     
+                    self.stomp_marker_array.markers.append(text_marker)
 
-                self._widget.stomp_display_checkBox.setEnabled(True)
-                self._widget.stomp_display_checkBox.setChecked(True)
+                    self._widget.stomp_display_checkBox.setEnabled(True)
+                    self._widget.stomp_display_checkBox.setChecked(True)
+
+
+            if column == -1:
+                print("No active motion planner found...")
             
-            else:
-                column = 2
-                self.stomp_pose_array = msg.eef_poses
-                self.stomp_marker_array = msg.markers
-
-                for marker in self.stomp_marker_array.markers:
-                    marker.id += 350
-                    marker.color.a = 1.0
-                    marker.color.r = 1.0
-                    marker.color.g = 0.0
-                    marker.color.b = 0.0
-
-                rnd = random.randint(0,len(self.stomp_marker_array.markers)-1)
-                text_marker = self.create_text_marker("STOMP", 
-                                                    self.stomp_marker_array.markers[len(self.stomp_marker_array.markers)-1].id, 
-                                                    self.stomp_marker_array.markers[rnd].pose)  
-                text_marker.color.a = 1.0
-                text_marker.color.r = 1.0
-                text_marker.color.g = 0.0
-                text_marker.color.b = 0.0     
-                self.stomp_marker_array.markers.append(text_marker)
-
-                self._widget.stomp_display_checkBox.setEnabled(True)
-                self._widget.stomp_display_checkBox.setChecked(True)
-
-
-        if column == -1:
-            print("No active motion planner found...")
-        
-        start_values = self.get_start_values()
-        goal_values = self.get_goal_values()
-        start_table_item = QTableWidgetItem("[{}]".format("|".join(start_values)))
-        self._widget.statisticsTable.setItem(0,column, start_table_item)
-        goal_table_item = QTableWidgetItem("[{}]".format("|".join(goal_values)))
-        self._widget.statisticsTable.setItem(1,column, goal_table_item)
-        planning_time = QTableWidgetItem(str(round(msg.planning_time,5)))       
-        self._widget.statisticsTable.setItem(2,column, planning_time)
-        execution_time = QTableWidgetItem(str(round(msg.execution_time,5))) 
-        self._widget.statisticsTable.setItem(3,column, execution_time)
-        path_length = QTableWidgetItem(str(round(msg.path_length,5)))
-        self._widget.statisticsTable.setItem(4,column, path_length)
-        joint_accel = planning_time = QTableWidgetItem(str(round(msg.max_acceleration,5))) 
-        self._widget.statisticsTable.setItem(5,column, joint_accel)
-        
-        # Part 2: Overwrite the eef_poses and markerarray attributes
-        # done above
             start_values = self.get_start_values()
             goal_values = self.get_goal_values()
             start_table_item = QTableWidgetItem("[{}]".format("|".join(start_values)))
@@ -365,6 +348,23 @@ class MyPlugin(Plugin):
             self._widget.statisticsTable.setItem(4,column, path_length)
             joint_accel = planning_time = QTableWidgetItem(str(round(msg.max_acceleration,5))) 
             self._widget.statisticsTable.setItem(5,column, joint_accel)
+            
+        # Part 2: Overwrite the eef_poses and markerarray attributes
+        # done above
+            # start_values = self.get_start_values()
+            # goal_values = self.get_goal_values()
+            # start_table_item = QTableWidgetItem("[{}]".format("|".join(start_values)))
+            # self._widget.statisticsTable.setItem(0,column, start_table_item)
+            # goal_table_item = QTableWidgetItem("[{}]".format("|".join(goal_values)))
+            # self._widget.statisticsTable.setItem(1,column, goal_table_item)
+            # planning_time = QTableWidgetItem(str(round(msg.planning_time,5)))       
+            # self._widget.statisticsTable.setItem(2,column, planning_time)
+            # execution_time = QTableWidgetItem(str(round(msg.execution_time,5))) 
+            # self._widget.statisticsTable.setItem(3,column, execution_time)
+            # path_length = QTableWidgetItem(str(round(msg.path_length,5)))
+            # self._widget.statisticsTable.setItem(4,column, path_length)
+            # joint_accel = planning_time = QTableWidgetItem(str(round(msg.max_acceleration,5))) 
+            # self._widget.statisticsTable.setItem(5,column, joint_accel)
             
             # Part 2: Overwrite the eef_poses and markerarray attributes
             # done above
