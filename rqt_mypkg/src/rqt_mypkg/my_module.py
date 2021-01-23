@@ -77,9 +77,9 @@ class MyPlugin(Plugin):
         self._widget.ompl_display_checkBox.clicked.connect(self.on_checkBox_clicked)
         self._widget.chomp_display_checkBox.clicked.connect(self.on_checkBox_clicked)
         self._widget.stomp_display_checkBox.clicked.connect(self.on_checkBox_clicked)
-        self._widget.ompl_export_button.clicked.connect(self.on_ompl_export_clicked)
-        self._widget.chomp_export_button.clicked.connect(self.on_chomp_export_clicked)
-        self._widget.stomp_export_button.clicked.connect(self.on_stomp_export_clicked)
+        #self._widget.ompl_export_button.clicked.connect(self.on_ompl_export_clicked)
+        #self._widget.chomp_export_button.clicked.connect(self.on_chomp_export_clicked)
+        #self._widget.stomp_export_button.clicked.connect(self.on_stomp_export_clicked)
         #self._widget.statisticsTable.clicked.connect(self.on_statistics_generated)
         #self._widget.pushButton.clicked.connect(self.pushButton_clicked)
 
@@ -351,16 +351,16 @@ class MyPlugin(Plugin):
     def on_checkBox_clicked(self):
         self.publish_marker_array()
         
-    @Slot()
-    def on_ompl_export_clicked(self):
+    #@Slot()
+    #def on_ompl_export_clicked(self):
         #umut in da hood
 
-    @Slot()
-    def on_chomp_export_clicked(self):
+    #@Slot()
+    #def on_chomp_export_clicked(self):
         #umut make it good
 
-    @Slot()
-    def on_stomp_export_clicked(self):
+    #@Slot()
+    #def on_stomp_export_clicked(self):
         #umut gleich kaputt
     
     def publish_marker_array(self):
