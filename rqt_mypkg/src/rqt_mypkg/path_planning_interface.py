@@ -8,6 +8,7 @@ import moveit_commander
 import moveit_msgs.msg
 import geometry_msgs.msg 
 from math import pi
+from rospy import service
 from rospy.topics import Publisher
 from std_msgs.msg import String
 import io
@@ -20,6 +21,7 @@ from pathlib import Path
 #used for publishing the planned path from start to goal
 from visualization_msgs.msg import Marker, MarkerArray
 #used to make a service request 
+from std_srvs.srv import TriggerRequest, Trigger
 from moveit_msgs.srv import GetPositionIKRequest, GetPositionIK
 from rqt_mypkg.msg import PathStatistics
 
@@ -57,12 +59,19 @@ class MoveGroupDefinedPath(object):
         self.starting_joint_goal = self.get_inverse_kinematic(False)
         self.goal_joint_goal = self.get_inverse_kinematic(True)
 
+        self.planner_id = self.get_planner_id()
+        if self.planner_id != "":
+            self.move_group.set_planner_id(self.planner_id)
+        
+  
+
     def go_to_starting_joint_goal(self):
 
         print("Current joint_positions:")
         print (self.robot.get_current_state())
                
         #self.move_group.set_pose_target(self.starting_joint_goal)
+        self.move_group.set_start_state(self.robot.get_current_state())
         self.move_group.go(self.starting_joint_goal, wait=True)
         self.move_group.stop()
         self.move_group.clear_pose_targets()
@@ -178,6 +187,7 @@ class MoveGroupDefinedPath(object):
             #ich möchte den robottrajectory von einem zum nächsten schritt aus dem plan
             robot_trajectory.joint_trajectory.points = plan[1].joint_trajectory.points[prev:i]
             #fake_plan = (True, robot_trajectory, plan[2], plan[3])
+            self.move_group.set_start_state(self.robot.get_current_state())
             self.move_group.execute(robot_trajectory, wait=True)
             #früher mit move_group.go aber es wurde immer wieder geplant
             prev = i
@@ -193,29 +203,13 @@ class MoveGroupDefinedPath(object):
         publisher = rospy.Publisher('visualization_marker_array',
                                                             MarkerArray,
                                                             queue_size=1)
-        default_pose = Pose()
-        default_pose.position.x = 0.0
-        default_pose.position.y = 0.0
-        default_pose.position.z = 0.0
 
         markerArray = MarkerArray()
         for i in range(0,100):
             marker = Marker()
             marker.id = i
             marker.header.frame_id = "link_base"
-            marker.type = marker.SPHERE
             marker.action = marker.DELETE
-            #marker.lifetime = 2
-            marker.pose.position.x = default_pose.position.x
-            marker.pose.position.y = default_pose.position.y
-            marker.pose.position.z = default_pose.position.z
-            marker.scale.x = 0.001
-            marker.scale.y = 0.001
-            marker.scale.z = 0.001
-            marker.color.a = 1.0
-            marker.color.r = 1.0
-            marker.color.g = 1.0
-            marker.color.b = 1.0
             markerArray.markers.append(marker)
         rospy.sleep(1)
         publisher.publish(markerArray)
@@ -309,5 +303,18 @@ class MoveGroupDefinedPath(object):
         
         rospy.sleep(1)
         publisher.publish(msg)
+
+    def get_planner_id(self):
+
+        service_client = rospy.ServiceProxy("ompl_planner_id", Trigger)
+        try:
+            rospy.wait_for_service("/ompl_planner_id", 5)
+        except rospy.exceptions.ROSException as exec:
+            print(exec)
         
+        response = service_client(TriggerRequest())
+        if response.success == True:
+            return response.message
+        else:
+            return ""
         

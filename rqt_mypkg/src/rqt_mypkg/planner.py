@@ -21,7 +21,6 @@ statisticsObject = statistics.StatisticsDefinedPath()
 #planningObject.go_to_starting_pose()
 #plan = planningObject.plan_path_from_to_start_with_joint_goal()
 planningObject.go_to_starting_joint_goal()
-
 #es wird eine inverse Kinematik berechnet
 #joint_goal = planningObject.get_inverse_kinematic()
 
