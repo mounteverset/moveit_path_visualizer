@@ -77,6 +77,9 @@ class MyPlugin(Plugin):
         self._widget.ompl_display_checkBox.clicked.connect(self.on_checkBox_clicked)
         self._widget.chomp_display_checkBox.clicked.connect(self.on_checkBox_clicked)
         self._widget.stomp_display_checkBox.clicked.connect(self.on_checkBox_clicked)
+        self._widget.ompl_export_button.clicked.connect(self.on_ompl_export_clicked)
+        self._widget.chomp_export_button.clicked.connect(self.on_chomp_export_clicked)
+        self._widget.stomp_export_button.clicked.connect(self.on_stomp_export_clicked)
         #self._widget.statisticsTable.clicked.connect(self.on_statistics_generated)
         #self._widget.pushButton.clicked.connect(self.pushButton_clicked)
 
@@ -312,14 +315,28 @@ class MyPlugin(Plugin):
                                                             preexec_fn=os.setpgrp)
             #os.system("gnome-terminal 'source ~/ws_moveit/devel/setup.bash ; roslaunch fanuc_m710 demo.launch'")
         elif self._widget.radioButton_CHOMP.isChecked() == True:
-            self.active_motion_planner = subprocess.Popen(["gnome-terminal", 
+            if self._widget.checkBox_chomp_ompl_prep.isChecked() == True:
+                self.active_motion_planner = subprocess.Popen(["gnome-terminal", 
+                                                            '--disable-factory', 
+                                                            "-e", 
+                                                            "roslaunch fanuc_m710 demo.launch pipeline:=chomp_ompl_prep"],
+                                                            preexec_fn=os.setpgrp)
+            else:
+                self.active_motion_planner = subprocess.Popen(["gnome-terminal", 
                                                             '--disable-factory', 
                                                             "-e", 
                                                             "roslaunch fanuc_m710 demo.launch pipeline:=chomp"],
                                                             preexec_fn=os.setpgrp)
             #os.system("gnome-terminal 'roslaunch fanuc_m710 demo.launch pipeline:=chomp'")
         elif self._widget.radioButton_STOMP.isChecked() == True:
-            self.active_motion_planner = subprocess.Popen(["gnome-terminal", 
+            if self._widget.checkBox_stomp_chomp_postp.isChecked() == True:
+                self.active_motion_planner = subprocess.Popen(["gnome-terminal", 
+                                                            '--disable-factory',
+                                                            "-e", 
+                                                            "roslaunch fanuc_m710 demo.launch pipeline:=stomp_chomp_postp"],
+                                                            preexec_fn=os.setpgrp)
+            else:
+                self.active_motion_planner = subprocess.Popen(["gnome-terminal", 
                                                             '--disable-factory',
                                                             "-e", 
                                                             "roslaunch fanuc_m710 demo.launch pipeline:=stomp"],
@@ -334,7 +351,17 @@ class MyPlugin(Plugin):
     def on_checkBox_clicked(self):
         self.publish_marker_array()
         
-    
+    @Slot()
+    def on_ompl_export_clicked(self):
+        #umut in da hood
+
+    @Slot()
+    def on_chomp_export_clicked(self):
+        #umut make it good
+
+    @Slot()
+    def on_stomp_export_clicked(self):
+        #umut gleich kaputt
     
     def publish_marker_array(self):
 

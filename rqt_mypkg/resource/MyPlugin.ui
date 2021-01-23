@@ -58,7 +58,7 @@
       </size>
      </property>
      <property name="currentIndex">
-      <number>1</number>
+      <number>3</number>
      </property>
      <widget class="QWidget" name="tab_2">
       <attribute name="title">
@@ -258,14 +258,20 @@
          </widget>
         </item>
         <item row="1" column="2">
-         <widget class="QCheckBox" name="checkBox_chomp_preproc">
+         <widget class="QCheckBox" name="checkBox_chomp_ompl_prep">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
           <property name="text">
            <string>OMPL Preprocessor</string>
           </property>
          </widget>
         </item>
         <item row="2" column="2">
-         <widget class="QCheckBox" name="checkBox_stomp_preproc">
+         <widget class="QCheckBox" name="checkBox_stomp_chomp_postp">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
           <property name="text">
            <string>CHOMP Postprocessor</string>
           </property>
@@ -769,7 +775,7 @@
         <string/>
        </property>
       </widget>
-      <widget class="QPushButton" name="ompl_stat_button">
+      <widget class="QPushButton" name="ompl_export_button">
        <property name="geometry">
         <rect>
          <x>178</x>
@@ -782,7 +788,7 @@
         <string>Export</string>
        </property>
       </widget>
-      <widget class="QPushButton" name="pushButton_2">
+      <widget class="QPushButton" name="chomp_export_button">
        <property name="geometry">
         <rect>
          <x>274</x>
@@ -795,7 +801,7 @@
         <string>Export</string>
        </property>
       </widget>
-      <widget class="QPushButton" name="pushButton_3">
+      <widget class="QPushButton" name="stomp_export_button">
        <property name="geometry">
         <rect>
          <x>372</x>
@@ -828,6 +834,38 @@
     <hint type="destinationlabel">
      <x>295</x>
      <y>61</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>radioButton_CHOMP</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>checkBox_chomp_ompl_prep</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>199</x>
+     <y>91</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>360</x>
+     <y>91</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>radioButton_STOMP</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>checkBox_stomp_chomp_postp</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>199</x>
+     <y>120</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>360</x>
+     <y>120</y>
     </hint>
    </hints>
   </connection>
