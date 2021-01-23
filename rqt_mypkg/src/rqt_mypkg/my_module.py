@@ -161,60 +161,60 @@ class MyPlugin(Plugin):
                 self._widget.ompl_display_checkBox.setChecked(True)
 
 
-            elif self._widget.radioButton_CHOMP.isChecked() == True:
-                column = 1
-                self.chomp_pose_array = msg.eef_poses
-                self.chomp_marker_array = msg.markers
+            # elif self._widget.radioButton_CHOMP.isChecked() == True:
+            #     column = 1
+            #     self.chomp_pose_array = msg.eef_poses
+            #     self.chomp_marker_array = msg.markers
                 
-                for marker in self.chomp_marker_array.markers:
-                    marker.id += 150
-                    marker.color.a = 1.0
-                    marker.color.r = 0.0
-                    marker.color.g = 0.0
-                    marker.color.b = 1.0
-                rnd = random.randint(0,len(self.chomp_marker_array.markers)-1)
-                text_marker = self.create_text_marker("CHOMP", 
-                                                        self.chomp_marker_array.markers[len(self.chomp_marker_array.markers)-1].id, 
-                                                        self.chomp_marker_array.markers[rnd].pose) 
-                text_marker.color.a = 1.0
-                text_marker.color.r = 0.0
-                text_marker.color.g = 0.0
-                text_marker.color.b = 1.0        
-                self.chomp_marker_array.markers.append(text_marker)
+            #     for marker in self.chomp_marker_array.markers:
+            #         marker.id += 150
+            #         marker.color.a = 1.0
+            #         marker.color.r = 0.0
+            #         marker.color.g = 0.0
+            #         marker.color.b = 1.0
+            #     rnd = random.randint(0,len(self.chomp_marker_array.markers)-1)
+            #     text_marker = self.create_text_marker("CHOMP", 
+            #                                             self.chomp_marker_array.markers[len(self.chomp_marker_array.markers)-1].id, 
+            #                                             self.chomp_marker_array.markers[rnd].pose) 
+            #     text_marker.color.a = 1.0
+            #     text_marker.color.r = 0.0
+            #     text_marker.color.g = 0.0
+            #     text_marker.color.b = 1.0        
+            #     self.chomp_marker_array.markers.append(text_marker)
 
-                self._widget.chomp_display_checkBox.setEnabled(True)
-                self._widget.chomp_display_checkBox.setChecked(True)
+            #     self._widget.chomp_display_checkBox.setEnabled(True)
+            #     self._widget.chomp_display_checkBox.setChecked(True)
 
-            elif self._widget.radioButton_STOMP.isChecked() == True:
-                column = 2
-                self.stomp_pose_array = msg.eef_poses
-                self.stomp_marker_array = msg.markers
+            # elif self._widget.radioButton_STOMP.isChecked() == True:
+            #     column = 2
+            #     self.stomp_pose_array = msg.eef_poses
+            #     self.stomp_marker_array = msg.markers
 
-                for marker in self.stomp_marker_array.markers:
-                    marker.id += 350
-                    marker.color.a = 1.0
-                    marker.color.r = 1.0
-                    marker.color.g = 0.0
-                    marker.color.b = 0.0
+            #     for marker in self.stomp_marker_array.markers:
+            #         marker.id += 350
+            #         marker.color.a = 1.0
+            #         marker.color.r = 1.0
+            #         marker.color.g = 0.0
+            #         marker.color.b = 0.0
 
-                rnd = random.randint(0,len(self.stomp_marker_array.markers)-1)
-                text_marker = self.create_text_marker("STOMP", 
-                                                    self.stomp_marker_array.markers[len(self.stomp_marker_array.markers)-1].id, 
-                                                    self.stomp_marker_array.markers[rnd].pose)  
-                text_marker.color.a = 1.0
-                text_marker.color.r = 1.0
-                text_marker.color.g = 0.0
-                text_marker.color.b = 0.0     
-                self.stomp_marker_array.markers.append(text_marker)
+            #     rnd = random.randint(0,len(self.stomp_marker_array.markers)-1)
+            #     text_marker = self.create_text_marker("STOMP", 
+            #                                         self.stomp_marker_array.markers[len(self.stomp_marker_array.markers)-1].id, 
+            #                                         self.stomp_marker_array.markers[rnd].pose)  
+            #     text_marker.color.a = 1.0
+            #     text_marker.color.r = 1.0
+            #     text_marker.color.g = 0.0
+            #     text_marker.color.b = 0.0     
+            #     self.stomp_marker_array.markers.append(text_marker)
 
-                self._widget.stomp_display_checkBox.setEnabled(True)
-                self._widget.stomp_display_checkBox.setChecked(True)
+            #     self._widget.stomp_display_checkBox.setEnabled(True)
+            #     self._widget.stomp_display_checkBox.setChecked(True)
 
-            if column == -1:
-                print("No active motion planner found...")
+            # if column == -1:
+            #     print("No active motion planner found...")
             
-            self._widget.ompl_display_checkBox.setEnabled(True)
-            self._widget.ompl_display_checkBox.setChecked(True)
+            # self._widget.ompl_display_checkBox.setEnabled(True)
+            # self._widget.ompl_display_checkBox.setChecked(True)
 
 
             elif self._widget.radioButton_CHOMP.isChecked() == True:
