@@ -58,7 +58,7 @@
       </size>
      </property>
      <property name="currentIndex">
-      <number>0</number>
+      <number>1</number>
      </property>
      <widget class="QWidget" name="tab_2">
       <attribute name="title">
@@ -413,10 +413,10 @@
            <item>
             <widget class="QDoubleSpinBox" name="doubleSpinBox_x2">
              <property name="minimum">
-              <double>-2.000000000000000</double>
+              <double>-3.000000000000000</double>
              </property>
              <property name="maximum">
-              <double>2.000000000000000</double>
+              <double>3.000000000000000</double>
              </property>
              <property name="singleStep">
               <double>0.100000000000000</double>
@@ -436,10 +436,10 @@
            <item>
             <widget class="QDoubleSpinBox" name="doubleSpinBox_y2">
              <property name="minimum">
-              <double>-2.000000000000000</double>
+              <double>-3.000000000000000</double>
              </property>
              <property name="maximum">
-              <double>2.000000000000000</double>
+              <double>3.000000000000000</double>
              </property>
              <property name="singleStep">
               <double>0.100000000000000</double>
@@ -459,7 +459,7 @@
            <item>
             <widget class="QDoubleSpinBox" name="doubleSpinBox_z2">
              <property name="maximum">
-              <double>2.000000000000000</double>
+              <double>3.000000000000000</double>
              </property>
              <property name="singleStep">
               <double>0.100000000000000</double>
