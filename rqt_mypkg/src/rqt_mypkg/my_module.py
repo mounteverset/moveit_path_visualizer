@@ -13,7 +13,8 @@ from PySide2.QtCore import Qt, Slot, qWarning
 from python_qt_binding.QtWidgets  import QFileDialog, QMessageBox
 from python_qt_binding.QtWidgets  import QTableWidget, QTableWidgetItem
 
-from std_msgs.msg import Int32 
+from std_msgs.msg import Int32, String
+from std_srvs.srv import Trigger, TriggerRequest, TriggerResponse
 from geometry_msgs.msg import Pose, PoseArray
 from pathlib import Path as Path
 import signal
@@ -81,12 +82,24 @@ class MyPlugin(Plugin):
         # Initialize a ROS subscriber
         
         sub = rospy.Subscriber('/statistics', PathStatistics, self.callback_subscriber)
-
+        service = rospy.Service("/ompl_planner_id", Trigger, self.callback_service)
         self.active_motion_planner = None
         self.first_open = False
 
         # Add widget to the user interface
         context.add_widget(self._widget)
+
+    def callback_service(self, request):
+        print("service callback is called")
+        response = TriggerResponse()
+        if self._widget.radioButton_OMPL.isChecked()== True:
+            response.success = True
+            response.message = self._widget.comboBox_ompl.currentText()
+        else:
+            response.success = False
+            response.message = ""
+        return response
+
 
     # things that need to happen in this callback:
     # all of the data from the received message is written into the correct column and cell
