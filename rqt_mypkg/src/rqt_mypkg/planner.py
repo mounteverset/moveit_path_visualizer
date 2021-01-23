@@ -34,7 +34,7 @@ if planned_path[0] == True:
     eef_poses = planningObject.get_eef_poses(planned_path)
 
     #Die Marker werden gepublished 
-    marker_array = planningObject.display_eef_marker(eef_poses)
+    marker_array = planningObject.create_eef_marker(eef_poses)
 
     #Für die Statistik wird die Pfadlänge berechnet
     path_length = statisticsObject.get_path_length(eef_poses)

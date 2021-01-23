@@ -18,6 +18,7 @@ from std_srvs.srv import Trigger, TriggerRequest, TriggerResponse
 from geometry_msgs.msg import Pose, PoseArray
 from pathlib import Path as Path
 import signal
+import random
 
 from visualization_msgs.msg import Marker, MarkerArray
 from rqt_mypkg import path_planning_interface
@@ -128,15 +129,46 @@ class MyPlugin(Plugin):
 
         if self._widget.radioButton_OMPL.isChecked()== True:
             column = 0
+
             self.ompl_pose_array = msg.eef_poses
             self.ompl_marker_array = msg.markers
+
+            for marker in self.ompl_marker_array.markers:
+                marker.color.a = 1.0
+                marker.color.r = 1.0
+                marker.color.g = 1.0
+                marker.color.b = 1.0
+            rnd = random.randint(0,len(self.ompl_marker_array.markers)-1)
+            text_marker = self.create_text_marker("OMPL", 
+                                                    self.ompl_marker_array.markers[len(self.ompl_marker_array.markers)-1].id, 
+                                                    self.ompl_marker_array.markers[rnd].pose)       
+            self.ompl_marker_array.markers.append(text_marker)
+            
             self._widget.ompl_display_checkBox.setEnabled(True)
             self._widget.ompl_display_checkBox.setChecked(True)
+
 
         elif self._widget.radioButton_CHOMP.isChecked() == True:
             column = 1
             self.chomp_pose_array = msg.eef_poses
             self.chomp_marker_array = msg.markers
+            
+            for marker in self.chomp_marker_array.markers:
+                marker.id += 150
+                marker.color.a = 1.0
+                marker.color.r = 0.0
+                marker.color.g = 0.0
+                marker.color.b = 1.0
+            rnd = random.randint(0,len(self.chomp_marker_array.markers)-1)
+            text_marker = self.create_text_marker("CHOMP", 
+                                                    self.chomp_marker_array.markers[len(self.chomp_marker_array.markers)-1].id, 
+                                                    self.chomp_marker_array.markers[rnd].pose) 
+            text_marker.color.a = 1.0
+            text_marker.color.r = 0.0
+            text_marker.color.g = 0.0
+            text_marker.color.b = 1.0        
+            self.chomp_marker_array.markers.append(text_marker)
+
             self._widget.chomp_display_checkBox.setEnabled(True)
             self._widget.chomp_display_checkBox.setChecked(True)
 
@@ -144,6 +176,24 @@ class MyPlugin(Plugin):
             column = 2
             self.stomp_pose_array = msg.eef_poses
             self.stomp_marker_array = msg.markers
+
+            for marker in self.stomp_marker_array.markers:
+                marker.id += 350
+                marker.color.a = 1.0
+                marker.color.r = 1.0
+                marker.color.g = 0.0
+                marker.color.b = 0.0
+
+            rnd = random.randint(0,len(self.stomp_marker_array.markers)-1)
+            text_marker = self.create_text_marker("STOMP", 
+                                                self.stomp_marker_array.markers[len(self.stomp_marker_array.markers)-1].id, 
+                                                self.stomp_marker_array.markers[rnd].pose)  
+            text_marker.color.a = 1.0
+            text_marker.color.r = 1.0
+            text_marker.color.g = 0.0
+            text_marker.color.b = 0.0     
+            self.stomp_marker_array.markers.append(text_marker)
+
             self._widget.stomp_display_checkBox.setEnabled(True)
             self._widget.stomp_display_checkBox.setChecked(True)
 
@@ -172,7 +222,7 @@ class MyPlugin(Plugin):
         # done above
 
         # Part 4: display the paths from every checked path planner
-
+        self.publish_marker_array()
         # Part 5: disable the pushButton_planPath for the next use
         self._widget.pushButton_planPath.setEnabled(False)
     
@@ -275,15 +325,43 @@ class MyPlugin(Plugin):
                                                             "roslaunch fanuc_m710 demo.launch pipeline:=stomp"],
                                                             preexec_fn=os.setpgrp)
 
+
     # function needed to connect to an event from the gui:
     # when one of the checkboxes is getting checked or unchecked the marker array needs to update accordingly to the checkmarks
     # function replaces the one in path_planning_interface publish_marker_array
 
     @Slot()
     def on_checkBox_clicked(self):
-        print("to be implemented")
-        pass
+        self.publish_marker_array()
+        
     
+    
+    def publish_marker_array(self):
+
+        publisher = rospy.Publisher('visualization_marker_array',
+                                    MarkerArray,
+                                    queue_size=1)
+
+        markerArray = MarkerArray()
+        for i in range(0,500):
+            marker = Marker()
+            marker.id = i
+            marker.header.frame_id = "link_base"
+            marker.action = marker.DELETE
+            markerArray.markers.append(marker)
+        rospy.sleep(1)
+        publisher.publish(markerArray)
+        markerArray.markers.clear()
+
+        if self._widget.ompl_display_checkBox.isChecked():
+            markerArray.markers.extend(self.ompl_marker_array.markers)
+        if self._widget.chomp_display_checkBox.isChecked():
+            markerArray.markers.extend(self.chomp_marker_array.markers)
+        if self._widget.stomp_display_checkBox.isChecked():
+            markerArray.markers.extend(self.stomp_marker_array.markers)
+
+        rospy.sleep(1)
+        publisher.publish(markerArray)
 
     def get_start_values(self):
         x = str(round(self._widget.doubleSpinBox_x1.value(),1))
@@ -293,11 +371,32 @@ class MyPlugin(Plugin):
         return x,y,z
 
     def get_goal_values(self):
+
         x = str(round(self._widget.doubleSpinBox_x2.value(),1))
         y = str(round(self._widget.doubleSpinBox_y2.value(),1))
         z = str(round(self._widget.doubleSpinBox_z2.value(),1))
         #w = str(self._widget.doubleSpinBox_r2.value())
         return x,y,z
+
+    def create_text_marker(self, text, id, pose):
+        marker = Marker()
+        marker.id = id + 1
+        marker.header.frame_id = "link_base"
+        marker.type = marker.TEXT_VIEW_FACING
+        marker.text = text
+        marker.action = marker.ADD
+        marker.pose.position.x = pose.position.x 
+        marker.pose.position.y = pose.position.y 
+        marker.pose.position.z = pose.position.z + 0.3
+        marker.scale.z = 0.2
+        marker.color.a = 1.0
+        marker.color.r = 1.0
+        marker.color.g = 1.0
+        marker.color.b = 1.0
+        
+        return marker
+
+
     # @Slot()
     # def on_statistics_generated(self):
     #     planningObject = path_planning_interface.MoveGroupDefinedPath()

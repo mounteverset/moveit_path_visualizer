@@ -198,23 +198,23 @@ class MoveGroupDefinedPath(object):
         
         # either directly create a marker and append it to an array or save the poses in an array
     
-    def display_eef_marker(self, eef_poses):
+    def create_eef_marker(self, eef_poses):
 
-        publisher = rospy.Publisher('visualization_marker_array',
-                                                            MarkerArray,
-                                                            queue_size=1)
+        # publisher = rospy.Publisher('visualization_marker_array',
+        #                                                     MarkerArray,
+        #                                                     queue_size=1)
 
         markerArray = MarkerArray()
-        for i in range(0,100):
-            marker = Marker()
-            marker.id = i
-            marker.header.frame_id = "link_base"
-            marker.action = marker.DELETE
-            markerArray.markers.append(marker)
-        rospy.sleep(1)
-        publisher.publish(markerArray)
+        # for i in range(0,100):
+        #     marker = Marker()
+        #     marker.id = i
+        #     marker.header.frame_id = "link_base"
+        #     marker.action = marker.DELETE
+        #     markerArray.markers.append(marker)
+        # rospy.sleep(1)
+        # publisher.publish(markerArray)
 
-        markerArray.markers.clear()
+        # markerArray.markers.clear()
 
         for i in range(0, len(eef_poses)):
             marker = Marker()
@@ -234,24 +234,24 @@ class MoveGroupDefinedPath(object):
             marker.color.b = 1.0
             markerArray.markers.append(marker)
         
-        marker = Marker()
-        marker.id = len(markerArray.markers)
-        marker.header.frame_id = "link_base"
-        marker.type = marker.TEXT_VIEW_FACING
-        marker.text = "OMPL Pfad"
-        marker.action = marker.ADD
-        marker.pose.position.x = markerArray.markers[2].pose.position.x 
-        marker.pose.position.y = markerArray.markers[2].pose.position.y 
-        marker.pose.position.z = markerArray.markers[2].pose.position.z + 0.1
-        marker.scale.z = 0.2
-        marker.color.a = 1.0
-        marker.color.r = 1.0
-        marker.color.g = 1.0
-        marker.color.b = 1.0
-        markerArray.markers.append(marker)
+        # marker = Marker()
+        # marker.id = len(markerArray.markers)
+        # marker.header.frame_id = "link_base"
+        # marker.type = marker.TEXT_VIEW_FACING
+        # marker.text = "OMPL Pfad"
+        # marker.action = marker.ADD
+        # marker.pose.position.x = markerArray.markers[2].pose.position.x 
+        # marker.pose.position.y = markerArray.markers[2].pose.position.y 
+        # marker.pose.position.z = markerArray.markers[2].pose.position.z + 0.1
+        # marker.scale.z = 0.2
+        # marker.color.a = 1.0
+        # marker.color.r = 1.0
+        # marker.color.g = 1.0
+        # marker.color.b = 1.0
+        # markerArray.markers.append(marker)
 
-        rospy.sleep(1)
-        publisher.publish(markerArray)
+        # rospy.sleep(1)
+        # publisher.publish(markerArray)
 
         return markerArray
 
