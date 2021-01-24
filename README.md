@@ -1,5 +1,5 @@
 <details>
-<summary>***Installation der benötigten Software/WSL2 Setup***
+<summary>***Installation der benötigten Software/WSL2 Setup***</summary>
 
 Installation Docker auf Windows mit WSL- Kästchen angetickt. VcXsrv https://sourceforge.net/projects/vcxsrv/ (Downloadlink!) vorher installieren. Empfehelung am Rande: Windows Terminal im Windows Store runterladen. Cooles Tool.
 
