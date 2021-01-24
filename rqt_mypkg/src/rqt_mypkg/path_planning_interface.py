@@ -317,4 +317,3 @@ class MoveGroupDefinedPath(object):
             return response.message
         else:
             return ""
-        
