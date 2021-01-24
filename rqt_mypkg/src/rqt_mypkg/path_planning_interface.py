@@ -25,16 +25,22 @@ from std_srvs.srv import TriggerRequest, Trigger
 from moveit_msgs.srv import GetPositionIKRequest, GetPositionIK
 from rqt_mypkg.msg import PathStatistics
 
+## Interfaces the MoveIt RobotCommander, PlanningSceneInterface and the MoveGroupCommander to perform motion planning tasks 
 class MoveGroupDefinedPath(object):
 
+    ## The constructor
     def __init__(self):
         super(MoveGroupDefinedPath, self).__init__()
 
         moveit_commander.roscpp_initialize(sys.argv)
+        ## @var display_trajectory_publisher
+        # ROS publisher to publish the paths to a topic used by rviz to display them
         self.display_trajectory_publisher = rospy.Publisher('move_group/display_planned_path',
                                                             moveit_msgs.msg.DisplayTrajectory,
                                                             queue_size=20)
-                                                            
+
+        ## @var statistics_publisher
+        # ROS publisher to publish the calculated path metrics back to the rqt plugin                                                    
         self.statistics_publisher = rospy.Publisher("PathStatistics", 
                                                     moveit_msgs.msg.RobotTrajectory, 
                                                     queue_size=1)
@@ -43,26 +49,63 @@ class MoveGroupDefinedPath(object):
         
         self.box_name = ""
         
+        ## @var robot
+        # Loaded robot object
         self.robot = moveit_commander.RobotCommander()
+
+        ## @var scene
+        # The current planning scene
         self.scene = moveit_commander.PlanningSceneInterface()
+
+        ## @var group_name
+        # The name of the robot to plan with
         group_name = "fanuc_arm"
+
+        ## @var move_group
+        # The MoveGroupCommander Interface of the robot
         self.move_group = moveit_commander.MoveGroupCommander(group_name)
+
         self.move_group.set_goal_joint_tolerance(0.005)
         self.move_group.set_goal_orientation_tolerance(0.05)
         self.move_group.set_goal_position_tolerance(0.05)
         self.move_group.set_goal_tolerance(0.05)
+
+        ## @var planning_frame
+        # The planning frame every object relates to
         self.planning_frame = self.move_group.get_planning_frame()
+
+        ## @var eef_link
+        # The joint which is defined as the end effector of the robot
+        # If not specified the default is the last joint in the move_group
         self.eef_link = self.move_group.get_end_effector_link()
+
+        ## @var group_names
+        # All of the names of the available move groups
         self.group_names = self.robot.get_group_names()
+
+        ## @var starting_pose
+        # The pose chosen in rqt as Pose() object
         self.starting_pose = self.get_values(False)
+
+        ## @var goal_pose
+        # The pose chosen in rqt as Pose() object
         self.goal_pose = self.get_values(True)
+
+        ## @var starting_joint_goal
+        # The solution of the inverse kinematic for the starting_pose as joint values
         self.starting_joint_goal = self.get_inverse_kinematic(False)
+
+        ## @var goal_joint_goal
+        # The solution of the inverse kinematic for the goal_pose as joint values
         self.goal_joint_goal = self.get_inverse_kinematic(True)
 
+        ## @var planner_id
+        # The selected planner algorithm if OMPL is used to plan paths
         self.planner_id = self.get_planner_id()
         if self.planner_id != "":
             self.move_group.set_planner_id(self.planner_id)         
 
+    ## The robot moves to the starting joint goal with move_group.go() and waits until the trajectory is completed before continuing
     def go_to_starting_joint_goal(self):
 
         print("Current joint_positions:")
@@ -74,11 +117,13 @@ class MoveGroupDefinedPath(object):
         self.move_group.stop()
         self.move_group.clear_pose_targets()
 
-    def plan_path__to_start_with_joint_goal(self):
+    ## The motion planner plans a trajectory from the current position to the start using joint goals
+    def plan_path_to_start_with_joint_goal(self):
         self.move_group.set_start_state(self.robot.get_current_state())
         motion_plan = self.move_group.plan(self.starting_joint_goal)    
         return motion_plan
 
+    ## The motion planner plans a trajectory from the current position to the goal using joint goals
     def plan_path_from_joint_goal(self):
         
         self.move_group.set_start_state(self.robot.get_current_state())
@@ -86,12 +131,14 @@ class MoveGroupDefinedPath(object):
         motion_plan = self.move_group.plan(self.goal_joint_goal)        
         return motion_plan     
 
+    ## The motion planner plans a trajectory from the current position to the start using pose goals
     def plan_path_from_pose (self):
                 
         self.move_group.set_pose_target(self.goal_pose)
         motion_plan = self.move_group.plan()        
         return motion_plan
-
+    
+    ## The robot moves to the starting pose goal with move_group.go() and waits until the trajectory is completed before continuing
     def go_to_starting_pose(self):
         
         print("Current joint_positions:")
@@ -101,7 +148,8 @@ class MoveGroupDefinedPath(object):
         plan = self.move_group.go(wait=True)
         self.move_group.stop()
         self.move_group.clear_pose_targets()
-  
+    
+    ## The robot moves to the pose goal with move_group.go() and waits until the trajectory is completed before continuing
     def go_to_goal_pose(self):
         
         self.move_group.set_pose_target(self.goal_joint_goal)        
@@ -110,16 +158,18 @@ class MoveGroupDefinedPath(object):
         self.move_group.clear_pose_targets()
         self.delete_pose_files()
 
+    ## The robot moves to the passed joint goal with move_group.go() and waits until the trajectory is completed before continuing
+    # @param joint_goal A joint position to which the robot should plan and move to
     def go_to_joint_space_goal(self, joint_goal):
 
         group_variable_values = move_group.get_current_joint_values()
         print("Current joint space goals: ")
         print(group_variable_values)
-
-        #group_variable_values[0]=1.0
         self.move_group.set_joint_value_target(joint_goal)
         plan = self.move_group.go(wait=True)
 
+    ## A planned path can be displayed in rviz
+    # @param plan A planned JointTrajectory message which was previously created
     def display_trajectory (self, plan):
                 
         trajectory = moveit_msgs.msg.DisplayTrajectory()
@@ -128,10 +178,13 @@ class MoveGroupDefinedPath(object):
 
         self.display_trajectory_publisher.publish(trajectory)
 
+    ## The robot executes the passed motion plan
+    # @param plan A planned JointTrajectory message which was previously created
     def execute_plan(self, plan):
         self.move_group.execute(plan, wait=True)
 
-    #if goal == True -> goal pose
+    ## Reads the text files with the poses specified by the user in rqt
+    # @param A boolean if the values for the goal should be retrived, if True then the goal pose is returned
     def get_values(self, goal):
 
         homedir = str(Path.home())
@@ -154,6 +207,7 @@ class MoveGroupDefinedPath(object):
         pose.orientation.w = float(points[3])
         return pose 
 
+    ## The text files of the poses created by the user in rqt are deleted after successfully performing the motion plan
     def delete_pose_files(self):
 
         homedir = str(Path.home())
@@ -166,6 +220,8 @@ class MoveGroupDefinedPath(object):
         else:
            print("The file does not exist")
 
+    ## Returns a list of end effector poses for every step in the passed motion plan
+    # @param plan A planned JointTrajectory message which was previously created
     def get_eef_poses(self, plan):        
         
         eef_poses = []
@@ -192,7 +248,8 @@ class MoveGroupDefinedPath(object):
             eef_poses.append(self.move_group.get_current_pose().pose)
         
         return eef_poses
-  
+    
+    ## Returns a list of markers for every position of the end effector poses 
     def create_eef_marker(self, eef_poses):
 
         markerArray = MarkerArray()
@@ -218,6 +275,8 @@ class MoveGroupDefinedPath(object):
         return markerArray
 
     # wenn goal als True übergeben wird, dann wird die inverse kinematik für die goal_pose berechnet
+    ## Returns a joint position for either the specified start or goal pose
+    # @param goal A bool which says which pose should be translated, if True then self.goal_pose is used
     def get_inverse_kinematic(self, goal):
         
         compute_ik_service = rospy.ServiceProxy("compute_ik", GetPositionIK)
@@ -245,6 +304,13 @@ class MoveGroupDefinedPath(object):
 
         return response.solution.joint_state
 
+    ## Publishes a PathStatistics message to the topic statistics
+    # @param path_length The length of the planned path between start and goal 
+    # @param marker A MarkerArray message containing the end effector poses
+    # @param planning_time The time needed to plan the path
+    # @param max_accel The maximum joint acceleration found in the motion plan
+    # @param eef_poses A list of end effector poses derived from the motion between start and goal pose
+    # @param exec_time The planned time it takes the robot to perform the motion from start to goal in the real world
     def publish_statistics(self,path_length, markers, planning_time, max_accel, eef_poses, exec_time):
         
         publisher = rospy.Publisher('/statistics', PathStatistics, queue_size=1)
@@ -263,6 +329,7 @@ class MoveGroupDefinedPath(object):
         rospy.sleep(1)
         publisher.publish(msg)
 
+    ## Returns the name of the slected planning algorithm, if OMPL is checked in the rqt plugin
     def get_planner_id(self):
 
         service_client = rospy.ServiceProxy("ompl_planner_id", Trigger)

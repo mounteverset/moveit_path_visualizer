@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
+"""@package my_module
 
+"""
 import yaml
 import os
 import rospy
@@ -26,12 +28,13 @@ from rqt_mypkg import path_planning_interface, statistics
 from rqt_mypkg.msg import PathStatistics
 
 
-
+## rqt plugin class which is used to create the plugin from a UI file generated with Qt Designer
+#
+# Used to connect the slots to signals and also initialize ROS subscriber/services to communicate 
+# with the motion planner and display the received data in rviz and itself.
 class MyPlugin(Plugin):
-    """rqt plugin class which is used to create the plugin from a UI file generated with Qt Designer
 
-    
-    """
+    ## Constructor
     def __init__(self, context):
         super(MyPlugin, self).__init__(context)
         # Give QObjects reasonable names
@@ -106,7 +109,11 @@ class MyPlugin(Plugin):
         # Add widget to the rqt user interface
         context.add_widget(self._widget)
 
+    ## Returns the current selection of the OMPL planning algorithm to use for the path planning
+    # @param request Takes an empty TriggerRequest()
+    # @param response Returns a TriggerResponse with the message set to the selected algorithm if OMPL is set
     def callback_service(self, request):
+
         print("service callback is called")
         response = TriggerResponse()
         if self._widget.radioButton_OMPL.isChecked()== True:
@@ -116,53 +123,52 @@ class MyPlugin(Plugin):
             response.success = False
             response.message = ""
         return response
-
-
-    # things that need to happen in this callback:
-    # all of the data from the received message is written into the correct column and cell
-    # for this the current used planner has to determined by checking which radio buttons is checked
-    # also the checkbox at the bottom of the planner has to be automatically checked so that the path is visible by default
-    # the marker_array and the eef_poses from the message need to be saved in this program as object attributes in order to make them kind of persistent and accessible
-    # each motion_planner has their own respective set of variables but they can only store the values from the last plan that was executed with the motion planner
-    # also the plan_path_pushButton on the bottom of the gui needs to be disabled, because there are no points in a txt to read from right now
-    # also there needs to be a check whether some data is already in the columns above, bc if there isn't then the checkbox shouldnt be enabled
+    
+    ## Processes the received PathStatistics message from the path planner and displays the values in the statistics tab.
+    # @param msg The published message from planner.py
     def callback_subscriber(self, msg):
 
         print("rqt callback")
-        if msg.planning_time == 0 and msg.path_length == 0 and msg.max_acceleration == 0:
-            print("No solution for the inverse kinematic was found. \nPlease use different points closer to the robot.")
 
+        # If the path planer couldn't resolve the given points to calculate a solution for the inverse kinematic the message is empty.
+        if msg.planning_time == 0 and msg.path_length == 0 and msg.max_acceleration == 0:
+            print("No solution for the inverse kinematic was found. \nPlease use different points.")
+
+        # If an inverse kinematic is found but no path from start to finish was found in time the planner returns a predefined message.
         elif msg.planning_time == 1 and msg.path_length == 1 and msg.max_acceleration == 1:
             print("No motion plan was found in time for the given points.\nTry calculating it again or use different points.\nIncrease the allowed time to find a solution.")
 
         else:
-            # ompl column number = 0
-            # chomp column number = 1
-            # stomp column number = 2
-            # start pose row = 0
-            # goal pose row = 1
-            # planning time row = 2
-            # execution time row = 3
-            # path length = 4
-            # max joint accel = 5
+            # Definitions for the QWidgetTable in the Statistics Tab
+            # OMPL column number = 0
+            # CHOMP column number = 1
+            # STOMP column number = 2
+            # Start pose row = 0
+            # Goal pose row = 1
+            # Planning time row = 2
+            # Execution time row = 3
+            # Path length = 4
+            # Max joint accel = 5
             column = -1
 
             if self._widget.radioButton_OMPL.isChecked()== True:
                 column = 0
-
                 self.ompl_pose_array = msg.eef_poses
                 self.ompl_marker_array = msg.markers
 
+                # The markers are coloured differently for each planner
                 for marker in self.ompl_marker_array.markers:
                     marker.color.a = 1.0
                     marker.color.r = 1.0
                     marker.color.g = 1.0
                     marker.color.b = 1.0
+                # A text marker is created to label the path, the marker is positioned randomly along the path
                 rnd = random.randint(0,len(self.ompl_marker_array.markers)-1)
                 text_marker = self.create_text_marker("OMPL", 
                                                         self.ompl_marker_array.markers[len(self.ompl_marker_array.markers)-1].id, 
                                                         self.ompl_marker_array.markers[rnd].pose)       
                 self.ompl_marker_array.markers.append(text_marker)
+                
                 
                 self._widget.ompl_display_checkBox.setEnabled(True)
                 self._widget.ompl_display_checkBox.setChecked(True)
@@ -186,6 +192,7 @@ class MyPlugin(Plugin):
                             marker.color.r = 1.0
                             marker.color.g = 1.0
                             marker.color.b = 1.0
+                    # A text marker is created to label the path, the marker is positioned randomly along the path
                     rnd = random.randint(0,len(self.chomp_marker_array.markers)-1)
                     text_marker = self.create_text_marker("CHOMP (processed)", 
                                                             self.chomp_marker_array.markers[len(self.chomp_marker_array.markers)-1].id, 
@@ -210,6 +217,7 @@ class MyPlugin(Plugin):
                         marker.color.r = 0.0
                         marker.color.g = 0.0
                         marker.color.b = 1.0
+                    # A text marker is created to label the path, the marker is positioned randomly along the path
                     rnd = random.randint(0,len(self.chomp_marker_array.markers)-1)
                     text_marker = self.create_text_marker("CHOMP", 
                                                             self.chomp_marker_array.markers[len(self.chomp_marker_array.markers)-1].id, 
@@ -242,7 +250,7 @@ class MyPlugin(Plugin):
                             marker.color.r = 0.0
                             marker.color.g = 0.0
                             marker.color.b = 1.0 
-
+                    # A text marker is created to label the path, the marker is positioned randomly along the path
                     rnd = random.randint(0,len(self.stomp_marker_array.markers)-1)
                     text_marker = self.create_text_marker("STOMP (processed)", 
                                                         self.stomp_marker_array.markers[len(self.stomp_marker_array.markers)-1].id, 
@@ -267,7 +275,7 @@ class MyPlugin(Plugin):
                         marker.color.r = 1.0
                         marker.color.g = 0.0
                         marker.color.b = 0.0
-
+                    # A text marker is created to label the path, the marker is positioned randomly along the path
                     rnd = random.randint(0,len(self.stomp_marker_array.markers)-1)
                     text_marker = self.create_text_marker("STOMP", 
                                                         self.stomp_marker_array.markers[len(self.stomp_marker_array.markers)-1].id, 
@@ -285,6 +293,7 @@ class MyPlugin(Plugin):
             if column == -1:
                 print("No active motion planner found...")
             
+            # The values from the message are written into the QWidgetList
             start_values = self.get_start_values()
             goal_values = self.get_goal_values()
             start_table_item = QTableWidgetItem("[{}]".format("|".join(start_values)))
@@ -300,10 +309,10 @@ class MyPlugin(Plugin):
             joint_accel = planning_time = QTableWidgetItem(str(round(msg.max_acceleration,5))) 
             self._widget.statisticsTable.setItem(5,column, joint_accel)
 
-            # display the paths from every checked path planner
+            # Display the paths from every checked path planner
             self.publish_marker_array()
 
-            # Part 5: disable the pushButton_planPath for the next use
+            # Part 5: disable the pushButton_planPath for the next use, so that the points have to be applied again
             self._widget.pushButton_planPath.setEnabled(False)
     
     def shutdown_plugin(self):
@@ -317,15 +326,16 @@ class MyPlugin(Plugin):
 
     def trigger_configuration(self):
         pass
-    
+
+    ## Executes the path planning in a seperate terminal so that rqt is not blocked
     @Slot()
     def on_pushButton_planPath_clicked(self):
         
         subprocess.Popen(["gnome-terminal", "-e", "rosrun rqt_mypkg planner.py"])       
 
+    ## Launches a saved planning scene with objects to be displayed in rviz
     @Slot()
     def on_pushButton_openPlanningScene_clicked(self):
-        
         current_item = self._widget.planningScene_listWidget.currentItem()
         if current_item.text() != "":
             working_dir = str(Path(__file__).parent.absolute())
@@ -337,10 +347,10 @@ class MyPlugin(Plugin):
         else:
             print("No planning scene selected.")
 
-        
+    ## The selected values for start and goal are written into a text file and saved into the home direcotry which is read by the path planner  
     @Slot()
     def on_pushButton_apply_clicked(self):
-        
+
         startingPose = Pose()
         goalPose = Pose()
 
@@ -370,10 +380,10 @@ class MyPlugin(Plugin):
         
         self._widget.pushButton_planPath.setEnabled(True)
 
-                
+    ## The demo.launch file is launched in a new terminal with arguments to start the planning pipelines required to display the robot and plan paths with it            
     @Slot()
     def on_pushButton_apply_planner_clicked(self):
-        
+
         self._widget.pushButton_openPlanningScene.setEnabled(True)
 
         if self.active_motion_planner != None:
@@ -415,12 +425,16 @@ class MyPlugin(Plugin):
                                                             "roslaunch fanuc_m710 demo.launch pipeline:=stomp"],
                                                             preexec_fn=os.setpgrp)
 
+    ## The published markers get refreshed if one of the display path checkboxes are clicked
     @Slot()
     def on_checkBox_clicked(self):
+
         self.publish_marker_array()
-        
+
+    ## Exports the corresponding PoseArray to a file
     @Slot()
     def on_ompl_export_clicked(self):
+
         dialog = QFileDialog()
         directory, _filter = dialog.getSaveFileName(None, 'Choose a file name')
         print(directory)
@@ -429,29 +443,34 @@ class MyPlugin(Plugin):
                 yaml.dump(self.ompl_pose_array, file_save, default_flow_style=False)
         except FileNotFoundError:
             pass
-
+    
+    ## Exports the corresponding PoseArray to a file
     @Slot()
     def on_chomp_export_clicked(self):
+
         dialog = QFileDialog()
         directory, _filter = dialog.getSaveFileName(None, 'Choose a file name')
         print(directory)
         try:
             with open(directory, 'w') as file_save:
-                yaml.dump(self.ompl_pose_array, file_save, default_flow_style=False)
+                yaml.dump(self.chomp_pose_array, file_save, default_flow_style=False)
         except FileNotFoundError:
             pass
 
+    ## Exports the corresponding PoseArray to a file
     @Slot()
     def on_stomp_export_clicked(self):
+        
         dialog = QFileDialog()
         directory, _filter = dialog.getSaveFileName(None, 'Choose a file name')
         print(directory)
         try:
             with open(directory, 'w') as file_save:
-                yaml.dump(self.ompl_pose_array, file_save, default_flow_style=False)
+                yaml.dump(self.stomp_pose_array, file_save, default_flow_style=False)
         except FileNotFoundError:
             pass
 
+    ## The markers from the planned paths are displayed in rviz
     def publish_marker_array(self):
 
         publisher = rospy.Publisher('visualization_marker_array',
@@ -479,23 +498,28 @@ class MyPlugin(Plugin):
         rospy.sleep(1)
         publisher.publish(markerArray)
 
+    ## Returns the current values from the start point spinboxes as string
     def get_start_values(self):
+
         x = str(round(self._widget.doubleSpinBox_x1.value(),1))
         y = str(round(self._widget.doubleSpinBox_y1.value(),1))
         z = str(round(self._widget.doubleSpinBox_z1.value(),1))
-        #w = str(self._widget.doubleSpinBox_r1.value())
         return x,y,z
 
+    ## Returns the current values from the goal point spinboxes as string
     def get_goal_values(self):
-
+        
         x = str(round(self._widget.doubleSpinBox_x2.value(),1))
         y = str(round(self._widget.doubleSpinBox_y2.value(),1))
         z = str(round(self._widget.doubleSpinBox_z2.value(),1))
-        #w = str(self._widget.doubleSpinBox_r2.value())
         return x,y,z
 
+    ## Creates a text marker
+    # @param text The text of the marker
+    # @param id The id of the marker, has to be unique
+    # @param pose The position of the marker in 3D space
     def create_text_marker(self, text, id, pose):
-
+        
         marker = Marker()
         marker.id = id + 1
         marker.header.frame_id = "link_base"
@@ -513,6 +537,7 @@ class MyPlugin(Plugin):
         
         return marker
 
+    ## Updates the QListWidget in the PlanningScene tab with the content of the /scenes directory
     def on_pushButton_planningScene_refresh_clicked(self):
         self._widget.planningScene_listWidget.clear()
         working_dir = str(Path(__file__).parent.absolute())
