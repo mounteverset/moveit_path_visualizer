@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
-
+## @package my_module
+# Interfaces the MoveIt RobotCommander, PlanningSceneInterface and the MoveGroupCommander to perform motion planning tasks 
 import sys
 import copy
 from moveit_commander import move_group

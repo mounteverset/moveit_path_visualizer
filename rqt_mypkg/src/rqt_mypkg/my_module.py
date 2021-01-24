@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
-"""@package my_module
+## @package my_module
 
-"""
 import yaml
 import os
 import rospy

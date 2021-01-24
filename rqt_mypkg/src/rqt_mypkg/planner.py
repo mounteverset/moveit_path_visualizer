@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-
+## @package my_module
 import sys
 import copy
 import rospy

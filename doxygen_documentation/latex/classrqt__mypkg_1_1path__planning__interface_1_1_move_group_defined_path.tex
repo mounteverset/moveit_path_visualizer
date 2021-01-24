@@ -1,0 +1,312 @@
+\hypertarget{classrqt__mypkg_1_1path__planning__interface_1_1_move_group_defined_path}{}\doxysection{rqt\+\_\+mypkg.\+path\+\_\+planning\+\_\+interface.\+Move\+Group\+Defined\+Path Class Reference}
+\label{classrqt__mypkg_1_1path__planning__interface_1_1_move_group_defined_path}\index{rqt\_mypkg.path\_planning\_interface.MoveGroupDefinedPath@{rqt\_mypkg.path\_planning\_interface.MoveGroupDefinedPath}}
+
+
+Interfaces the Move\+It Robot\+Commander, Planning\+Scene\+Interface and the Move\+Group\+Commander to perform motion planning tasks.  
+
+
+
+
+Inheritance diagram for rqt\+\_\+mypkg.\+path\+\_\+planning\+\_\+interface.\+Move\+Group\+Defined\+Path\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=265pt]{classrqt__mypkg_1_1path__planning__interface_1_1_move_group_defined_path__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for rqt\+\_\+mypkg.\+path\+\_\+planning\+\_\+interface.\+Move\+Group\+Defined\+Path\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=265pt]{classrqt__mypkg_1_1path__planning__interface_1_1_move_group_defined_path__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classrqt__mypkg_1_1path__planning__interface_1_1_move_group_defined_path_aac80a673fca94560bb434649b4f1b768}\label{classrqt__mypkg_1_1path__planning__interface_1_1_move_group_defined_path_aac80a673fca94560bb434649b4f1b768}} 
+def \mbox{\hyperlink{classrqt__mypkg_1_1path__planning__interface_1_1_move_group_defined_path_aac80a673fca94560bb434649b4f1b768}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self)
+\begin{DoxyCompactList}\small\item\em The constructor. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classrqt__mypkg_1_1path__planning__interface_1_1_move_group_defined_path_aecdff58541dee72d59e2d2baa7796992}\label{classrqt__mypkg_1_1path__planning__interface_1_1_move_group_defined_path_aecdff58541dee72d59e2d2baa7796992}} 
+def \mbox{\hyperlink{classrqt__mypkg_1_1path__planning__interface_1_1_move_group_defined_path_aecdff58541dee72d59e2d2baa7796992}{go\+\_\+to\+\_\+starting\+\_\+joint\+\_\+goal}} (self)
+\begin{DoxyCompactList}\small\item\em The robot moves to the starting joint goal with move\+\_\+group.\+go() and waits until the trajectory is completed before continuing. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classrqt__mypkg_1_1path__planning__interface_1_1_move_group_defined_path_a2ae05245c38754425377d77b336c1ff7}\label{classrqt__mypkg_1_1path__planning__interface_1_1_move_group_defined_path_a2ae05245c38754425377d77b336c1ff7}} 
+def \mbox{\hyperlink{classrqt__mypkg_1_1path__planning__interface_1_1_move_group_defined_path_a2ae05245c38754425377d77b336c1ff7}{plan\+\_\+path\+\_\+to\+\_\+start\+\_\+with\+\_\+joint\+\_\+goal}} (self)
+\begin{DoxyCompactList}\small\item\em The motion planner plans a trajectory from the current position to the start using joint goals. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classrqt__mypkg_1_1path__planning__interface_1_1_move_group_defined_path_a727de6532040d6b102d4201281dfbc3c}\label{classrqt__mypkg_1_1path__planning__interface_1_1_move_group_defined_path_a727de6532040d6b102d4201281dfbc3c}} 
+def \mbox{\hyperlink{classrqt__mypkg_1_1path__planning__interface_1_1_move_group_defined_path_a727de6532040d6b102d4201281dfbc3c}{plan\+\_\+path\+\_\+from\+\_\+joint\+\_\+goal}} (self)
+\begin{DoxyCompactList}\small\item\em The motion planner plans a trajectory from the current position to the goal using joint goals. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classrqt__mypkg_1_1path__planning__interface_1_1_move_group_defined_path_a3c72d77dd790a6eef477ee5a8d9f435b}\label{classrqt__mypkg_1_1path__planning__interface_1_1_move_group_defined_path_a3c72d77dd790a6eef477ee5a8d9f435b}} 
+def \mbox{\hyperlink{classrqt__mypkg_1_1path__planning__interface_1_1_move_group_defined_path_a3c72d77dd790a6eef477ee5a8d9f435b}{plan\+\_\+path\+\_\+from\+\_\+pose}} (self)
+\begin{DoxyCompactList}\small\item\em The motion planner plans a trajectory from the current position to the start using pose goals. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classrqt__mypkg_1_1path__planning__interface_1_1_move_group_defined_path_ae477889a0b457d34f23cf0be6ff96127}\label{classrqt__mypkg_1_1path__planning__interface_1_1_move_group_defined_path_ae477889a0b457d34f23cf0be6ff96127}} 
+def \mbox{\hyperlink{classrqt__mypkg_1_1path__planning__interface_1_1_move_group_defined_path_ae477889a0b457d34f23cf0be6ff96127}{go\+\_\+to\+\_\+starting\+\_\+pose}} (self)
+\begin{DoxyCompactList}\small\item\em The robot moves to the starting pose goal with move\+\_\+group.\+go() and waits until the trajectory is completed before continuing. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classrqt__mypkg_1_1path__planning__interface_1_1_move_group_defined_path_a252b11da581b540e8482bbeaa894ad6a}\label{classrqt__mypkg_1_1path__planning__interface_1_1_move_group_defined_path_a252b11da581b540e8482bbeaa894ad6a}} 
+def \mbox{\hyperlink{classrqt__mypkg_1_1path__planning__interface_1_1_move_group_defined_path_a252b11da581b540e8482bbeaa894ad6a}{go\+\_\+to\+\_\+goal\+\_\+pose}} (self)
+\begin{DoxyCompactList}\small\item\em The robot moves to the pose goal with move\+\_\+group.\+go() and waits until the trajectory is completed before continuing. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classrqt__mypkg_1_1path__planning__interface_1_1_move_group_defined_path_af8c15a59b558e373eebbb7cef2793653}{go\+\_\+to\+\_\+joint\+\_\+space\+\_\+goal}} (self, joint\+\_\+goal)
+\begin{DoxyCompactList}\small\item\em The robot moves to the passed joint goal with move\+\_\+group.\+go() and waits until the trajectory is completed before continuing. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classrqt__mypkg_1_1path__planning__interface_1_1_move_group_defined_path_aa8137584cd8ed2ea6c268d7282356f90}{display\+\_\+trajectory}} (self, plan)
+\begin{DoxyCompactList}\small\item\em A planned path can be displayed in rviz. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classrqt__mypkg_1_1path__planning__interface_1_1_move_group_defined_path_a34f76ef80d8c110ced2d9b8a31b6a49d}{execute\+\_\+plan}} (self, plan)
+\begin{DoxyCompactList}\small\item\em The robot executes the passed motion plan. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classrqt__mypkg_1_1path__planning__interface_1_1_move_group_defined_path_a23adbde6c51bcf38edd0e2946badcc34}{get\+\_\+values}} (self, goal)
+\begin{DoxyCompactList}\small\item\em Reads the text files with the poses specified by the user in rqt. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classrqt__mypkg_1_1path__planning__interface_1_1_move_group_defined_path_a5e94688b4aaa34b6f491b908f87962ac}\label{classrqt__mypkg_1_1path__planning__interface_1_1_move_group_defined_path_a5e94688b4aaa34b6f491b908f87962ac}} 
+def \mbox{\hyperlink{classrqt__mypkg_1_1path__planning__interface_1_1_move_group_defined_path_a5e94688b4aaa34b6f491b908f87962ac}{delete\+\_\+pose\+\_\+files}} (self)
+\begin{DoxyCompactList}\small\item\em The text files of the poses created by the user in rqt are deleted after successfully performing the motion plan. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classrqt__mypkg_1_1path__planning__interface_1_1_move_group_defined_path_a2d4860107ada5ef5e82f74633d9058d9}{get\+\_\+eef\+\_\+poses}} (self, plan)
+\begin{DoxyCompactList}\small\item\em Returns a list of end effector poses for every step in the passed motion plan. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classrqt__mypkg_1_1path__planning__interface_1_1_move_group_defined_path_af5edcbb564f7a3ffd1e12aa016a46992}\label{classrqt__mypkg_1_1path__planning__interface_1_1_move_group_defined_path_af5edcbb564f7a3ffd1e12aa016a46992}} 
+def \mbox{\hyperlink{classrqt__mypkg_1_1path__planning__interface_1_1_move_group_defined_path_af5edcbb564f7a3ffd1e12aa016a46992}{create\+\_\+eef\+\_\+marker}} (self, eef\+\_\+poses)
+\begin{DoxyCompactList}\small\item\em Returns a list of markers for every position of the end effector poses. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classrqt__mypkg_1_1path__planning__interface_1_1_move_group_defined_path_a64119c0241617aee8e6d0b83f8287d57}{get\+\_\+inverse\+\_\+kinematic}} (self, goal)
+\begin{DoxyCompactList}\small\item\em Returns a joint position for either the specified start or goal pose. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classrqt__mypkg_1_1path__planning__interface_1_1_move_group_defined_path_a82cf763b358c14a2465ea69b51ceabf9}{publish\+\_\+statistics}} (self, path\+\_\+length, markers, planning\+\_\+time, max\+\_\+accel, eef\+\_\+poses, exec\+\_\+time)
+\begin{DoxyCompactList}\small\item\em Publishes a Path\+Statistics message to the topic statistics. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classrqt__mypkg_1_1path__planning__interface_1_1_move_group_defined_path_ad8c5245117c5d17a9073eb7c31bfaf0b}\label{classrqt__mypkg_1_1path__planning__interface_1_1_move_group_defined_path_ad8c5245117c5d17a9073eb7c31bfaf0b}} 
+def \mbox{\hyperlink{classrqt__mypkg_1_1path__planning__interface_1_1_move_group_defined_path_ad8c5245117c5d17a9073eb7c31bfaf0b}{get\+\_\+planner\+\_\+id}} (self)
+\begin{DoxyCompactList}\small\item\em Returns the name of the slected planning algorithm, if O\+M\+PL is checked in the rqt plugin. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classrqt__mypkg_1_1path__planning__interface_1_1_move_group_defined_path_a9cd3f003d900e0296d5e0e36e5b05c3b}{display\+\_\+trajectory\+\_\+publisher}}
+\item 
+\mbox{\hyperlink{classrqt__mypkg_1_1path__planning__interface_1_1_move_group_defined_path_ac8f2b7cd0053b836432278790155fa55}{statistics\+\_\+publisher}}
+\item 
+\mbox{\Hypertarget{classrqt__mypkg_1_1path__planning__interface_1_1_move_group_defined_path_a68b7f0f3188fc03af8b0801270c297d5}\label{classrqt__mypkg_1_1path__planning__interface_1_1_move_group_defined_path_a68b7f0f3188fc03af8b0801270c297d5}} 
+{\bfseries box\+\_\+name}
+\item 
+\mbox{\hyperlink{classrqt__mypkg_1_1path__planning__interface_1_1_move_group_defined_path_a5206da0e695003fb0685cae8755d200a}{robot}}
+\item 
+\mbox{\hyperlink{classrqt__mypkg_1_1path__planning__interface_1_1_move_group_defined_path_a5e9b9a5f70ab2a9ac637cb17ad782d83}{scene}}
+\item 
+\mbox{\hyperlink{classrqt__mypkg_1_1path__planning__interface_1_1_move_group_defined_path_af67b6295f31e2d5d51362b6a09253445}{move\+\_\+group}}
+\item 
+\mbox{\hyperlink{classrqt__mypkg_1_1path__planning__interface_1_1_move_group_defined_path_a9a6d632303f27f6a3c6ffebc669658d2}{planning\+\_\+frame}}
+\item 
+\mbox{\hyperlink{classrqt__mypkg_1_1path__planning__interface_1_1_move_group_defined_path_ae6aed02b63c008ae798d7597042b328d}{eef\+\_\+link}}
+\item 
+\mbox{\hyperlink{classrqt__mypkg_1_1path__planning__interface_1_1_move_group_defined_path_ad22ccb6cbadcacc4143842064ec65cad}{group\+\_\+names}}
+\item 
+\mbox{\hyperlink{classrqt__mypkg_1_1path__planning__interface_1_1_move_group_defined_path_abc95d23762e62007595a5eb9c63fec0b}{starting\+\_\+pose}}
+\item 
+\mbox{\hyperlink{classrqt__mypkg_1_1path__planning__interface_1_1_move_group_defined_path_a03efeda7dfbedd7d081a8bf7de06b704}{goal\+\_\+pose}}
+\item 
+\mbox{\hyperlink{classrqt__mypkg_1_1path__planning__interface_1_1_move_group_defined_path_ac8bf6bc11883c87de71d55b82041fe32}{starting\+\_\+joint\+\_\+goal}}
+\item 
+\mbox{\hyperlink{classrqt__mypkg_1_1path__planning__interface_1_1_move_group_defined_path_aa00d1f799a46e96905876f32ab3f8ed9}{goal\+\_\+joint\+\_\+goal}}
+\item 
+\mbox{\hyperlink{classrqt__mypkg_1_1path__planning__interface_1_1_move_group_defined_path_a102bbd6a22542a3969c540b6a86ce248}{planner\+\_\+id}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Interfaces the Move\+It Robot\+Commander, Planning\+Scene\+Interface and the Move\+Group\+Commander to perform motion planning tasks. 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classrqt__mypkg_1_1path__planning__interface_1_1_move_group_defined_path_aa8137584cd8ed2ea6c268d7282356f90}\label{classrqt__mypkg_1_1path__planning__interface_1_1_move_group_defined_path_aa8137584cd8ed2ea6c268d7282356f90}} 
+\index{rqt\_mypkg.path\_planning\_interface.MoveGroupDefinedPath@{rqt\_mypkg.path\_planning\_interface.MoveGroupDefinedPath}!display\_trajectory@{display\_trajectory}}
+\index{display\_trajectory@{display\_trajectory}!rqt\_mypkg.path\_planning\_interface.MoveGroupDefinedPath@{rqt\_mypkg.path\_planning\_interface.MoveGroupDefinedPath}}
+\doxysubsubsection{\texorpdfstring{display\_trajectory()}{display\_trajectory()}}
+{\footnotesize\ttfamily def rqt\+\_\+mypkg.\+path\+\_\+planning\+\_\+interface.\+Move\+Group\+Defined\+Path.\+display\+\_\+trajectory (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{plan }\end{DoxyParamCaption})}
+
+
+
+A planned path can be displayed in rviz. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em plan} & A planned Joint\+Trajectory message which was previously created \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classrqt__mypkg_1_1path__planning__interface_1_1_move_group_defined_path_a34f76ef80d8c110ced2d9b8a31b6a49d}\label{classrqt__mypkg_1_1path__planning__interface_1_1_move_group_defined_path_a34f76ef80d8c110ced2d9b8a31b6a49d}} 
+\index{rqt\_mypkg.path\_planning\_interface.MoveGroupDefinedPath@{rqt\_mypkg.path\_planning\_interface.MoveGroupDefinedPath}!execute\_plan@{execute\_plan}}
+\index{execute\_plan@{execute\_plan}!rqt\_mypkg.path\_planning\_interface.MoveGroupDefinedPath@{rqt\_mypkg.path\_planning\_interface.MoveGroupDefinedPath}}
+\doxysubsubsection{\texorpdfstring{execute\_plan()}{execute\_plan()}}
+{\footnotesize\ttfamily def rqt\+\_\+mypkg.\+path\+\_\+planning\+\_\+interface.\+Move\+Group\+Defined\+Path.\+execute\+\_\+plan (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{plan }\end{DoxyParamCaption})}
+
+
+
+The robot executes the passed motion plan. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em plan} & A planned Joint\+Trajectory message which was previously created \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classrqt__mypkg_1_1path__planning__interface_1_1_move_group_defined_path_a2d4860107ada5ef5e82f74633d9058d9}\label{classrqt__mypkg_1_1path__planning__interface_1_1_move_group_defined_path_a2d4860107ada5ef5e82f74633d9058d9}} 
+\index{rqt\_mypkg.path\_planning\_interface.MoveGroupDefinedPath@{rqt\_mypkg.path\_planning\_interface.MoveGroupDefinedPath}!get\_eef\_poses@{get\_eef\_poses}}
+\index{get\_eef\_poses@{get\_eef\_poses}!rqt\_mypkg.path\_planning\_interface.MoveGroupDefinedPath@{rqt\_mypkg.path\_planning\_interface.MoveGroupDefinedPath}}
+\doxysubsubsection{\texorpdfstring{get\_eef\_poses()}{get\_eef\_poses()}}
+{\footnotesize\ttfamily def rqt\+\_\+mypkg.\+path\+\_\+planning\+\_\+interface.\+Move\+Group\+Defined\+Path.\+get\+\_\+eef\+\_\+poses (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{plan }\end{DoxyParamCaption})}
+
+
+
+Returns a list of end effector poses for every step in the passed motion plan. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em plan} & A planned Joint\+Trajectory message which was previously created \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classrqt__mypkg_1_1path__planning__interface_1_1_move_group_defined_path_a64119c0241617aee8e6d0b83f8287d57}\label{classrqt__mypkg_1_1path__planning__interface_1_1_move_group_defined_path_a64119c0241617aee8e6d0b83f8287d57}} 
+\index{rqt\_mypkg.path\_planning\_interface.MoveGroupDefinedPath@{rqt\_mypkg.path\_planning\_interface.MoveGroupDefinedPath}!get\_inverse\_kinematic@{get\_inverse\_kinematic}}
+\index{get\_inverse\_kinematic@{get\_inverse\_kinematic}!rqt\_mypkg.path\_planning\_interface.MoveGroupDefinedPath@{rqt\_mypkg.path\_planning\_interface.MoveGroupDefinedPath}}
+\doxysubsubsection{\texorpdfstring{get\_inverse\_kinematic()}{get\_inverse\_kinematic()}}
+{\footnotesize\ttfamily def rqt\+\_\+mypkg.\+path\+\_\+planning\+\_\+interface.\+Move\+Group\+Defined\+Path.\+get\+\_\+inverse\+\_\+kinematic (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{goal }\end{DoxyParamCaption})}
+
+
+
+Returns a joint position for either the specified start or goal pose. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em goal} & A bool which says which pose should be translated, if True then self.\+goal\+\_\+pose is used \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classrqt__mypkg_1_1path__planning__interface_1_1_move_group_defined_path_a23adbde6c51bcf38edd0e2946badcc34}\label{classrqt__mypkg_1_1path__planning__interface_1_1_move_group_defined_path_a23adbde6c51bcf38edd0e2946badcc34}} 
+\index{rqt\_mypkg.path\_planning\_interface.MoveGroupDefinedPath@{rqt\_mypkg.path\_planning\_interface.MoveGroupDefinedPath}!get\_values@{get\_values}}
+\index{get\_values@{get\_values}!rqt\_mypkg.path\_planning\_interface.MoveGroupDefinedPath@{rqt\_mypkg.path\_planning\_interface.MoveGroupDefinedPath}}
+\doxysubsubsection{\texorpdfstring{get\_values()}{get\_values()}}
+{\footnotesize\ttfamily def rqt\+\_\+mypkg.\+path\+\_\+planning\+\_\+interface.\+Move\+Group\+Defined\+Path.\+get\+\_\+values (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{goal }\end{DoxyParamCaption})}
+
+
+
+Reads the text files with the poses specified by the user in rqt. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em A} & boolean if the values for the goal should be retrived, if True then the goal pose is returned \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classrqt__mypkg_1_1path__planning__interface_1_1_move_group_defined_path_af8c15a59b558e373eebbb7cef2793653}\label{classrqt__mypkg_1_1path__planning__interface_1_1_move_group_defined_path_af8c15a59b558e373eebbb7cef2793653}} 
+\index{rqt\_mypkg.path\_planning\_interface.MoveGroupDefinedPath@{rqt\_mypkg.path\_planning\_interface.MoveGroupDefinedPath}!go\_to\_joint\_space\_goal@{go\_to\_joint\_space\_goal}}
+\index{go\_to\_joint\_space\_goal@{go\_to\_joint\_space\_goal}!rqt\_mypkg.path\_planning\_interface.MoveGroupDefinedPath@{rqt\_mypkg.path\_planning\_interface.MoveGroupDefinedPath}}
+\doxysubsubsection{\texorpdfstring{go\_to\_joint\_space\_goal()}{go\_to\_joint\_space\_goal()}}
+{\footnotesize\ttfamily def rqt\+\_\+mypkg.\+path\+\_\+planning\+\_\+interface.\+Move\+Group\+Defined\+Path.\+go\+\_\+to\+\_\+joint\+\_\+space\+\_\+goal (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{joint\+\_\+goal }\end{DoxyParamCaption})}
+
+
+
+The robot moves to the passed joint goal with move\+\_\+group.\+go() and waits until the trajectory is completed before continuing. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em joint\+\_\+goal} & A joint position to which the robot should plan and move to \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classrqt__mypkg_1_1path__planning__interface_1_1_move_group_defined_path_a82cf763b358c14a2465ea69b51ceabf9}\label{classrqt__mypkg_1_1path__planning__interface_1_1_move_group_defined_path_a82cf763b358c14a2465ea69b51ceabf9}} 
+\index{rqt\_mypkg.path\_planning\_interface.MoveGroupDefinedPath@{rqt\_mypkg.path\_planning\_interface.MoveGroupDefinedPath}!publish\_statistics@{publish\_statistics}}
+\index{publish\_statistics@{publish\_statistics}!rqt\_mypkg.path\_planning\_interface.MoveGroupDefinedPath@{rqt\_mypkg.path\_planning\_interface.MoveGroupDefinedPath}}
+\doxysubsubsection{\texorpdfstring{publish\_statistics()}{publish\_statistics()}}
+{\footnotesize\ttfamily def rqt\+\_\+mypkg.\+path\+\_\+planning\+\_\+interface.\+Move\+Group\+Defined\+Path.\+publish\+\_\+statistics (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{path\+\_\+length,  }\item[{}]{markers,  }\item[{}]{planning\+\_\+time,  }\item[{}]{max\+\_\+accel,  }\item[{}]{eef\+\_\+poses,  }\item[{}]{exec\+\_\+time }\end{DoxyParamCaption})}
+
+
+
+Publishes a Path\+Statistics message to the topic statistics. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em path\+\_\+length} & The length of the planned path between start and goal \\
+\hline
+{\em marker} & A Marker\+Array message containing the end effector poses \\
+\hline
+{\em planning\+\_\+time} & The time needed to plan the path \\
+\hline
+{\em max\+\_\+accel} & The maximum joint acceleration found in the motion plan \\
+\hline
+{\em eef\+\_\+poses} & A list of end effector poses derived from the motion between start and goal pose \\
+\hline
+{\em exec\+\_\+time} & The planned time it takes the robot to perform the motion from start to goal in the real world \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classrqt__mypkg_1_1path__planning__interface_1_1_move_group_defined_path_a9cd3f003d900e0296d5e0e36e5b05c3b}\label{classrqt__mypkg_1_1path__planning__interface_1_1_move_group_defined_path_a9cd3f003d900e0296d5e0e36e5b05c3b}} 
+\index{rqt\_mypkg.path\_planning\_interface.MoveGroupDefinedPath@{rqt\_mypkg.path\_planning\_interface.MoveGroupDefinedPath}!display\_trajectory\_publisher@{display\_trajectory\_publisher}}
+\index{display\_trajectory\_publisher@{display\_trajectory\_publisher}!rqt\_mypkg.path\_planning\_interface.MoveGroupDefinedPath@{rqt\_mypkg.path\_planning\_interface.MoveGroupDefinedPath}}
+\doxysubsubsection{\texorpdfstring{display\_trajectory\_publisher}{display\_trajectory\_publisher}}
+{\footnotesize\ttfamily rqt\+\_\+mypkg.\+path\+\_\+planning\+\_\+interface.\+Move\+Group\+Defined\+Path.\+display\+\_\+trajectory\+\_\+publisher}
+
+R\+OS publisher to publish the paths to a topic used by rviz to display them \mbox{\Hypertarget{classrqt__mypkg_1_1path__planning__interface_1_1_move_group_defined_path_ae6aed02b63c008ae798d7597042b328d}\label{classrqt__mypkg_1_1path__planning__interface_1_1_move_group_defined_path_ae6aed02b63c008ae798d7597042b328d}} 
+\index{rqt\_mypkg.path\_planning\_interface.MoveGroupDefinedPath@{rqt\_mypkg.path\_planning\_interface.MoveGroupDefinedPath}!eef\_link@{eef\_link}}
+\index{eef\_link@{eef\_link}!rqt\_mypkg.path\_planning\_interface.MoveGroupDefinedPath@{rqt\_mypkg.path\_planning\_interface.MoveGroupDefinedPath}}
+\doxysubsubsection{\texorpdfstring{eef\_link}{eef\_link}}
+{\footnotesize\ttfamily rqt\+\_\+mypkg.\+path\+\_\+planning\+\_\+interface.\+Move\+Group\+Defined\+Path.\+eef\+\_\+link}
+
+The joint which is defined as the end effector of the robot If not specified the default is the last joint in the move\+\_\+group \mbox{\Hypertarget{classrqt__mypkg_1_1path__planning__interface_1_1_move_group_defined_path_aa00d1f799a46e96905876f32ab3f8ed9}\label{classrqt__mypkg_1_1path__planning__interface_1_1_move_group_defined_path_aa00d1f799a46e96905876f32ab3f8ed9}} 
+\index{rqt\_mypkg.path\_planning\_interface.MoveGroupDefinedPath@{rqt\_mypkg.path\_planning\_interface.MoveGroupDefinedPath}!goal\_joint\_goal@{goal\_joint\_goal}}
+\index{goal\_joint\_goal@{goal\_joint\_goal}!rqt\_mypkg.path\_planning\_interface.MoveGroupDefinedPath@{rqt\_mypkg.path\_planning\_interface.MoveGroupDefinedPath}}
+\doxysubsubsection{\texorpdfstring{goal\_joint\_goal}{goal\_joint\_goal}}
+{\footnotesize\ttfamily rqt\+\_\+mypkg.\+path\+\_\+planning\+\_\+interface.\+Move\+Group\+Defined\+Path.\+goal\+\_\+joint\+\_\+goal}
+
+The solution of the inverse kinematic for the goal\+\_\+pose as joint values \mbox{\Hypertarget{classrqt__mypkg_1_1path__planning__interface_1_1_move_group_defined_path_a03efeda7dfbedd7d081a8bf7de06b704}\label{classrqt__mypkg_1_1path__planning__interface_1_1_move_group_defined_path_a03efeda7dfbedd7d081a8bf7de06b704}} 
+\index{rqt\_mypkg.path\_planning\_interface.MoveGroupDefinedPath@{rqt\_mypkg.path\_planning\_interface.MoveGroupDefinedPath}!goal\_pose@{goal\_pose}}
+\index{goal\_pose@{goal\_pose}!rqt\_mypkg.path\_planning\_interface.MoveGroupDefinedPath@{rqt\_mypkg.path\_planning\_interface.MoveGroupDefinedPath}}
+\doxysubsubsection{\texorpdfstring{goal\_pose}{goal\_pose}}
+{\footnotesize\ttfamily rqt\+\_\+mypkg.\+path\+\_\+planning\+\_\+interface.\+Move\+Group\+Defined\+Path.\+goal\+\_\+pose}
+
+The pose chosen in rqt as Pose() object \mbox{\Hypertarget{classrqt__mypkg_1_1path__planning__interface_1_1_move_group_defined_path_ad22ccb6cbadcacc4143842064ec65cad}\label{classrqt__mypkg_1_1path__planning__interface_1_1_move_group_defined_path_ad22ccb6cbadcacc4143842064ec65cad}} 
+\index{rqt\_mypkg.path\_planning\_interface.MoveGroupDefinedPath@{rqt\_mypkg.path\_planning\_interface.MoveGroupDefinedPath}!group\_names@{group\_names}}
+\index{group\_names@{group\_names}!rqt\_mypkg.path\_planning\_interface.MoveGroupDefinedPath@{rqt\_mypkg.path\_planning\_interface.MoveGroupDefinedPath}}
+\doxysubsubsection{\texorpdfstring{group\_names}{group\_names}}
+{\footnotesize\ttfamily rqt\+\_\+mypkg.\+path\+\_\+planning\+\_\+interface.\+Move\+Group\+Defined\+Path.\+group\+\_\+names}
+
+All of the names of the available move groups \mbox{\Hypertarget{classrqt__mypkg_1_1path__planning__interface_1_1_move_group_defined_path_af67b6295f31e2d5d51362b6a09253445}\label{classrqt__mypkg_1_1path__planning__interface_1_1_move_group_defined_path_af67b6295f31e2d5d51362b6a09253445}} 
+\index{rqt\_mypkg.path\_planning\_interface.MoveGroupDefinedPath@{rqt\_mypkg.path\_planning\_interface.MoveGroupDefinedPath}!move\_group@{move\_group}}
+\index{move\_group@{move\_group}!rqt\_mypkg.path\_planning\_interface.MoveGroupDefinedPath@{rqt\_mypkg.path\_planning\_interface.MoveGroupDefinedPath}}
+\doxysubsubsection{\texorpdfstring{move\_group}{move\_group}}
+{\footnotesize\ttfamily rqt\+\_\+mypkg.\+path\+\_\+planning\+\_\+interface.\+Move\+Group\+Defined\+Path.\+move\+\_\+group}
+
+The Move\+Group\+Commander Interface of the robot \mbox{\Hypertarget{classrqt__mypkg_1_1path__planning__interface_1_1_move_group_defined_path_a102bbd6a22542a3969c540b6a86ce248}\label{classrqt__mypkg_1_1path__planning__interface_1_1_move_group_defined_path_a102bbd6a22542a3969c540b6a86ce248}} 
+\index{rqt\_mypkg.path\_planning\_interface.MoveGroupDefinedPath@{rqt\_mypkg.path\_planning\_interface.MoveGroupDefinedPath}!planner\_id@{planner\_id}}
+\index{planner\_id@{planner\_id}!rqt\_mypkg.path\_planning\_interface.MoveGroupDefinedPath@{rqt\_mypkg.path\_planning\_interface.MoveGroupDefinedPath}}
+\doxysubsubsection{\texorpdfstring{planner\_id}{planner\_id}}
+{\footnotesize\ttfamily rqt\+\_\+mypkg.\+path\+\_\+planning\+\_\+interface.\+Move\+Group\+Defined\+Path.\+planner\+\_\+id}
+
+The selected planner algorithm if O\+M\+PL is used to plan paths \mbox{\Hypertarget{classrqt__mypkg_1_1path__planning__interface_1_1_move_group_defined_path_a9a6d632303f27f6a3c6ffebc669658d2}\label{classrqt__mypkg_1_1path__planning__interface_1_1_move_group_defined_path_a9a6d632303f27f6a3c6ffebc669658d2}} 
+\index{rqt\_mypkg.path\_planning\_interface.MoveGroupDefinedPath@{rqt\_mypkg.path\_planning\_interface.MoveGroupDefinedPath}!planning\_frame@{planning\_frame}}
+\index{planning\_frame@{planning\_frame}!rqt\_mypkg.path\_planning\_interface.MoveGroupDefinedPath@{rqt\_mypkg.path\_planning\_interface.MoveGroupDefinedPath}}
+\doxysubsubsection{\texorpdfstring{planning\_frame}{planning\_frame}}
+{\footnotesize\ttfamily rqt\+\_\+mypkg.\+path\+\_\+planning\+\_\+interface.\+Move\+Group\+Defined\+Path.\+planning\+\_\+frame}
+
+The planning frame every object relates to \mbox{\Hypertarget{classrqt__mypkg_1_1path__planning__interface_1_1_move_group_defined_path_a5206da0e695003fb0685cae8755d200a}\label{classrqt__mypkg_1_1path__planning__interface_1_1_move_group_defined_path_a5206da0e695003fb0685cae8755d200a}} 
+\index{rqt\_mypkg.path\_planning\_interface.MoveGroupDefinedPath@{rqt\_mypkg.path\_planning\_interface.MoveGroupDefinedPath}!robot@{robot}}
+\index{robot@{robot}!rqt\_mypkg.path\_planning\_interface.MoveGroupDefinedPath@{rqt\_mypkg.path\_planning\_interface.MoveGroupDefinedPath}}
+\doxysubsubsection{\texorpdfstring{robot}{robot}}
+{\footnotesize\ttfamily rqt\+\_\+mypkg.\+path\+\_\+planning\+\_\+interface.\+Move\+Group\+Defined\+Path.\+robot}
+
+Loaded robot object \mbox{\Hypertarget{classrqt__mypkg_1_1path__planning__interface_1_1_move_group_defined_path_a5e9b9a5f70ab2a9ac637cb17ad782d83}\label{classrqt__mypkg_1_1path__planning__interface_1_1_move_group_defined_path_a5e9b9a5f70ab2a9ac637cb17ad782d83}} 
+\index{rqt\_mypkg.path\_planning\_interface.MoveGroupDefinedPath@{rqt\_mypkg.path\_planning\_interface.MoveGroupDefinedPath}!scene@{scene}}
+\index{scene@{scene}!rqt\_mypkg.path\_planning\_interface.MoveGroupDefinedPath@{rqt\_mypkg.path\_planning\_interface.MoveGroupDefinedPath}}
+\doxysubsubsection{\texorpdfstring{scene}{scene}}
+{\footnotesize\ttfamily rqt\+\_\+mypkg.\+path\+\_\+planning\+\_\+interface.\+Move\+Group\+Defined\+Path.\+scene}
+
+The current planning scene \mbox{\Hypertarget{classrqt__mypkg_1_1path__planning__interface_1_1_move_group_defined_path_ac8bf6bc11883c87de71d55b82041fe32}\label{classrqt__mypkg_1_1path__planning__interface_1_1_move_group_defined_path_ac8bf6bc11883c87de71d55b82041fe32}} 
+\index{rqt\_mypkg.path\_planning\_interface.MoveGroupDefinedPath@{rqt\_mypkg.path\_planning\_interface.MoveGroupDefinedPath}!starting\_joint\_goal@{starting\_joint\_goal}}
+\index{starting\_joint\_goal@{starting\_joint\_goal}!rqt\_mypkg.path\_planning\_interface.MoveGroupDefinedPath@{rqt\_mypkg.path\_planning\_interface.MoveGroupDefinedPath}}
+\doxysubsubsection{\texorpdfstring{starting\_joint\_goal}{starting\_joint\_goal}}
+{\footnotesize\ttfamily rqt\+\_\+mypkg.\+path\+\_\+planning\+\_\+interface.\+Move\+Group\+Defined\+Path.\+starting\+\_\+joint\+\_\+goal}
+
+The solution of the inverse kinematic for the starting\+\_\+pose as joint values \mbox{\Hypertarget{classrqt__mypkg_1_1path__planning__interface_1_1_move_group_defined_path_abc95d23762e62007595a5eb9c63fec0b}\label{classrqt__mypkg_1_1path__planning__interface_1_1_move_group_defined_path_abc95d23762e62007595a5eb9c63fec0b}} 
+\index{rqt\_mypkg.path\_planning\_interface.MoveGroupDefinedPath@{rqt\_mypkg.path\_planning\_interface.MoveGroupDefinedPath}!starting\_pose@{starting\_pose}}
+\index{starting\_pose@{starting\_pose}!rqt\_mypkg.path\_planning\_interface.MoveGroupDefinedPath@{rqt\_mypkg.path\_planning\_interface.MoveGroupDefinedPath}}
+\doxysubsubsection{\texorpdfstring{starting\_pose}{starting\_pose}}
+{\footnotesize\ttfamily rqt\+\_\+mypkg.\+path\+\_\+planning\+\_\+interface.\+Move\+Group\+Defined\+Path.\+starting\+\_\+pose}
+
+The pose chosen in rqt as Pose() object \mbox{\Hypertarget{classrqt__mypkg_1_1path__planning__interface_1_1_move_group_defined_path_ac8f2b7cd0053b836432278790155fa55}\label{classrqt__mypkg_1_1path__planning__interface_1_1_move_group_defined_path_ac8f2b7cd0053b836432278790155fa55}} 
+\index{rqt\_mypkg.path\_planning\_interface.MoveGroupDefinedPath@{rqt\_mypkg.path\_planning\_interface.MoveGroupDefinedPath}!statistics\_publisher@{statistics\_publisher}}
+\index{statistics\_publisher@{statistics\_publisher}!rqt\_mypkg.path\_planning\_interface.MoveGroupDefinedPath@{rqt\_mypkg.path\_planning\_interface.MoveGroupDefinedPath}}
+\doxysubsubsection{\texorpdfstring{statistics\_publisher}{statistics\_publisher}}
+{\footnotesize\ttfamily rqt\+\_\+mypkg.\+path\+\_\+planning\+\_\+interface.\+Move\+Group\+Defined\+Path.\+statistics\+\_\+publisher}
+
+R\+OS publisher to publish the calculated path metrics back to the rqt plugin ~\newline
+ 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/rqt\+\_\+mypkg/path\+\_\+planning\+\_\+interface.\+py\end{DoxyCompactItemize}

@@ -1,0 +1,178 @@
+\hypertarget{classrqt__mypkg_1_1my__module_1_1_my_plugin}{}\doxysection{rqt\+\_\+mypkg.\+my\+\_\+module.\+My\+Plugin Class Reference}
+\label{classrqt__mypkg_1_1my__module_1_1_my_plugin}\index{rqt\_mypkg.my\_module.MyPlugin@{rqt\_mypkg.my\_module.MyPlugin}}
+
+
+rqt plugin class which is used to create the plugin from a UI file generated with Qt Designer  
+
+
+
+
+Inheritance diagram for rqt\+\_\+mypkg.\+my\+\_\+module.\+My\+Plugin\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=258pt]{classrqt__mypkg_1_1my__module_1_1_my_plugin__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for rqt\+\_\+mypkg.\+my\+\_\+module.\+My\+Plugin\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=258pt]{classrqt__mypkg_1_1my__module_1_1_my_plugin__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classrqt__mypkg_1_1my__module_1_1_my_plugin_a4cf50f774ba2d958c949ebcfa764a196}\label{classrqt__mypkg_1_1my__module_1_1_my_plugin_a4cf50f774ba2d958c949ebcfa764a196}} 
+def \mbox{\hyperlink{classrqt__mypkg_1_1my__module_1_1_my_plugin_a4cf50f774ba2d958c949ebcfa764a196}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self, context)
+\begin{DoxyCompactList}\small\item\em Constructor. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classrqt__mypkg_1_1my__module_1_1_my_plugin_a6a04dc09085403f5b46739aecd30e66e}{callback\+\_\+service}} (self, request)
+\begin{DoxyCompactList}\small\item\em Returns the current selection of the O\+M\+PL planning algorithm to use for the path planning. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classrqt__mypkg_1_1my__module_1_1_my_plugin_a2d65eb3d879bf83df472ba55261a5dba}{callback\+\_\+subscriber}} (self, msg)
+\begin{DoxyCompactList}\small\item\em Processes the received Path\+Statistics message from the path planner and displays the values in the statistics tab. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classrqt__mypkg_1_1my__module_1_1_my_plugin_a1e234d3c76a0e57160f507f09401bb15}\label{classrqt__mypkg_1_1my__module_1_1_my_plugin_a1e234d3c76a0e57160f507f09401bb15}} 
+def {\bfseries shutdown\+\_\+plugin} (self)
+\item 
+\mbox{\Hypertarget{classrqt__mypkg_1_1my__module_1_1_my_plugin_a43c2641e9520f4d484605648e1bdd783}\label{classrqt__mypkg_1_1my__module_1_1_my_plugin_a43c2641e9520f4d484605648e1bdd783}} 
+def {\bfseries save\+\_\+settings} (self, plugin\+\_\+settings, instance\+\_\+settings)
+\item 
+\mbox{\Hypertarget{classrqt__mypkg_1_1my__module_1_1_my_plugin_ad3417a032cfb39358711216767abffaa}\label{classrqt__mypkg_1_1my__module_1_1_my_plugin_ad3417a032cfb39358711216767abffaa}} 
+def {\bfseries restore\+\_\+settings} (self, plugin\+\_\+settings, instance\+\_\+settings)
+\item 
+\mbox{\Hypertarget{classrqt__mypkg_1_1my__module_1_1_my_plugin_ab511670d9aae170c1c49f965bcbe31ce}\label{classrqt__mypkg_1_1my__module_1_1_my_plugin_ab511670d9aae170c1c49f965bcbe31ce}} 
+def {\bfseries trigger\+\_\+configuration} (self)
+\item 
+\mbox{\Hypertarget{classrqt__mypkg_1_1my__module_1_1_my_plugin_aac9b55cfd0e9025e6a9eab5738f5f56b}\label{classrqt__mypkg_1_1my__module_1_1_my_plugin_aac9b55cfd0e9025e6a9eab5738f5f56b}} 
+def \mbox{\hyperlink{classrqt__mypkg_1_1my__module_1_1_my_plugin_aac9b55cfd0e9025e6a9eab5738f5f56b}{on\+\_\+push\+Button\+\_\+plan\+Path\+\_\+clicked}} (self)
+\begin{DoxyCompactList}\small\item\em Executes the path planning in a seperate terminal so that rqt is not blocked. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classrqt__mypkg_1_1my__module_1_1_my_plugin_a57a841389b411b015628035b772c3f1c}\label{classrqt__mypkg_1_1my__module_1_1_my_plugin_a57a841389b411b015628035b772c3f1c}} 
+def \mbox{\hyperlink{classrqt__mypkg_1_1my__module_1_1_my_plugin_a57a841389b411b015628035b772c3f1c}{on\+\_\+push\+Button\+\_\+open\+Planning\+Scene\+\_\+clicked}} (self)
+\begin{DoxyCompactList}\small\item\em Launches a saved planning scene with objects to be displayed in rviz. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classrqt__mypkg_1_1my__module_1_1_my_plugin_ac245d9256794f32fe5cb46ef605c5a5a}\label{classrqt__mypkg_1_1my__module_1_1_my_plugin_ac245d9256794f32fe5cb46ef605c5a5a}} 
+def \mbox{\hyperlink{classrqt__mypkg_1_1my__module_1_1_my_plugin_ac245d9256794f32fe5cb46ef605c5a5a}{on\+\_\+push\+Button\+\_\+apply\+\_\+clicked}} (self)
+\begin{DoxyCompactList}\small\item\em The selected values for start and goal are written into a text file and saved into the home direcotry which is read by the path planner ~\newline
+ \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classrqt__mypkg_1_1my__module_1_1_my_plugin_a128ce5a7fc1d5f882a9a7f2a69532a22}\label{classrqt__mypkg_1_1my__module_1_1_my_plugin_a128ce5a7fc1d5f882a9a7f2a69532a22}} 
+def \mbox{\hyperlink{classrqt__mypkg_1_1my__module_1_1_my_plugin_a128ce5a7fc1d5f882a9a7f2a69532a22}{on\+\_\+push\+Button\+\_\+apply\+\_\+planner\+\_\+clicked}} (self)
+\begin{DoxyCompactList}\small\item\em The demo.\+launch file is launched in a new terminal with arguments to start the planning pipelines required to display the robot and plan paths with it ~\newline
+ \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classrqt__mypkg_1_1my__module_1_1_my_plugin_a0e93c098d63b5168ac83ebdca23dd3e1}\label{classrqt__mypkg_1_1my__module_1_1_my_plugin_a0e93c098d63b5168ac83ebdca23dd3e1}} 
+def \mbox{\hyperlink{classrqt__mypkg_1_1my__module_1_1_my_plugin_a0e93c098d63b5168ac83ebdca23dd3e1}{on\+\_\+check\+Box\+\_\+clicked}} (self)
+\begin{DoxyCompactList}\small\item\em The published markers get refreshed if one of the display path checkboxes are clicked. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classrqt__mypkg_1_1my__module_1_1_my_plugin_afca660ce2ff9fd677fd76a129a775d90}\label{classrqt__mypkg_1_1my__module_1_1_my_plugin_afca660ce2ff9fd677fd76a129a775d90}} 
+def \mbox{\hyperlink{classrqt__mypkg_1_1my__module_1_1_my_plugin_afca660ce2ff9fd677fd76a129a775d90}{on\+\_\+ompl\+\_\+export\+\_\+clicked}} (self)
+\begin{DoxyCompactList}\small\item\em Exports the corresponding Pose\+Array to a file. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classrqt__mypkg_1_1my__module_1_1_my_plugin_ae122eab4b83611e2d3c382675b52e452}\label{classrqt__mypkg_1_1my__module_1_1_my_plugin_ae122eab4b83611e2d3c382675b52e452}} 
+def \mbox{\hyperlink{classrqt__mypkg_1_1my__module_1_1_my_plugin_ae122eab4b83611e2d3c382675b52e452}{on\+\_\+chomp\+\_\+export\+\_\+clicked}} (self)
+\begin{DoxyCompactList}\small\item\em Exports the corresponding Pose\+Array to a file. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classrqt__mypkg_1_1my__module_1_1_my_plugin_a7280046b7df7e6117a6e8eb0084e79d4}\label{classrqt__mypkg_1_1my__module_1_1_my_plugin_a7280046b7df7e6117a6e8eb0084e79d4}} 
+def \mbox{\hyperlink{classrqt__mypkg_1_1my__module_1_1_my_plugin_a7280046b7df7e6117a6e8eb0084e79d4}{on\+\_\+stomp\+\_\+export\+\_\+clicked}} (self)
+\begin{DoxyCompactList}\small\item\em Exports the corresponding Pose\+Array to a file. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classrqt__mypkg_1_1my__module_1_1_my_plugin_a32faeca938c0484b1deb30b4fee28128}\label{classrqt__mypkg_1_1my__module_1_1_my_plugin_a32faeca938c0484b1deb30b4fee28128}} 
+def \mbox{\hyperlink{classrqt__mypkg_1_1my__module_1_1_my_plugin_a32faeca938c0484b1deb30b4fee28128}{publish\+\_\+marker\+\_\+array}} (self)
+\begin{DoxyCompactList}\small\item\em The markers from the planned paths are displayed in rviz. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classrqt__mypkg_1_1my__module_1_1_my_plugin_a83b89211eced94a40ec54f003525b80c}\label{classrqt__mypkg_1_1my__module_1_1_my_plugin_a83b89211eced94a40ec54f003525b80c}} 
+def \mbox{\hyperlink{classrqt__mypkg_1_1my__module_1_1_my_plugin_a83b89211eced94a40ec54f003525b80c}{get\+\_\+start\+\_\+values}} (self)
+\begin{DoxyCompactList}\small\item\em Returns the current values from the start point spinboxes as string. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classrqt__mypkg_1_1my__module_1_1_my_plugin_a3d6cec6681e35202120871c273000784}\label{classrqt__mypkg_1_1my__module_1_1_my_plugin_a3d6cec6681e35202120871c273000784}} 
+def \mbox{\hyperlink{classrqt__mypkg_1_1my__module_1_1_my_plugin_a3d6cec6681e35202120871c273000784}{get\+\_\+goal\+\_\+values}} (self)
+\begin{DoxyCompactList}\small\item\em Returns the current values from the goal point spinboxes as string. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classrqt__mypkg_1_1my__module_1_1_my_plugin_af4f5c8c210b18a2a6e1ecddb2c2f7e29}{create\+\_\+text\+\_\+marker}} (self, text, id, pose)
+\begin{DoxyCompactList}\small\item\em Creates a text marker. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classrqt__mypkg_1_1my__module_1_1_my_plugin_a2fac23ae3754a7de77418aab61001ade}\label{classrqt__mypkg_1_1my__module_1_1_my_plugin_a2fac23ae3754a7de77418aab61001ade}} 
+def \mbox{\hyperlink{classrqt__mypkg_1_1my__module_1_1_my_plugin_a2fac23ae3754a7de77418aab61001ade}{on\+\_\+push\+Button\+\_\+planning\+Scene\+\_\+refresh\+\_\+clicked}} (self)
+\begin{DoxyCompactList}\small\item\em Updates the Q\+List\+Widget in the Planning\+Scene tab with the content of the /scenes directory. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classrqt__mypkg_1_1my__module_1_1_my_plugin_aea33de8cee260068caf06a99b2c233d8}\label{classrqt__mypkg_1_1my__module_1_1_my_plugin_aea33de8cee260068caf06a99b2c233d8}} 
+{\bfseries ompl\+\_\+marker\+\_\+array}
+\item 
+\mbox{\Hypertarget{classrqt__mypkg_1_1my__module_1_1_my_plugin_af6049dc8b75fddd29d56f0a7d4654d96}\label{classrqt__mypkg_1_1my__module_1_1_my_plugin_af6049dc8b75fddd29d56f0a7d4654d96}} 
+{\bfseries ompl\+\_\+pose\+\_\+array}
+\item 
+\mbox{\Hypertarget{classrqt__mypkg_1_1my__module_1_1_my_plugin_a1f41aa3338378d21cb70160e92d36d88}\label{classrqt__mypkg_1_1my__module_1_1_my_plugin_a1f41aa3338378d21cb70160e92d36d88}} 
+{\bfseries chomp\+\_\+marker\+\_\+array}
+\item 
+\mbox{\Hypertarget{classrqt__mypkg_1_1my__module_1_1_my_plugin_aa1d21b32389226c27d5c48cb4ab4d1a4}\label{classrqt__mypkg_1_1my__module_1_1_my_plugin_aa1d21b32389226c27d5c48cb4ab4d1a4}} 
+{\bfseries chomp\+\_\+pose\+\_\+array}
+\item 
+\mbox{\Hypertarget{classrqt__mypkg_1_1my__module_1_1_my_plugin_a43814293a9985219a47e7053974429ea}\label{classrqt__mypkg_1_1my__module_1_1_my_plugin_a43814293a9985219a47e7053974429ea}} 
+{\bfseries stomp\+\_\+marker\+\_\+array}
+\item 
+\mbox{\Hypertarget{classrqt__mypkg_1_1my__module_1_1_my_plugin_a60c14322412bcfa7b37ff3e6317c9305}\label{classrqt__mypkg_1_1my__module_1_1_my_plugin_a60c14322412bcfa7b37ff3e6317c9305}} 
+{\bfseries stomp\+\_\+pose\+\_\+array}
+\item 
+\mbox{\Hypertarget{classrqt__mypkg_1_1my__module_1_1_my_plugin_a3e19d4f8dcc08f014198f7908f1f4475}\label{classrqt__mypkg_1_1my__module_1_1_my_plugin_a3e19d4f8dcc08f014198f7908f1f4475}} 
+{\bfseries active\+\_\+motion\+\_\+planner}
+\item 
+\mbox{\Hypertarget{classrqt__mypkg_1_1my__module_1_1_my_plugin_a73295bb7f3054725677fbbddac3a362b}\label{classrqt__mypkg_1_1my__module_1_1_my_plugin_a73295bb7f3054725677fbbddac3a362b}} 
+{\bfseries first\+\_\+open}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+rqt plugin class which is used to create the plugin from a UI file generated with Qt Designer 
+
+Used to connect the slots to signals and also initialize R\+OS subscriber/services to communicate with the motion planner and display the received data in rviz and itself. 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classrqt__mypkg_1_1my__module_1_1_my_plugin_a6a04dc09085403f5b46739aecd30e66e}\label{classrqt__mypkg_1_1my__module_1_1_my_plugin_a6a04dc09085403f5b46739aecd30e66e}} 
+\index{rqt\_mypkg.my\_module.MyPlugin@{rqt\_mypkg.my\_module.MyPlugin}!callback\_service@{callback\_service}}
+\index{callback\_service@{callback\_service}!rqt\_mypkg.my\_module.MyPlugin@{rqt\_mypkg.my\_module.MyPlugin}}
+\doxysubsubsection{\texorpdfstring{callback\_service()}{callback\_service()}}
+{\footnotesize\ttfamily def rqt\+\_\+mypkg.\+my\+\_\+module.\+My\+Plugin.\+callback\+\_\+service (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{request }\end{DoxyParamCaption})}
+
+
+
+Returns the current selection of the O\+M\+PL planning algorithm to use for the path planning. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em request} & Takes an empty Trigger\+Request() \\
+\hline
+{\em response} & Returns a Trigger\+Response with the message set to the selected algorithm if O\+M\+PL is set \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classrqt__mypkg_1_1my__module_1_1_my_plugin_a2d65eb3d879bf83df472ba55261a5dba}\label{classrqt__mypkg_1_1my__module_1_1_my_plugin_a2d65eb3d879bf83df472ba55261a5dba}} 
+\index{rqt\_mypkg.my\_module.MyPlugin@{rqt\_mypkg.my\_module.MyPlugin}!callback\_subscriber@{callback\_subscriber}}
+\index{callback\_subscriber@{callback\_subscriber}!rqt\_mypkg.my\_module.MyPlugin@{rqt\_mypkg.my\_module.MyPlugin}}
+\doxysubsubsection{\texorpdfstring{callback\_subscriber()}{callback\_subscriber()}}
+{\footnotesize\ttfamily def rqt\+\_\+mypkg.\+my\+\_\+module.\+My\+Plugin.\+callback\+\_\+subscriber (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{msg }\end{DoxyParamCaption})}
+
+
+
+Processes the received Path\+Statistics message from the path planner and displays the values in the statistics tab. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em msg} & The published message from planner.\+py \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classrqt__mypkg_1_1my__module_1_1_my_plugin_af4f5c8c210b18a2a6e1ecddb2c2f7e29}\label{classrqt__mypkg_1_1my__module_1_1_my_plugin_af4f5c8c210b18a2a6e1ecddb2c2f7e29}} 
+\index{rqt\_mypkg.my\_module.MyPlugin@{rqt\_mypkg.my\_module.MyPlugin}!create\_text\_marker@{create\_text\_marker}}
+\index{create\_text\_marker@{create\_text\_marker}!rqt\_mypkg.my\_module.MyPlugin@{rqt\_mypkg.my\_module.MyPlugin}}
+\doxysubsubsection{\texorpdfstring{create\_text\_marker()}{create\_text\_marker()}}
+{\footnotesize\ttfamily def rqt\+\_\+mypkg.\+my\+\_\+module.\+My\+Plugin.\+create\+\_\+text\+\_\+marker (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{text,  }\item[{}]{id,  }\item[{}]{pose }\end{DoxyParamCaption})}
+
+
+
+Creates a text marker. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em text} & The text of the marker \\
+\hline
+{\em id} & The id of the marker, has to be unique \\
+\hline
+{\em pose} & The position of the marker in 3D space \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/rqt\+\_\+mypkg/my\+\_\+module.\+py\end{DoxyCompactItemize}
