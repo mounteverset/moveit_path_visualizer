@@ -62,7 +62,7 @@
       </size>
      </property>
      <property name="currentIndex">
-      <number>2</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="tab_2">
       <attribute name="title">
@@ -568,6 +568,9 @@
            </property>
            <property name="toolTip">
             <string>Planning Algorithm has to be applied first</string>
+           </property>
+           <property name="toolTipDuration">
+            <number>-1</number>
            </property>
            <property name="text">
             <string>Open Scene</string>

@@ -9,7 +9,7 @@
         <label>User-Plugins</label>
       </group>
       
-      <label>Pfadplanung</label>
+      <label>Path Planning Plugin</label>
       <icon type="theme">system-help</icon>
       <statustip>GUI for pathplanning</statustip>
     </qtgui>
