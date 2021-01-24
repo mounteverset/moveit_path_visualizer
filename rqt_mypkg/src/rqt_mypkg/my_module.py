@@ -77,11 +77,14 @@ class MyPlugin(Plugin):
         self._widget.ompl_display_checkBox.clicked.connect(self.on_checkBox_clicked)
         self._widget.chomp_display_checkBox.clicked.connect(self.on_checkBox_clicked)
         self._widget.stomp_display_checkBox.clicked.connect(self.on_checkBox_clicked)
-        #self._widget.ompl_export_button.clicked.connect(self.on_ompl_export_clicked)
+        self._widget.pushButton_planningScene_refresh.clicked.connect(self.on_pushButton_planningScene_refresh_clicked)
+        self._widget.ompl_export_button.clicked.connect(self.on_ompl_export_clicked)
         #self._widget.chomp_export_button.clicked.connect(self.on_chomp_export_clicked)
         #self._widget.stomp_export_button.clicked.connect(self.on_stomp_export_clicked)
         #self._widget.statisticsTable.clicked.connect(self.on_statistics_generated)
         #self._widget.pushButton.clicked.connect(self.pushButton_clicked)
+                
+        self.on_pushButton_planningScene_refresh_clicked()
 
         # Initialize a ROS subscriber
         
@@ -89,6 +92,8 @@ class MyPlugin(Plugin):
         service = rospy.Service("/ompl_planner_id", Trigger, self.callback_service)
         self.active_motion_planner = None
         self.first_open = False
+
+        
 
         # Add widget to the user interface
         context.add_widget(self._widget)
@@ -408,7 +413,18 @@ class MyPlugin(Plugin):
     def on_pushButton_openPlanningScene_clicked(self):
         
         #fname = QFileDialog.getOpenFileName()
-        subprocess.Popen(["gnome-terminal", "-e", "roslaunch rqt_mypkg demo_scene.launch"])
+        current_item = self._widget.planningScene_listWidget.currentItem()
+        if current_item.text() != "":
+            working_dir = str(Path(__file__).parent.absolute())
+            parent_dir_list = working_dir.split("/")[:-2]
+            parent_dir = "/".join(parent_dir_list)
+            scene_dir = os.path.join(parent_dir, "scenes")
+            filepath = os.path.join(scene_dir, current_item.text())
+            subprocess.Popen(["gnome-terminal", "-e", "roslaunch rqt_mypkg scene.launch scene_file:={}".format(filepath)])
+        else:
+            alert = QMessageBox()
+            alert.setText('No scene selected.')            
+            alert.exec_()
         #subprocess.call("roslaunch rqt_mypkg demo_scene.launch")
         
     #test
@@ -499,9 +515,10 @@ class MyPlugin(Plugin):
     def on_checkBox_clicked(self):
         self.publish_marker_array()
         
-    #@Slot()
-    #def on_ompl_export_clicked(self):
-        #umut in da hood
+    @Slot()
+    def on_ompl_export_clicked(self):
+        dialog_result = QFileDialog.getSaveFileName()
+        print(dialog_result)
 
     #@Slot()
     #def on_chomp_export_clicked(self):
@@ -571,6 +588,18 @@ class MyPlugin(Plugin):
         
         return marker
 
+    def on_pushButton_planningScene_refresh_clicked(self):
+        self._widget.planningScene_listWidget.clear()
+        working_dir = str(Path(__file__).parent.absolute())
+        parent_dir_list = working_dir.split("/")[:-2]
+        parent_dir = "/".join(parent_dir_list)
+        scene_dir = os.path.join(parent_dir, "scenes")
+        dir_content = os.listdir(scene_dir)
+        if len(dir_content) > 0:
+            for scene in dir_content:
+                if "." in scene:
+                    self._widget.planningScene_listWidget.addItem(scene)
+            
 
     # @Slot()
     # def on_statistics_generated(self):
