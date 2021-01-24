@@ -124,7 +124,7 @@ WSL 2 requires an update to its kernel component. For information please visit  
 6. Im Tab Algorithms unseres Plugin, sollte nun ein Planer gewählt werden, der den Roboter im Hintergrund lädt. OMPL ist eine Reihe von verschiedenen Planern, weshalb es möglich ist in der Drop- Downliste daneben einen anderen Planer von OMPL zu benutzen. CHOMP kann mit dem OMPL als Preprocessor gestartet werden. STOMP mit CHOMP als Postprocessor.
 
 <details> <summary>Auswahl des Planers (click here)</summary>
-![Semantic description of image](/rqt_mypkg/resource/algorithmstab.png)
+![Semantic description of image](/Resources/algorithmstab.png)
 </details>
 
 7. Roboter zur Szene hinzufügen durch "Add" -> MotionPlanning im RViz Plugin.
@@ -138,7 +138,7 @@ WSL 2 requires an update to its kernel component. For information please visit  
 10. Unter Displays Global Options -> Fixed Frame -> Wert auf "link_base" setzen, sonst werden die Marker nicht angezeigt.
 
 <details> <summary>MotionPlanning, MarkerArray über Add hinzufügen und Fixed Frame ändern (click here)</summary>
-![Semantic description of image](/rqt_mypkg/resource/add.png)
+![Semantic description of image](/Resources/add.png)
 </details>
 
 11. Eine vordefinierte Szene kann dann über den Tab Planning Scene geladen werden. Alle angezeigten Szenen sind im rqt_pkg Ordner unter Szenen. Der Refresh- Button aktualisiert die vorhandenen Szenen bzw. fügt neue hinzu, falls der Ordner aktualisiert werden sollte.
@@ -150,7 +150,7 @@ WSL 2 requires an update to its kernel component. For information please visit  
 			verschiebbar/drehbar sein.
 
 <details> <summary>Scene Objects Tab (click here)</summary>
-![Semantic description of image](/rqt_mypkg/resource/sceneobject.png)
+![Semantic description of image](/Resources/sceneobject.png)
 </details>
 
 
@@ -169,13 +169,13 @@ WSL 2 requires an update to its kernel component. For information please visit  
 15. Unter dem Reiter Statistics werden von jedem berechnten Pfad einige Informationen zum Vergleichen der unterschiedlichen Pfadplanner angezeigt.
 
 <details> <summary>Reiter Statistics (click here) </summary>
-![Semantic description of image](/rqt_mypkg/resource/statistics.png)
+![Semantic description of image](/Resources/statistics.png)
 </details>
 
 16. In der Reihe Display Path kann man einen Häkchen setzen, um den jeweiligen Pfad ein- bzw. auszublenden. Dies geschieht in Form von Markern. Dabei wird der Pfad und der Name des Planners angezeigt.
 
 <details> <summary>Anzeige der Pfade (click here) </summary>
-![Semantic description of image](/rqt_mypkg/resource/pfade.png)
+![Semantic description of image](/Resources/pfade.png)
 </details>
 
 17. Mit Export kann man für den gewählten Planner den Pfad in eine YAML- Datei exportieren. Dabei öffnet sich ein Explorer, in dem man ein Verzeichnis auswählt und 1) eine vorhandene Datei überschreibt 2) oder einen neuen Namen eingibt und die Datei neuerstellt.
