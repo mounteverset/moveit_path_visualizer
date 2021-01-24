@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+import yaml
 import os
 import rospy
 import rospkg
@@ -9,7 +10,7 @@ from rqt_mypkg import path_planning_interface
 from qt_gui.plugin import Plugin
 from python_qt_binding import loadUi
 from python_qt_binding.QtWidgets import QWidget
-from PySide2.QtCore import Qt, Slot, qWarning
+from PySide2.QtCore import Qt, Slot, qWarning, QTranslator
 from python_qt_binding.QtWidgets  import QFileDialog, QMessageBox
 from python_qt_binding.QtWidgets  import QTableWidget, QTableWidgetItem
 
@@ -21,7 +22,7 @@ import signal
 import random
 
 from visualization_msgs.msg import Marker, MarkerArray
-from rqt_mypkg import path_planning_interface
+from rqt_mypkg import path_planning_interface, statistics
 from rqt_mypkg.msg import PathStatistics
 
 
@@ -77,9 +78,9 @@ class MyPlugin(Plugin):
         self._widget.ompl_display_checkBox.clicked.connect(self.on_checkBox_clicked)
         self._widget.chomp_display_checkBox.clicked.connect(self.on_checkBox_clicked)
         self._widget.stomp_display_checkBox.clicked.connect(self.on_checkBox_clicked)
-        #self._widget.ompl_export_button.clicked.connect(self.on_ompl_export_clicked)
-        #self._widget.chomp_export_button.clicked.connect(self.on_chomp_export_clicked)
-        #self._widget.stomp_export_button.clicked.connect(self.on_stomp_export_clicked)
+        self._widget.ompl_export_button.clicked.connect(self.on_ompl_export_clicked)
+        self._widget.chomp_export_button.clicked.connect(self.on_chomp_export_clicked)
+        self._widget.stomp_export_button.clicked.connect(self.on_stomp_export_clicked)
         #self._widget.statisticsTable.clicked.connect(self.on_statistics_generated)
         #self._widget.pushButton.clicked.connect(self.pushButton_clicked)
 
@@ -499,18 +500,40 @@ class MyPlugin(Plugin):
     def on_checkBox_clicked(self):
         self.publish_marker_array()
         
-    #@Slot()
-    #def on_ompl_export_clicked(self):
-        #umut in da hood
+    @Slot()
+    def on_ompl_export_clicked(self):
+        dialog = QFileDialog()
+        directory, _filter = dialog.getSaveFileName(None, 'Choose a file name')
+        print(directory)
+        try:
+            with open(directory, 'w') as file_save:
+                yaml.dump(self.ompl_pose_array, file_save, default_flow_style=False)
+        except FileNotFoundError:
+            pass
 
-    #@Slot()
-    #def on_chomp_export_clicked(self):
-        #umut make it good
 
-    #@Slot()
-    #def on_stomp_export_clicked(self):
-        #umut gleich kaputt
-    
+    @Slot()
+    def on_chomp_export_clicked(self):
+        dialog = QFileDialog()
+        directory, _filter = dialog.getSaveFileName(None, 'Choose a file name')
+        print(directory)
+        try:
+            with open(directory, 'w') as file_save:
+                yaml.dump(self.ompl_pose_array, file_save, default_flow_style=False)
+        except FileNotFoundError:
+            pass
+
+    @Slot()
+    def on_stomp_export_clicked(self):
+        dialog = QFileDialog()
+        directory, _filter = dialog.getSaveFileName(None, 'Choose a file name')
+        print(directory)
+        try:
+            with open(directory, 'w') as file_save:
+                yaml.dump(self.ompl_pose_array, file_save, default_flow_style=False)
+        except FileNotFoundError:
+            pass
+
     def publish_marker_array(self):
 
         publisher = rospy.Publisher('visualization_marker_array',
@@ -570,49 +593,3 @@ class MyPlugin(Plugin):
         marker.color.b = 1.0
         
         return marker
-
-
-    # @Slot()
-    # def on_statistics_generated(self):
-    #     planningObject = path_planning_interface.MoveGroupDefinedPath()
-    #     statisticsObject = statistics.StatisticsDefinedPath()
-
-    #     time = planningObject.getTime()
-    #     length = statisticsObject.pathLength(path_planning_interface.eef_poses)
-
-
-
-
-
-
-
-
-
-    #@Slot()
-    #def pushButton_clicked(self):
-        
-    #    self.publisher = rospy.Publisher('visualization_marker',
-    #                                                        Marker,
-    #                                                        queue_size=5)
-        
-    #    marker = Marker()
-    #    marker.header.frame_id = "world"
-    #    marker.type = marker.SPHERE
-    #    marker.action = marker.ADD
-    #    marker.pose.position.x = 1
-    #    marker.pose.position.y = 1
-    #    marker.pose.position.z = 1
-    #    marker.pose.orientation.x = 0.0
-    #    marker.pose.orientation.y = 0.0
-    #    marker.pose.orientation.z = 0.0
-    #    marker.pose.orientation.w = 1.0
-    #    marker.scale.x = 0.5
-    #    marker.scale.y = 0.5
-    #    marker.scale.z = 0.5
-    #    marker.color.a = 1.0
-    #    marker.color.r = 1.0
-    #    marker.color.g = 1.0
-    #    marker.color.b = 1.0
-        
-        
-    #    self.publisher.publish(marker)
