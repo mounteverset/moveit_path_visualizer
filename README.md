@@ -121,23 +121,29 @@ WSL 2 requires an update to its kernel component. For information please visit  
 
 5. rviz-Robotersimulation einfügen unter Plugins -> Visualization -> RViz. Es sollte sich jetzt eine leere Szene öffnen
 
-6. Im Tab Algorithmen unseres Plugin, sollte nun ein Planer gewählt werden, der den Roboter im Hintergrund lädt.
+6. Im Tab Algorithms unseres Plugin, sollte nun ein Planer gewählt werden, der den Roboter im Hintergrund lädt. OMPL ist eine Reihe von verschiedenen Planern, weshalb es möglich ist in der Drop- Downliste daneben einen anderen Planer von OMPL zu benutzen. CHOMP kann mit dem OMPL als Preprocessor gestartet werden. STOMP mit CHOMP als Postprocessor.
+
+<details> <summary>Auswahl des Planers (click here)</summary>
+![Semantic description of image](/rqt_mypkg/resource/algorithmstab.png)
+</details>
 
 7. Roboter zur Szene hinzufügen durch "Add" -> MotionPlanning im RViz Plugin.
    Unter "MotionPlanning" -> Context -> Planning Library , kann der aktuell genutzte Planer
    eingesehen werden.
 
-![Add-Button](<https://ibb.co/7nYVv1g>)
-
 8. Der Roboter sollte jetzt in der Planungsszene erscheinen.
 
-9. Unter Displays -> "Add" -> rviz -> "MarkerArray" hinzufügen.
+9. Unter Displays -> "Add" -> rviz -> "MarkerArray" hinzufügen. DIE SCHRITTE 9 und 10 KÖNNEN MIT DER CONFIG DATEI ÜBERSPRUNGEN WERDEN: Die config Datei übernimmt, wenn der Roboter erstmal geladen wurde, indem man einen Planer wählt, diese Schritte. Die config- Datei findet man im rqt_mypkg Ordner unter dem Ordner "config"
 
 10. Unter Displays Global Options -> Fixed Frame -> Wert auf "link_base" setzen, sonst werden die Marker nicht angezeigt.
 
+<details> <summary>MotionPlanning, MarkerArray über Add hinzufügen und Fixed Frame ändern (click here)</summary>
+![Semantic description of image](/rqt_mypkg/resource/add.png)
+</details>
+
 11. Eine vordefinierte Szene kann dann über den Tab Planning Scene geladen werden. Alle angezeigten Szenen sind im rqt_pkg Ordner unter Szenen. Der Refresh- Button aktualisiert die vorhandenen Szenen bzw. fügt neue hinzu, falls der Ordner aktualisiert werden sollte.
 
-12. Unter dem Reiter Start-/Goalpoint kann man einen Startpunkt festlegen, zu dem der Roboter erstmal hinfährt. Mit Goalpoint setzt man das Ziel des Roboters an. Auf Apply klicken, um die Punkte zu laden.
+12. Unter dem Reiter Start-/Goalpoint kann man einen Startpunkt festlegen, zu dem der Roboter erstmal hinfährt. Mit Goalpoint setzt man das Ziel des Roboters. Als nächstes muss auf Apply gelickt werden, um die Punkte zu laden.
 
 13.  Jetzt kann man schon mit Plan Path den Pfad planen/berechnen. 
 
@@ -147,18 +153,17 @@ WSL 2 requires an update to its kernel component. For information please visit  
     Es folgt die Planung vom Start- zum Zielpunkt und im Anschluss wird der Pfad in kleinen Schritten ausgeführt. Sobald das Ziel erreicht ist, wird der Pfad
     als MarkerArray (Punkt-Folge) dargestellt.
 
+
 15. Unter dem Reiter Statistics werden von jedem berechnten Pfad einige Informationen zum Vergleichen der unterschiedlichen Pfadplanner angezeigt.
+
+<details> <summary>Reiter Statistics (click here) </summary>
+![Semantic description of image](/rqt_mypkg/resource/statistics.png)
+</details>
 
 16. In der Reihe Display Path kann man einen Häkchen setzen, um den jeweiligen Pfad ein- bzw. auszublenden. Dies geschieht in Form von Markern. Dabei wird der Pfad und der Name des Planners angezeigt.
 
+<details> <summary>Anzeige der Pfade (click here) </summary>
+![Semantic description of image](/rqt_mypkg/resource/pfade.png)
+</details>
+
 17. Mit Export kann man für den gewählten Planner den Pfad in eine YAML- Datei exportieren. Dabei öffnet sich ein Explorer, in dem man ein Verzeichnis auswählt und 1) eine vorhandene Datei überschreibt 2) oder einen neuen Namen eingibt und die Datei neuerstellt.
-
-
-**Fehlerbehebung**
-
-1. Rviz hängt und lässt sich nicht schließen: VcXsrv (XLaunch) unten im Startmenü schließen erzwingt das Schließen des Programms, da die GUIs ohne XLaunch nicht laufen.
-
-2. Das RQT-Plugin erscheint nicht unter Plugins; Die GUI konnte nicht gestartet werden (Fehler output): Richtig sourcen (bzw. nicht vergessen zu sourcen!!!)
-
-3. FPS- Einbrüche, schlechte Performance: Hardware-Acceleration existiert noch nicht. Da kann man leider nicht
-viel machen. Aber WSL2 soll bald nativen GUI support bekommen  (doch eher in etwas später im Jahr :( )
