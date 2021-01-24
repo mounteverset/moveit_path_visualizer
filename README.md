@@ -143,14 +143,26 @@ WSL 2 requires an update to its kernel component. For information please visit  
 
 11. Eine vordefinierte Szene kann dann über den Tab Planning Scene geladen werden. Alle angezeigten Szenen sind im rqt_pkg Ordner unter Szenen. Der Refresh- Button aktualisiert die vorhandenen Szenen bzw. fügt neue hinzu, falls der Ordner aktualisiert werden sollte.
 
+			Im Motion Planing Tab ist es möglich eine eigene Planungsszene zu erstellen. Dafür muss man auf den Reiter "Scene Objects."
+			Unten im Tab kann man unter "Add/Remove scene object(s)" ein ausgewähltes Objekt über das Plus- Zeichen in die Szene setzen
+			und exportieren/importieren. Falls man ein Objekt bewegen oder anderweites ändern möchte, muss man wieder in den Reite
+			"Scene Objects" und das Objekt unter "Current Scene Objects" auswählen. In der Planungsszene sollte das Objekt jetzt
+			verschiebbar/drehbar sein.
+
+<details> <summary>Scene Objects Tab (click here)</summary>
+![Semantic description of image](/rqt_mypkg/resource/sceneobject.png)
+</details>
+
+
 12. Unter dem Reiter Start-/Goalpoint kann man einen Startpunkt festlegen, zu dem der Roboter erstmal hinfährt. Mit Goalpoint setzt man das Ziel des Roboters. Als nächstes muss auf Apply gelickt werden, um die Punkte zu laden.
 
 13.  Jetzt kann man schon mit Plan Path den Pfad planen/berechnen. 
 
 14. Der Roboterablauf: Planung von aktueller Position auf Startposition. Falls die Berechnung eines Pfades möglich ist, wird der Planer direkt ausgeführt.
+
     Fehlermeldungen werden im Terminal ausgegeben, falls z.B. kein möglicher Pfad berechnet 
     werden kann.
-    Es folgt die Planung vom Start- zum Zielpunkt und im Anschluss wird der Pfad in kleinen Schritten ausgeführt. Sobald das Ziel erreicht ist, wird der Pfad
+    Es folgt die Planung vom Start- zum Zielpunkt und im Anschluss wird der Pfad in kleinen Schritten ausgeführt. Sobald das Ziel 			erreicht ist, wird der Pfad
     als MarkerArray (Punkt-Folge) dargestellt.
 
 
