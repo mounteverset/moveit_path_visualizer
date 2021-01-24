@@ -1,5 +1,8 @@
+# Installationshinweise #
+
+### Installation unter Windows / WSL2 Setup
 <details>
-<summary>Installation der benötigten Software/WSL2 Setup (Click here to collapse/unfold)</summary>
+<summary>Aufklappen</summary>
 
 Installation Docker auf Windows mit WSL- Kästchen angetickt. VcXsrv https://sourceforge.net/projects/vcxsrv/ (Downloadlink!) vorher installieren. Empfehelung am Rande: Windows Terminal im Windows Store runterladen. Cooles Tool.
 
@@ -101,15 +104,57 @@ WSL 2 requires an update to its kernel component. For information please visit  
 	7) ein neues Terminal/Powershell öffnen, da roscore separat laufen muss und da wieder den Docker Container starten und hier z.B. rviz eingeben oder rqt, um eine GUI zu starten
 </details>
 
+### Installation unter Ubuntu 20.04
+
+<details>
+<summary>Aufklappen</summary>
+
+1. ROS Installation folgen: http://wiki.ros.org/noetic/Installation/Ubuntu 
+
+2. MoveIt Installation folgen: https://ros-planning.github.io/moveit_tutorials/doc/getting_started/getting_started.html
+
+3. Dieses Repo in MoveIt Source clonen
+
+`cd ~/ws_moveit/src/`
+
+`git clone https://gitlab.rz.htw-berlin.de/softwareentwicklungsprojekt/wise2020-21/team6.git`
+
+4. STOMP aus dem ROS Industrial Repo herunterladen
+
+`https://github.com/ros-industrial/stomp_ros.git`
+
+5. TRAC-IK installieren
+
+`sudo apt-get install ros-melodic-trac-ik-kinematics-plugin`
+
+6. Nlopt 2.6.2 herunterladen und installieren (Hinweisen auf der Webseite folgen)
+
+https://nlopt.readthedocs.io/en/latest/
+
+7. Den gesamten MoveIt Workspace catkin builden und neu sourcen
+
+`cd ~/ws_moveit/`
+
+`caktin build`
+
+`source ~/ws_moveit/devel/setup.bash`
 
 
-**Starten und Bedienung der Anwendung**
+</details>
 
-1. Sichergehen, dass der Workspace gesourct ist
+# Bedienungshinweise
+
+### Anleitung
+
+<details>
+<summary>Aufklappen</summary>
+
+
+1. Sichergehen, dass der **Workspace gesourct** ist. In einem neuen Terminal diesen Befehl ausführen 
 
 	`source ~/ws_moveit/devel/setup.bash`
 
-2. roscore starten, falls es noch in keinem Terminal läuft
+2. **roscore starten**, falls es noch in keinem Terminal läuft
 
 	`roscore`
 
@@ -117,15 +162,19 @@ WSL 2 requires an update to its kernel component. For information please visit  
 
 	`rqt`
 
-4. rqt-Plugin einfügen unter Plugins -> User-Plugins -> Path Planning Plugin
+4. **Plugin aus diesem Repository** einfügen unter Context-Menü -> Plugins -> User-Plugins -> Path Planning Plugin
 
-5. rviz-Robotersimulation einfügen unter Plugins -> Visualization -> RViz. Es sollte sich jetzt eine leere Szene öffnen
+5. **rviz-Robotersimulation einfügen** unter Plugins -> Visualization -> RViz. Es sollte sich jetzt eine leere Szene öffnen
 
-6. Im Tab Algorithms unseres Plugin, sollte nun ein Planer gewählt werden, der den Roboter im Hintergrund lädt. OMPL ist eine Reihe von verschiedenen Planern, weshalb es möglich ist in der Drop- Downliste daneben einen anderen Planer von OMPL zu benutzen. CHOMP kann mit dem OMPL als Preprocessor gestartet werden. STOMP mit CHOMP als Postprocessor.
+6. Im Tab **Algorithms** unseres Plugins, muss nun ein Pfadplaner gewählt werden, der den Roboter im Hintergrund lädt. **OMPL** ist eine Bibliothek aus verschiedenen Planern, weshalb es möglich ist in der Drop-Downliste daneben einen anderen Planer von OMPL zu benutzen. **CHOMP** kann mit dem OMPL als Preprocessor gestartet werden. **STOMP** mit CHOMP als Postprocessor.
+Sobald man den Planer mit Apply bestätigt öffnet sich ein neues Terminal und der Planer lädt. Sobald die **Initialisierung abgeschlossen** ist, erscheint die Meldung _"You can start planning now!"_.
 
-<details> <summary>Auswahl des Planers (click here)</summary>
+<details> 
+<summary>Aufklappen</summary>
 ![Semantic description of image](/Resources/algorithmstab.png)
 </details>
+
+_Die Schritte **7 bis 10** können durch Laden einer rviz config Datei übersprungen werden: Die config Datei übernimmt die folgenden Schritte. Sie kann in rviz durch Strg + O oder über das Context Menü vom rviz Plugin unter File -> **Open Config** geöffnet werden und ist unter ~/ws_moveit/src/team6/rqt_mypkg/config/default_rviz_config.config zu finden._
 
 7. Roboter zur Szene hinzufügen durch "Add" -> MotionPlanning im RViz Plugin.
    Unter "MotionPlanning" -> Context -> Planning Library , kann der aktuell genutzte Planer
@@ -133,49 +182,68 @@ WSL 2 requires an update to its kernel component. For information please visit  
 
 8. Der Roboter sollte jetzt in der Planungsszene erscheinen.
 
-9. Unter Displays -> "Add" -> rviz -> "MarkerArray" hinzufügen. DIE SCHRITTE 9 und 10 KÖNNEN MIT DER CONFIG DATEI ÜBERSPRUNGEN WERDEN: Die config Datei übernimmt, wenn der Roboter erstmal geladen wurde, indem man einen Planer wählt, diese Schritte. Die config- Datei findet man im rqt_mypkg Ordner unter dem Ordner "config"
+9. Unter Displays -> "Add" -> rviz -> **"MarkerArray"** hinzufügen. 
 
-10. Unter Displays Global Options -> Fixed Frame -> Wert auf "link_base" setzen, sonst werden die Marker nicht angezeigt.
+10. Unter Displays Global Options -> **Fixed Frame** -> Wert auf **"link_base"** setzen, sonst werden die Marker nicht angezeigt.
 
-<details> <summary>MotionPlanning, MarkerArray über Add hinzufügen und Fixed Frame ändern (click here)</summary>
+<details> 
+<summary>Aufklappen</summary>
 ![Semantic description of image](/Resources/add.png)
 </details>
 
-11. Eine vordefinierte Szene kann dann über den Tab Planning Scene geladen werden. Alle angezeigten Szenen sind im rqt_pkg Ordner unter Szenen. Der Refresh- Button aktualisiert die vorhandenen Szenen bzw. fügt neue hinzu, falls der Ordner aktualisiert werden sollte.
+11. Eine vordefinierte Szene kann dann über den Tab **Planning Scene** geladen werden. Alle angezeigten Szenen sind unter rqt_mypkg/scenes zu finden. Der Refresh-Button aktualisiert die vorhandenen Szenen bzw. fügt neue hinzu, falls der Ordner aktualisiert werden sollte.
 
-			Im Motion Planing Tab ist es möglich eine eigene Planungsszene zu erstellen. Dafür muss man auf den Reiter "Scene Objects."
-			Unten im Tab kann man unter "Add/Remove scene object(s)" ein ausgewähltes Objekt über das Plus- Zeichen in die Szene setzen
-			und exportieren/importieren. Falls man ein Objekt bewegen oder anderweites ändern möchte, muss man wieder in den Reite
-			"Scene Objects" und das Objekt unter "Current Scene Objects" auswählen. In der Planungsszene sollte das Objekt jetzt
-			verschiebbar/drehbar sein.
+12. Im rviz **Motion Planing** Plugin im Tab "Scene Objects" ist es möglich eine **eigene Planungsszene** zu erstellen. Unten im Tab kann man unter "**Add/Remove scene object(s)**" ein ausgewähltes Objekt über das Plus- Zeichen in die Szene setzen und exportieren (Um sie komfortabel über unser Plugin zu laden sind die Szenen in team6/rqt_mypkg/scenes/ zu speichern). Falls man ein **Objekt bewegen** oder anderweites ändern möchte, muss man wieder im Tab "Scene Objects" und das Objekt unter "Current Scene Objects" auswählen. In der Planungsszene sollte das Objekt jetzt verschiebbar/drehbar sein.
 
-<details> <summary>Scene Objects Tab (click here)</summary>
+<details> 
+<summary>Aufklappen</summary>
 ![Semantic description of image](/Resources/sceneobject.png)
+![Gepackte Szene](/Resources/demo_scene.jpg)
+
 </details>
 
 
-12. Unter dem Reiter Start-/Goalpoint kann man einen Startpunkt festlegen, zu dem der Roboter erstmal hinfährt. Mit Goalpoint setzt man das Ziel des Roboters. Als nächstes muss auf Apply gelickt werden, um die Punkte zu laden.
+13. Unter dem Tab **Start-/Goalpoint** legt man die gewünschten Start-/und Zielpunkte für die Pfadplanung fest. Sie besitzen neben den karthesischen Koordinaten auch eine Orientierungskomponente, um Drehbewegungen abzubilden. Zur **Bestätigung der Punkte** muss auf Apply geklickt werden.
 
-13.  Jetzt kann man schon mit Plan Path den Pfad planen/berechnen. 
+14.  Jetzt kann man mit dem _"Plan Path"_  Button den Pfad planen lassen. Eine Pfadplanung ist erst möglich, wenn im Hintergrund der Pfadplaner in einem seperaten Terminal läuft und man die Start-/Zielpunkte festgelegt hat.
 
-14. Der Roboterablauf: Planung von aktueller Position auf Startposition. Falls die Berechnung eines Pfades möglich ist, wird der Planer direkt ausgeführt.
+15. **Ablauf der Pfadplanung** in rviz: 
 
-    Fehlermeldungen werden im Terminal ausgegeben, falls z.B. kein möglicher Pfad berechnet 
-    werden kann.
-    Es folgt die Planung vom Start- zum Zielpunkt und im Anschluss wird der Pfad in kleinen Schritten ausgeführt. Sobald das Ziel 			erreicht ist, wird der Pfad
-    als MarkerArray (Punkt-Folge) dargestellt.
+  
+  - Der Roboter bewegt sich von seiner aktuellen Position zur Startpose.
+  - Die Pfadplanung von Start bis Ziel wird berechnet
+  - Der Roboter bewegt sich einmal entlang des geplanten Pfades
+  - Sobald der Roboter am Ziel ist wird der zurückgelegte Weg des End Effektors mit Markern visualiert  
+  - Fehlermeldungen werden im Terminal ausgegeben in dem man rqt gestartet hat, falls z.B. kein möglicher Pfad für die Punkte berechnet werden kann.
+    
+16. Unter dem **Tab Statistics** in unserem Plugin werden von jedem berechnten Pfad wichtige Informationen zum **Vergleichen und Beurteilen **der unterschiedlichen Pfadplanner angezeigt.
 
-
-15. Unter dem Reiter Statistics werden von jedem berechnten Pfad einige Informationen zum Vergleichen der unterschiedlichen Pfadplanner angezeigt.
-
-<details> <summary>Reiter Statistics (click here) </summary>
+<details> <summary>Aufklappen</summary>
 ![Semantic description of image](/Resources/statistics.png)
 </details>
 
-16. In der Reihe Display Path kann man einen Häkchen setzen, um den jeweiligen Pfad ein- bzw. auszublenden. Dies geschieht in Form von Markern. Dabei wird der Pfad und der Name des Planners angezeigt.
+17. Unter den Statistiken zu den Pfaden kann man bei **_Display Path_** ein Häkchen setzen, um den jeweiligen Pfad **ein- bzw. auszublenden**. Dies geschieht in Form von Markern. Dabei wird der **Pfad und der Name des Planners** angezeigt.
 
-<details> <summary>Anzeige der Pfade (click here) </summary>
+<details> <summary>Aufklappen</summary>
 ![Semantic description of image](/Resources/pfade.png)
 </details>
 
-17. Mit Export kann man für den gewählten Planner den Pfad in eine YAML- Datei exportieren. Dabei öffnet sich ein Explorer, in dem man ein Verzeichnis auswählt und 1) eine vorhandene Datei überschreibt 2) oder einen neuen Namen eingibt und die Datei neuerstellt.
+18. Mit **_"Export"_** im Statistics Tab kann man für den gewählten Planner den Pfad in eine YAML-Datei exportieren. Es öffnet sich ein FileDialog, in dem man ein Verzeichnis auswählt und eine vorhandene Datei überschreibt oder einen neuen Namen eingibt und die Datei neu erstellt.
+
+</details>
+
+### Bekannte Bugs
+
+<details>
+<summary>Aufklappen</summary>
+
+
+-  Bei der Benutzung von STOMP als Pfadplaner wird manchmal keine Lösung der inversen Kinematik für den Startpunkt gefunden. Der Roboter fährt dann von seiner aktuellen Position direkt zur Zielposition.
+   - Behebung: Noch einmal mit STOMP die gleichen Punkte planen lassen.
+   - Alternativ: Start- und Zielpunkt vertauschen im Plugin, da sich der Roboter aktuell am Ziel befindet.
+
+-  Trotz Verwendung eines speziellen Solvers für IK-Probleme findet MoveIt nicht immer eine Lösung für die inverse Kinematik, egal ob für Start- und Endpunkt und bei jedem der probierten Pfadplaner. Dies kann im Terminal in dem rqt gestartet ist als Fehlermeldung ausgelesen werden.
+   - Behebung: Eventuell liegen die Punkte außerhalb des Arbeitsbereiches des Roboters. In diesem Fall sollten Punkte gewählt werden, die näher am Ursprung (0|0|0) liegen. 
+   - Behebung: Eventuell befindet sich der Roboter in Selbstkollision. In diesem Fall wird ebenfalls keine Lösung der IK gefunden. Lösungsansatz: andere Punkten probieren und die Orientierung ändern, wenn man sich sicher ist, dass die Punkte im Arbeitsbereich liegen.
+
+
