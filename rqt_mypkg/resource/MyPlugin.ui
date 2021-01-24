@@ -11,7 +11,11 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Form</string>
+   <string>Path Planning with ROS MoveIt!</string>
+  </property>
+  <property name="windowIcon">
+   <iconset>
+    <normaloff>ros_logo_white.xpm</normaloff>ros_logo_white.xpm</iconset>
   </property>
   <layout class="QGridLayout" name="gridLayout">
    <item row="1" column="0" alignment="Qt::AlignHCenter">

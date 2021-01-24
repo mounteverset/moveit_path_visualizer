@@ -61,9 +61,7 @@ class MoveGroupDefinedPath(object):
 
         self.planner_id = self.get_planner_id()
         if self.planner_id != "":
-            self.move_group.set_planner_id(self.planner_id)
-        
-  
+            self.move_group.set_planner_id(self.planner_id)         
 
     def go_to_starting_joint_goal(self):
 
@@ -76,7 +74,7 @@ class MoveGroupDefinedPath(object):
         self.move_group.stop()
         self.move_group.clear_pose_targets()
 
-    def plan_path_from_to_start_with_joint_goal(self):
+    def plan_path__to_start_with_joint_goal(self):
         self.move_group.set_start_state(self.robot.get_current_state())
         motion_plan = self.move_group.plan(self.starting_joint_goal)    
         return motion_plan
@@ -168,8 +166,7 @@ class MoveGroupDefinedPath(object):
         else:
            print("The file does not exist")
 
-    def get_eef_poses(self, plan):
-        
+    def get_eef_poses(self, plan):        
         
         eef_poses = []
         #joint_goals = self.move_group.get_current_joint_values()
@@ -195,26 +192,10 @@ class MoveGroupDefinedPath(object):
             eef_poses.append(self.move_group.get_current_pose().pose)
         
         return eef_poses
-        
-        # either directly create a marker and append it to an array or save the poses in an array
-    
+  
     def create_eef_marker(self, eef_poses):
 
-        # publisher = rospy.Publisher('visualization_marker_array',
-        #                                                     MarkerArray,
-        #                                                     queue_size=1)
-
         markerArray = MarkerArray()
-        # for i in range(0,100):
-        #     marker = Marker()
-        #     marker.id = i
-        #     marker.header.frame_id = "link_base"
-        #     marker.action = marker.DELETE
-        #     markerArray.markers.append(marker)
-        # rospy.sleep(1)
-        # publisher.publish(markerArray)
-
-        # markerArray.markers.clear()
 
         for i in range(0, len(eef_poses)):
             marker = Marker()
@@ -233,25 +214,6 @@ class MoveGroupDefinedPath(object):
             marker.color.g = 1.0
             marker.color.b = 1.0
             markerArray.markers.append(marker)
-        
-        # marker = Marker()
-        # marker.id = len(markerArray.markers)
-        # marker.header.frame_id = "link_base"
-        # marker.type = marker.TEXT_VIEW_FACING
-        # marker.text = "OMPL Pfad"
-        # marker.action = marker.ADD
-        # marker.pose.position.x = markerArray.markers[2].pose.position.x 
-        # marker.pose.position.y = markerArray.markers[2].pose.position.y 
-        # marker.pose.position.z = markerArray.markers[2].pose.position.z + 0.1
-        # marker.scale.z = 0.2
-        # marker.color.a = 1.0
-        # marker.color.r = 1.0
-        # marker.color.g = 1.0
-        # marker.color.b = 1.0
-        # markerArray.markers.append(marker)
-
-        # rospy.sleep(1)
-        # publisher.publish(markerArray)
 
         return markerArray
 
@@ -282,9 +244,6 @@ class MoveGroupDefinedPath(object):
         response = compute_ik_service(request)
 
         return response.solution.joint_state
-
-    # To Do: create a PoseArray() Message and insert the values from eef_poses
-    # create a PathStatistics() Msg and insert all of the values into it
 
     def publish_statistics(self,path_length, markers, planning_time, max_accel, eef_poses, exec_time):
         

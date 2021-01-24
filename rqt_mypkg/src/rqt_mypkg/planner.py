@@ -47,4 +47,5 @@ else:
         max_acceleration = statisticsObject.get_max_joint_acceleration(planned_path)
         planningObject.publish_statistics(path_length, marker_array, planning_time, max_acceleration, eef_poses, execution_time)
     else:
+        planningObject.publish_statistics(1, MarkerArray(), 1, 1, [Pose(),Pose()], 1)   
         print("No motion plan found. Reason for shutdown: {}".format(planned_path[3]))

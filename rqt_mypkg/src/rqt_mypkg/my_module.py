@@ -11,6 +11,7 @@ from qt_gui.plugin import Plugin
 from python_qt_binding import loadUi
 from python_qt_binding.QtWidgets import QWidget
 from PySide2.QtCore import Qt, Slot, qWarning, QTranslator
+from PyQt5.QtCore import pyqtSignal
 from python_qt_binding.QtWidgets  import QFileDialog, QMessageBox
 from python_qt_binding.QtWidgets  import QTableWidget, QTableWidgetItem
 
@@ -32,7 +33,7 @@ class MyPlugin(Plugin):
     def __init__(self, context):
         super(MyPlugin, self).__init__(context)
         # Give QObjects reasonable names
-        self.setObjectName('MyPlugin')
+        self.setObjectName('PathPlanning')
 
         # Process standalone plugin command-line arguments
         from argparse import ArgumentParser
@@ -53,7 +54,8 @@ class MyPlugin(Plugin):
         # Extend the widget with all attributes and children from UI file
         loadUi(ui_file, self._widget)
         # Give QObjects reasonable names
-        self._widget.setObjectName('MyPluginUi')
+        self._widget.setObjectName('PathPlanningUi')
+        self._widget.setWindowTitle("Path Planning with MoveIt!")
         # Show _widget.windowTitle on left-top of each plugin (when 
         # it's set in _widget). This is useful when you open multiple 
         # plugins at once. Also if you open multiple instances of your 
@@ -70,7 +72,7 @@ class MyPlugin(Plugin):
         self.stomp_marker_array = MarkerArray()
         self.stomp_pose_array = PoseArray()
 
-        # Add slots to signal
+        # Add slots to signals
         self._widget.pushButton_openPlanningScene.clicked.connect(self.on_pushButton_openPlanningScene_clicked)
         self._widget.pushButton_apply.clicked.connect(self.on_pushButton_apply_clicked)
         self._widget.pushButton_planPath.clicked.connect(self.on_pushButton_planPath_clicked)
@@ -83,21 +85,23 @@ class MyPlugin(Plugin):
         self._widget.ompl_export_button.clicked.connect(self.on_ompl_export_clicked)
         self._widget.chomp_export_button.clicked.connect(self.on_chomp_export_clicked)
         self._widget.stomp_export_button.clicked.connect(self.on_stomp_export_clicked)
-        #self._widget.statisticsTable.clicked.connect(self.on_statistics_generated)
-        #self._widget.pushButton.clicked.connect(self.pushButton_clicked)
-                
+
+        # Initialize the planning scene tab        
         self.on_pushButton_planningScene_refresh_clicked()
 
-        # Initialize a ROS subscriber
-        
+        # Initialize a ROS subscriber to receive the statistics from the path planner        
         sub = rospy.Subscriber('/statistics', PathStatistics, self.callback_subscriber)
+
+        # Initialize a ROS Service which is called by the path planner to receive 
+        # information about the selected algorithm
         service = rospy.Service("/ompl_planner_id", Trigger, self.callback_service)
+
+        # Attributes to handle the starting and shutting down of OMPL, CHOMP, STOMP in the program as their launch  
+        # files must not be launched at the same time
         self.active_motion_planner = None
         self.first_open = False
 
-        
-
-        # Add widget to the user interface
+        # Add widget to the rqt user interface
         context.add_widget(self._widget)
 
     def callback_service(self, request):
@@ -126,15 +130,24 @@ class MyPlugin(Plugin):
         print("We are here in the callback!")
         #print(str(msg.data))
         if msg.planning_time == 0 and msg.path_length == 0 and msg.max_acceleration == 0:
-            alert = QMessageBox()
-            alert.setText('No solution for the inverse kinematic was found. \nPlease use different points closer to the robot.')            
-            alert.exec_()
-
+            #self.message_changed.emit('Error', 'No solution for the inverse kinematic was found. \nPlease use different points closer to the robot.')
+            alert = QMessageBox() #.about(self,'Error', 'No solution for the inverse kinematic was found. \nPlease use different points closer to the robot.')
+            alert.setText("No solution for the inverse kinematic was found.\nPlease try again or use different points closer to the robot at [0|0|0]")            
+            #alert.setIcon(QMessageBox.Critical)
+            alert.setWindowTitle("Warning")
+            # #alert.setStandardButtons(QMessageBox.Ok, QMessageBox.Abort)
+            # alert.show()
+            dialog_result = alert.exec()
             # msgBox.setIcon(QMessageBox.Critical)
             # msgBox.setText("No solution for the inverse kinematic was found for the given points.")
             # msgBox.setWindowTitle("Warning")
             # msgBox.setStandardButtons(QMessageBox.Ok)
             # msgBox.open()
+        elif msg.planning_time == 1 and msg.path_length == 1 and msg.max_acceleration == 1:
+            alert = QMessageBox()
+            alert.setWindowTitle("Warning")
+            alert.setText("No motion plan was found in time for the given points.\nTry calculating it again or use different points.\nIncrease the allowed time to find a solution.")
+            alert.exec()
         else:
             # ompl column number = 0
             # chomp column number = 1
@@ -166,62 +179,6 @@ class MyPlugin(Plugin):
                 
                 self._widget.ompl_display_checkBox.setEnabled(True)
                 self._widget.ompl_display_checkBox.setChecked(True)
-
-
-            # elif self._widget.radioButton_CHOMP.isChecked() == True:
-            #     column = 1
-            #     self.chomp_pose_array = msg.eef_poses
-            #     self.chomp_marker_array = msg.markers
-                
-            #     for marker in self.chomp_marker_array.markers:
-            #         marker.id += 150
-            #         marker.color.a = 1.0
-            #         marker.color.r = 0.0
-            #         marker.color.g = 0.0
-            #         marker.color.b = 1.0
-            #     rnd = random.randint(0,len(self.chomp_marker_array.markers)-1)
-            #     text_marker = self.create_text_marker("CHOMP", 
-            #                                             self.chomp_marker_array.markers[len(self.chomp_marker_array.markers)-1].id, 
-            #                                             self.chomp_marker_array.markers[rnd].pose) 
-            #     text_marker.color.a = 1.0
-            #     text_marker.color.r = 0.0
-            #     text_marker.color.g = 0.0
-            #     text_marker.color.b = 1.0        
-            #     self.chomp_marker_array.markers.append(text_marker)
-
-            #     self._widget.chomp_display_checkBox.setEnabled(True)
-            #     self._widget.chomp_display_checkBox.setChecked(True)
-
-            # elif self._widget.radioButton_STOMP.isChecked() == True:
-            #     column = 2
-            #     self.stomp_pose_array = msg.eef_poses
-            #     self.stomp_marker_array = msg.markers
-
-            #     for marker in self.stomp_marker_array.markers:
-            #         marker.id += 350
-            #         marker.color.a = 1.0
-            #         marker.color.r = 1.0
-            #         marker.color.g = 0.0
-            #         marker.color.b = 0.0
-
-            #     rnd = random.randint(0,len(self.stomp_marker_array.markers)-1)
-            #     text_marker = self.create_text_marker("STOMP", 
-            #                                         self.stomp_marker_array.markers[len(self.stomp_marker_array.markers)-1].id, 
-            #                                         self.stomp_marker_array.markers[rnd].pose)  
-            #     text_marker.color.a = 1.0
-            #     text_marker.color.r = 1.0
-            #     text_marker.color.g = 0.0
-            #     text_marker.color.b = 0.0     
-            #     self.stomp_marker_array.markers.append(text_marker)
-
-            #     self._widget.stomp_display_checkBox.setEnabled(True)
-            #     self._widget.stomp_display_checkBox.setChecked(True)
-
-            # if column == -1:
-            #     print("No active motion planner found...")
-            
-            # self._widget.ompl_display_checkBox.setEnabled(True)
-            # self._widget.ompl_display_checkBox.setChecked(True)
 
 
             elif self._widget.radioButton_CHOMP.isChecked() == True:
@@ -355,29 +312,6 @@ class MyPlugin(Plugin):
             self._widget.statisticsTable.setItem(4,column, path_length)
             joint_accel = planning_time = QTableWidgetItem(str(round(msg.max_acceleration,5))) 
             self._widget.statisticsTable.setItem(5,column, joint_accel)
-            
-        # Part 2: Overwrite the eef_poses and markerarray attributes
-        # done above
-            # start_values = self.get_start_values()
-            # goal_values = self.get_goal_values()
-            # start_table_item = QTableWidgetItem("[{}]".format("|".join(start_values)))
-            # self._widget.statisticsTable.setItem(0,column, start_table_item)
-            # goal_table_item = QTableWidgetItem("[{}]".format("|".join(goal_values)))
-            # self._widget.statisticsTable.setItem(1,column, goal_table_item)
-            # planning_time = QTableWidgetItem(str(round(msg.planning_time,5)))       
-            # self._widget.statisticsTable.setItem(2,column, planning_time)
-            # execution_time = QTableWidgetItem(str(round(msg.execution_time,5))) 
-            # self._widget.statisticsTable.setItem(3,column, execution_time)
-            # path_length = QTableWidgetItem(str(round(msg.path_length,5)))
-            # self._widget.statisticsTable.setItem(4,column, path_length)
-            # joint_accel = planning_time = QTableWidgetItem(str(round(msg.max_acceleration,5))) 
-            # self._widget.statisticsTable.setItem(5,column, joint_accel)
-            
-            # Part 2: Overwrite the eef_poses and markerarray attributes
-            # done above
-
-            # Part 3: check the right checkbox
-            # done above
 
             # Part 4: display the paths from every checked path planner
             self.publish_marker_array()
@@ -407,14 +341,11 @@ class MyPlugin(Plugin):
     @Slot()
     def on_pushButton_planPath_clicked(self):
         
-        subprocess.Popen(["gnome-terminal", "-e", "rosrun rqt_mypkg planner.py"])
-        # this funtion needs to write the current values from the doubleSpinBoxes into the QWidgetTable 
-        # to see which paths have the same start and finish        
+        subprocess.Popen(["gnome-terminal", "-e", "rosrun rqt_mypkg planner.py"])       
 
     @Slot()
     def on_pushButton_openPlanningScene_clicked(self):
         
-        #fname = QFileDialog.getOpenFileName()
         current_item = self._widget.planningScene_listWidget.currentItem()
         if current_item.text() != "":
             working_dir = str(Path(__file__).parent.absolute())
