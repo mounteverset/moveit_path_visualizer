@@ -185,7 +185,7 @@ class MoveGroupDefinedPath(object):
         self.move_group.execute(plan, wait=True)
 
     ## Reads the text files with the poses specified by the user in rqt
-    # @param A boolean if the values for the goal should be retrived, if True then the goal pose is returned
+    # @param goal A boolean if the values for the goal should be retrived, if True then the goal pose is returned
     def get_values(self, goal):
 
         homedir = str(Path.home())
@@ -250,7 +250,8 @@ class MoveGroupDefinedPath(object):
         
         return eef_poses
     
-    ## Returns a list of markers for every position of the end effector poses 
+    ## Returns a list of markers for every position of the end effector poses
+    # @param eef_poses A list of end effector poses derived from the motion between start and goal pose
     def create_eef_marker(self, eef_poses):
 
         markerArray = MarkerArray()
