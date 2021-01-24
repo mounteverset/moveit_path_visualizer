@@ -1,4 +1,5 @@
-***Installation der benötigten Software/WSL2 Setup***
+<details>
+<summary>Installation der benötigten Software/WSL2 Setup (Click here to collapse/unfold)</summary>
 
 Installation Docker auf Windows mit WSL- Kästchen angetickt. VcXsrv https://sourceforge.net/projects/vcxsrv/ (Downloadlink!) vorher installieren. Empfehelung am Rande: Windows Terminal im Windows Store runterladen. Cooles Tool.
 
@@ -98,7 +99,7 @@ WSL 2 requires an update to its kernel component. For information please visit  
 	6) roscore eingeben und ROS starten.
 
 	7) ein neues Terminal/Powershell öffnen, da roscore separat laufen muss und da wieder den Docker Container starten und hier z.B. rviz eingeben oder rqt, um eine GUI zu starten
-
+</details>
 
 
 
@@ -116,11 +117,11 @@ WSL 2 requires an update to its kernel component. For information please visit  
 
 	`rqt`
 
-4. rqt-Plugin einfügen unter Plugins -> User-Plugins -> Pfadplanung
+4. rqt-Plugin einfügen unter Plugins -> User-Plugins -> Path Planning Plugin
 
 5. rviz-Robotersimulation einfügen unter Plugins -> Visualization -> RViz. Es sollte sich jetzt eine leere Szene öffnen
 
-6. Im Tab Algorithmen unseres Plugin, sollte nun ein Planer gewählt werden (OMPL und CHOMP nur im Moment).
+6. Im Tab Algorithmen unseres Plugin, sollte nun ein Planer gewählt werden, der den Roboter im Hintergrund lädt.
 
 7. Roboter zur Szene hinzufügen durch "Add" -> MotionPlanning im RViz Plugin.
    Unter "MotionPlanning" -> Context -> Planning Library , kann der aktuell genutzte Planer
@@ -132,24 +133,25 @@ WSL 2 requires an update to its kernel component. For information please visit  
 
 9. Unter Displays -> "Add" -> rviz -> "MarkerArray" hinzufügen.
 
-10. Unter Displays Global Options -> Fixed Frame -> Wert auf "link_base" setzen
+10. Unter Displays Global Options -> Fixed Frame -> Wert auf "link_base" setzen, sonst werden die Marker nicht angezeigt.
 
-11. Um den Pfad anzeigen zu lassen jetzt noch unter Displays -> MotionPlanning -> PlannedPath -> Häkchen bei Loop Animation & Show Trail
+11. Eine vordefinierte Szene kann dann über den Tab Planning Scene geladen werden. Alle angezeigten Szenen sind im rqt_pkg Ordner unter Szenen. Der Refresh- Button aktualisiert die vorhandenen Szenen bzw. fügt neue hinzu, falls der Ordner aktualisiert werden sollte.
 
-![Show Trail](<https://ibb.co/tpXyhSP>)
+12. Unter dem Reiter Start-/Goalpoint kann man einen Startpunkt festlegen, zu dem der Roboter erstmal hinfährt. Mit Goalpoint setzt man das Ziel des Roboters an. Auf Apply klicken, um die Punkte zu laden.
 
-12. Eine vordefinierte Szene kann dann über den Tab PlanningScene geladen werden (Szene findet sicher unter /rqt_mpkg/config/demo_scene.scene)
+13.  Jetzt kann man schon mit Plan Path den Pfad planen/berechnen. 
 
-13. Ein Start-und Endpunkt wird im Tab "Start_End_Punkte festgelegt. Dies ist verpflichtend bevor ein Pfad geplant werden kann (Punkte wählen und "Anwenden")
-
-14. Jetzt kann der Pfad berechnet werden. 
-
-15. Der Roboterablauf: Planung von aktueller Position auf Startposition. Falls die Berechnung eines Pfades möglich ist, wird der Planer direkt ausgeführt.
+14. Der Roboterablauf: Planung von aktueller Position auf Startposition. Falls die Berechnung eines Pfades möglich ist, wird der Planer direkt ausgeführt.
     Fehlermeldungen werden im Terminal ausgegeben, falls z.B. kein möglicher Pfad berechnet 
     werden kann.
     Es folgt die Planung vom Start- zum Zielpunkt und im Anschluss wird der Pfad in kleinen Schritten ausgeführt. Sobald das Ziel erreicht ist, wird der Pfad
     als MarkerArray (Punkt-Folge) dargestellt.
 
+15. Unter dem Reiter Statistics werden von jedem berechnten Pfad einige Informationen zum Vergleichen der unterschiedlichen Pfadplanner angezeigt.
+
+16. In der Reihe Display Path kann man einen Häkchen setzen, um den jeweiligen Pfad ein- bzw. auszublenden. Dies geschieht in Form von Markern. Dabei wird der Pfad und der Name des Planners angezeigt.
+
+17. Mit Export kann man für den gewählten Planner den Pfad in eine YAML- Datei exportieren. Dabei öffnet sich ein Explorer, in dem man ein Verzeichnis auswählt und 1) eine vorhandene Datei überschreibt 2) oder einen neuen Namen eingibt und die Datei neuerstellt.
 
 
 **Fehlerbehebung**
@@ -159,14 +161,4 @@ WSL 2 requires an update to its kernel component. For information please visit  
 2. Das RQT-Plugin erscheint nicht unter Plugins; Die GUI konnte nicht gestartet werden (Fehler output): Richtig sourcen (bzw. nicht vergessen zu sourcen!!!)
 
 3. FPS- Einbrüche, schlechte Performance: Hardware-Acceleration existiert noch nicht. Da kann man leider nicht
-viel machen. Aber WSL2 soll bald nativen GUI support bekommen :)
-
-
-
-
-
-
-
-
-
-
+viel machen. Aber WSL2 soll bald nativen GUI support bekommen  (doch eher in etwas später im Jahr :( )
