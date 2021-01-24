@@ -7,13 +7,23 @@
     <x>0</x>
     <y>0</y>
     <width>487</width>
-    <height>407</height>
+    <height>396</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Form</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
+   <item row="1" column="0" alignment="Qt::AlignHCenter">
+    <widget class="QPushButton" name="pushButton_planPath">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
+     <property name="text">
+      <string>Plan Path</string>
+     </property>
+    </widget>
+   </item>
    <item row="2" column="0">
     <spacer name="verticalSpacer_2">
      <property name="orientation">
@@ -26,16 +36,6 @@
       </size>
      </property>
     </spacer>
-   </item>
-   <item row="1" column="0" alignment="Qt::AlignHCenter">
-    <widget class="QPushButton" name="pushButton_planPath">
-     <property name="enabled">
-      <bool>false</bool>
-     </property>
-     <property name="text">
-      <string>Plan Path</string>
-     </property>
-    </widget>
    </item>
    <item row="0" column="0">
     <widget class="QTabWidget" name="tabwidget">
@@ -58,7 +58,7 @@
       </size>
      </property>
      <property name="currentIndex">
-      <number>3</number>
+      <number>2</number>
      </property>
      <widget class="QWidget" name="tab_2">
       <attribute name="title">
@@ -500,6 +500,19 @@
          </item>
         </layout>
        </item>
+       <item row="1" column="1">
+        <spacer name="verticalSpacer_3">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
       </layout>
      </widget>
      <widget class="QWidget" name="tab">
@@ -507,25 +520,9 @@
        <string>Planning Scene</string>
       </attribute>
       <layout class="QGridLayout" name="gridLayout_4">
-       <item row="0" column="0">
+       <item row="5" column="0">
         <layout class="QGridLayout" name="gridLayout_2">
-         <item row="1" column="0">
-          <widget class="QPushButton" name="pushButton_openPlanningScene">
-           <property name="enabled">
-            <bool>false</bool>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>445</width>
-             <height>25</height>
-            </size>
-           </property>
-           <property name="text">
-            <string>Open Scene</string>
-           </property>
-          </widget>
-         </item>
-         <item row="2" column="0">
+         <item row="6" column="0">
           <spacer name="verticalSpacer">
            <property name="orientation">
             <enum>Qt::Vertical</enum>
@@ -538,39 +535,64 @@
            </property>
           </spacer>
          </item>
-         <item row="0" column="0">
-          <widget class="QListWidget" name="planningScene_listWidget">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
+         <item row="4" column="1">
+          <layout class="QHBoxLayout" name="horizontalLayout_5"/>
+         </item>
+         <item row="3" column="0">
+          <widget class="QPushButton" name="pushButton_planningScene_refresh">
+           <property name="maximumSize">
             <size>
-             <width>0</width>
-             <height>100</height>
+             <width>80</width>
+             <height>16777215</height>
             </size>
+           </property>
+           <property name="text">
+            <string>Refresh</string>
+           </property>
+          </widget>
+         </item>
+         <item row="3" column="1">
+          <widget class="QPushButton" name="pushButton_openPlanningScene">
+           <property name="enabled">
+            <bool>false</bool>
            </property>
            <property name="maximumSize">
             <size>
-             <width>16777215</width>
-             <height>200</height>
+             <width>445</width>
+             <height>25</height>
             </size>
            </property>
-           <item>
-            <property name="text">
-             <string>Fensterrahmen</string>
-            </property>
-           </item>
-           <item>
-            <property name="text">
-             <string>Cluttered Scene</string>
-            </property>
-           </item>
+           <property name="toolTip">
+            <string>Planning Algorithm has to be applied first</string>
+           </property>
+           <property name="text">
+            <string>Open Scene</string>
+           </property>
           </widget>
          </item>
         </layout>
+       </item>
+       <item row="0" column="0">
+        <widget class="QListWidget" name="planningScene_listWidget">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>100</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>16777215</width>
+           <height>200</height>
+          </size>
+         </property>
+        </widget>
        </item>
       </layout>
      </widget>
