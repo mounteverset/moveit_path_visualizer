@@ -1,5 +1,5 @@
 <details>
-<summary>***Installation der benötigten Software/WSL2 Setup***</summary>
+<summary>Installation der benötigten Software/WSL2 Setup (Click here to collapse/unfold)</summary>
 
 Installation Docker auf Windows mit WSL- Kästchen angetickt. VcXsrv https://sourceforge.net/projects/vcxsrv/ (Downloadlink!) vorher installieren. Empfehelung am Rande: Windows Terminal im Windows Store runterladen. Cooles Tool.
 
@@ -38,7 +38,7 @@ WSL 2 requires an update to its kernel component. For information please visit  
 12. Mit dem Command davor ist man direkt schon im Container. Falls man den Container verlässt (mit "exit" z.B), kann man mit "docker start eigenen-namen" den Container erneut starten. Nach dem Starten muss er auch ausgeführt werden, damit man wieder im Container ist. Dies geschieht mit folgendem Command: docker exec -it eigenen-namen bash
 
 13. Das wars dann. Wenn das ganze Setup fertig ist, kann man mit den Schritten davor weitermachen! (XLaunch für GUIs ist immer noch nötig, heißt man müsste da weitermachen)
-</details>
+
 
 
 
@@ -99,7 +99,7 @@ WSL 2 requires an update to its kernel component. For information please visit  
 	6) roscore eingeben und ROS starten.
 
 	7) ein neues Terminal/Powershell öffnen, da roscore separat laufen muss und da wieder den Docker Container starten und hier z.B. rviz eingeben oder rqt, um eine GUI zu starten
-
+</details>
 
 
 
@@ -149,7 +149,7 @@ WSL 2 requires an update to its kernel component. For information please visit  
 
 15. Unter dem Reiter Statistics werden von jedem berechnten Pfad einige Informationen zum Vergleichen der unterschiedlichen Pfadplanner angezeigt.
 
-16. In der Reihe Display Path kann man einen Häkchen setzen, um den jeweiligen Pfad ein- bzw auszublenden. Dies geschieht in Form von Markern. Dabei wird der Pfad und der Name des Planners angezeigt.
+16. In der Reihe Display Path kann man einen Häkchen setzen, um den jeweiligen Pfad ein- bzw. auszublenden. Dies geschieht in Form von Markern. Dabei wird der Pfad und der Name des Planners angezeigt.
 
 17. Mit Export kann man für den gewählten Planner den Pfad in eine YAML- Datei exportieren. Dabei öffnet sich ein Explorer, in dem man ein Verzeichnis auswählt und 1) eine vorhandene Datei überschreibt 2) oder einen neuen Namen eingibt und die Datei neuerstellt.
 
@@ -162,12 +162,3 @@ WSL 2 requires an update to its kernel component. For information please visit  
 
 3. FPS- Einbrüche, schlechte Performance: Hardware-Acceleration existiert noch nicht. Da kann man leider nicht
 viel machen. Aber WSL2 soll bald nativen GUI support bekommen  (doch eher in etwas später im Jahr :( )
-
-
-
-
-
-
-
-
-
