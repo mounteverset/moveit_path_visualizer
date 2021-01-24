@@ -10,8 +10,7 @@ from rqt_mypkg import path_planning_interface
 from qt_gui.plugin import Plugin
 from python_qt_binding import loadUi
 from python_qt_binding.QtWidgets import QWidget
-from PySide2.QtCore import Qt, Slot, qWarning, QTranslator
-from PyQt5.QtCore import pyqtSignal
+from PySide2.QtCore import Qt, Slot, QTranslator
 from python_qt_binding.QtWidgets  import QFileDialog, QMessageBox
 from python_qt_binding.QtWidgets  import QTableWidget, QTableWidgetItem
 
@@ -29,7 +28,10 @@ from rqt_mypkg.msg import PathStatistics
 
 
 class MyPlugin(Plugin):
+    """rqt plugin class which is used to create the plugin from a UI file generated with Qt Designer
 
+    
+    """
     def __init__(self, context):
         super(MyPlugin, self).__init__(context)
         # Give QObjects reasonable names
@@ -100,7 +102,7 @@ class MyPlugin(Plugin):
         # files must not be launched at the same time
         self.active_motion_planner = None
         self.first_open = False
-
+        
         # Add widget to the rqt user interface
         context.add_widget(self._widget)
 
@@ -126,28 +128,13 @@ class MyPlugin(Plugin):
     # also there needs to be a check whether some data is already in the columns above, bc if there isn't then the checkbox shouldnt be enabled
     def callback_subscriber(self, msg):
 
-        # Part 1: Write the received data into the table
-        print("We are here in the callback!")
-        #print(str(msg.data))
+        print("rqt callback")
         if msg.planning_time == 0 and msg.path_length == 0 and msg.max_acceleration == 0:
-            #self.message_changed.emit('Error', 'No solution for the inverse kinematic was found. \nPlease use different points closer to the robot.')
-            alert = QMessageBox() #.about(self,'Error', 'No solution for the inverse kinematic was found. \nPlease use different points closer to the robot.')
-            alert.setText("No solution for the inverse kinematic was found.\nPlease try again or use different points closer to the robot at [0|0|0]")            
-            #alert.setIcon(QMessageBox.Critical)
-            alert.setWindowTitle("Warning")
-            # #alert.setStandardButtons(QMessageBox.Ok, QMessageBox.Abort)
-            # alert.show()
-            dialog_result = alert.exec()
-            # msgBox.setIcon(QMessageBox.Critical)
-            # msgBox.setText("No solution for the inverse kinematic was found for the given points.")
-            # msgBox.setWindowTitle("Warning")
-            # msgBox.setStandardButtons(QMessageBox.Ok)
-            # msgBox.open()
+            print("No solution for the inverse kinematic was found. \nPlease use different points closer to the robot.")
+
         elif msg.planning_time == 1 and msg.path_length == 1 and msg.max_acceleration == 1:
-            alert = QMessageBox()
-            alert.setWindowTitle("Warning")
-            alert.setText("No motion plan was found in time for the given points.\nTry calculating it again or use different points.\nIncrease the allowed time to find a solution.")
-            alert.exec()
+            print("No motion plan was found in time for the given points.\nTry calculating it again or use different points.\nIncrease the allowed time to find a solution.")
+
         else:
             # ompl column number = 0
             # chomp column number = 1
@@ -313,30 +300,23 @@ class MyPlugin(Plugin):
             joint_accel = planning_time = QTableWidgetItem(str(round(msg.max_acceleration,5))) 
             self._widget.statisticsTable.setItem(5,column, joint_accel)
 
-            # Part 4: display the paths from every checked path planner
+            # display the paths from every checked path planner
             self.publish_marker_array()
+
             # Part 5: disable the pushButton_planPath for the next use
             self._widget.pushButton_planPath.setEnabled(False)
     
     def shutdown_plugin(self):
-        # TODO unregister all publishers here
         pass
 
     def save_settings(self, plugin_settings, instance_settings):
-        # TODO save intrinsic configuration, usually using:
-        # instance_settings.set_value(k, v)
         pass
 
     def restore_settings(self, plugin_settings, instance_settings):
-        # TODO restore intrinsic configuration, usually using:
-        # v = instance_settings.value(k)
         pass
 
     def trigger_configuration(self):
         pass
-        # Comment in to signal that the plugin has a way to configure
-        # This will enable a setting button (gear icon) in each dock widget title bar
-        # Usually used to open a modal configuration dialog
     
     @Slot()
     def on_pushButton_planPath_clicked(self):
@@ -355,12 +335,9 @@ class MyPlugin(Plugin):
             filepath = os.path.join(scene_dir, current_item.text())
             subprocess.Popen(["gnome-terminal", "-e", "roslaunch rqt_mypkg scene.launch scene_file:={}".format(filepath)])
         else:
-            alert = QMessageBox()
-            alert.setText('No scene selected.')            
-            alert.exec_()
-        #subprocess.call("roslaunch rqt_mypkg demo_scene.launch")
+            print("No planning scene selected.")
+
         
-    #test
     @Slot()
     def on_pushButton_apply_clicked(self):
         
@@ -393,8 +370,7 @@ class MyPlugin(Plugin):
         
         self._widget.pushButton_planPath.setEnabled(True)
 
-        
-        
+                
     @Slot()
     def on_pushButton_apply_planner_clicked(self):
         
@@ -410,7 +386,7 @@ class MyPlugin(Plugin):
                                                             "-e", 
                                                             "roslaunch fanuc_m710 demo.launch"], 
                                                             preexec_fn=os.setpgrp)
-            #os.system("gnome-terminal 'source ~/ws_moveit/devel/setup.bash ; roslaunch fanuc_m710 demo.launch'")
+
         elif self._widget.radioButton_CHOMP.isChecked() == True:
             if self._widget.checkBox_chomp_ompl_prep.isChecked() == True:
                 self.active_motion_planner = subprocess.Popen(["gnome-terminal", 
@@ -424,7 +400,7 @@ class MyPlugin(Plugin):
                                                             "-e", 
                                                             "roslaunch fanuc_m710 demo.launch pipeline:=chomp"],
                                                             preexec_fn=os.setpgrp)
-            #os.system("gnome-terminal 'roslaunch fanuc_m710 demo.launch pipeline:=chomp'")
+
         elif self._widget.radioButton_STOMP.isChecked() == True:
             if self._widget.checkBox_stomp_chomp_postp.isChecked() == True:
                 self.active_motion_planner = subprocess.Popen(["gnome-terminal", 
@@ -438,11 +414,6 @@ class MyPlugin(Plugin):
                                                             "-e", 
                                                             "roslaunch fanuc_m710 demo.launch pipeline:=stomp"],
                                                             preexec_fn=os.setpgrp)
-
-
-    # function needed to connect to an event from the gui:
-    # when one of the checkboxes is getting checked or unchecked the marker array needs to update accordingly to the checkmarks
-    # function replaces the one in path_planning_interface publish_marker_array
 
     @Slot()
     def on_checkBox_clicked(self):
@@ -458,7 +429,6 @@ class MyPlugin(Plugin):
                 yaml.dump(self.ompl_pose_array, file_save, default_flow_style=False)
         except FileNotFoundError:
             pass
-
 
     @Slot()
     def on_chomp_export_clicked(self):
@@ -525,6 +495,7 @@ class MyPlugin(Plugin):
         return x,y,z
 
     def create_text_marker(self, text, id, pose):
+
         marker = Marker()
         marker.id = id + 1
         marker.header.frame_id = "link_base"
