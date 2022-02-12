@@ -1,3 +1,8 @@
+# Path Visualization with ROS MoveIt and RQT
+
+[![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/ZNEJtlViGfs/0.jpg)](https://www.youtube.com/watch?v=ZNEJtlViGfs)
+
+
 # Installationshinweise #
 
 ### Installation unter Windows / WSL2 Setup
